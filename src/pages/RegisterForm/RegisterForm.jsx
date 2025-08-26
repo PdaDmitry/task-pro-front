@@ -12,7 +12,7 @@ const RegisterForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await registerUser(form);
+      const res = await registerUser(formData);
       console.log('✅ Успешная регистрация:', res.data);
     } catch (err) {
       console.error('❌ Ошибка регистрации:', err.response?.data || err.message);
