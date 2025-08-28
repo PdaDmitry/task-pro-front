@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { registerUser } from '../../api/auth';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
 
@@ -13,9 +16,10 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const res = await registerUser(formData);
-      console.log('✅ Успешная регистрация:', res.data);
+      console.log('✅ Successful registration:', res.data);
+      navigate('/homePage');
     } catch (err) {
-      console.error('❌ Ошибка регистрации:', err.response?.data || err.message);
+      console.error('❌ Registration error:', err.response?.data || err.message);
     }
   };
 
