@@ -13,13 +13,18 @@ const authSlice = createSlice({
   reducers: {
     setClientAuth: (state, action) => {
       state.user = {
-        name: action.payload.name,
-        email: action.payload.email,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
       };
       state.token = action.payload.token;
+    },
+    logout: state => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem('token');
     },
   },
 });
 
-export const { setClientAuth } = authSlice.actions;
+export const { setClientAuth, logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;
