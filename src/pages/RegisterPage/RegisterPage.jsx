@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { registerUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -25,7 +25,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <h1>Регистрация</h1>
+      <h1>Register Page</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -55,4 +55,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegisterPage;

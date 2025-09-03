@@ -1,7 +1,7 @@
-const LoginForm = () => {
+const LoginPage = () => {
   return (
     <div>
-      <h2>Login Form</h2>
+      <h2>Login Page</h2>
       <form>
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Password" />
@@ -11,4 +11,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;
