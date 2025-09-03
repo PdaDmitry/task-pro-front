@@ -22,7 +22,7 @@ const RegisterPage = () => {
     try {
       const res = await request.post('/auth/register', formData);
       localStorage.setItem('token', res.data.token);
-      // console.log('✅ Successful registration:', res.data);
+      console.log('✅ Successful registration:', res);
       dispatch(
         setClientAuth({
           user: res.data.user,
