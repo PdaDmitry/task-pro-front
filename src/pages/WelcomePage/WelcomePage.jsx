@@ -20,11 +20,11 @@ const WelcomePage = () => {
       </p>
 
       <NavLink to="/auth/register" className={css.btnRegLog}>
-        REGISTRATION
+        Registration
       </NavLink>
 
       <NavLink to="/auth/login" className={css.btnRegLog}>
-        LOG IN
+        Log In
       </NavLink>
     </div>
   );
