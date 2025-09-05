@@ -38,16 +38,8 @@
   letter-spacing: -0.02em;
   text-align: center;
   margin-bottom: 48px;
-
-  @media screen and (min-width: 375px) {
-    width: 335px;
-    margin-top: 24px;
-    margin-bottom: 48px;
-  }
-
-  @media screen and (min-width: 768px) {
-    width: 473px;
-  }
+  width: 100%;
+  max-width: 335px;
 }
 
 .btnRegLog {
@@ -68,6 +60,31 @@
 }
 
 .btnRegLog:hover {
-  color: white;
+  color: #fff;
   background-color: black;
+}
+
+/* =================================Tab============================= */
+
+@media screen and (min-width: 768px) {
+  .imageStart {
+    width: 162px;
+    height: 162px;
+    margin-bottom: 24px;
+  }
+
+  .vector {
+    width: 48px;
+    height: 48px;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: -0.04em;
+  }
+
+  .text {
+    max-width: 473px;
+  }
 }

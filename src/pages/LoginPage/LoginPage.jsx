@@ -5,6 +5,8 @@ import request from '../../utils/axiosInstance';
 import { setClientAuth } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
 
+import css from './LoginPage.module.css';
+
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +44,6 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -50,6 +51,7 @@ const LoginPage = () => {
           placeholder="Enter your email"
           value={formData.email}
           onChange={handleChange}
+          className={css.input}
         />
         <input
           type="password"
@@ -57,8 +59,11 @@ const LoginPage = () => {
           placeholder="Enter your password"
           value={formData.password}
           onChange={handleChange}
+          className={css.inputLastElem}
         />
-        <button type="submit">Log In Now</button>
+        <button type="submit" className={css.btnStyle}>
+          Log In Now
+        </button>
       </form>
       {/* {message && <p>{message}</p>} */}
     </div>

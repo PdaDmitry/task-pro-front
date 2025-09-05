@@ -10,7 +10,7 @@ const WelcomePage = () => {
       <img src={ImageStart} alt="image_Start" className={css.imageStart} />
 
       <div className={css.contLogo}>
-        <img src={Vector} alt="Vector" className={css.Vector} />
+        <img src={Vector} alt="Vector" className={css.vector} />
         <h2 className={css.title}>Task Pro</h2>
       </div>
 

@@ -3,24 +3,32 @@ import css from './AuthPage.module.css';
 
 const AuthPage = () => {
   return (
-    <div>
-      <ul className={css.authNavBurger}>
-        <li className={css.liItemLog}>
-          <NavLink to="login">
-            <div className={css.burgerLiNavlog}>
-              <p className={css.linkAuth}>LOG IN</p>
-            </div>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="register">
-            <div className={css.burgerLiNav}>
-              <p className={css.linkAuth}>REGISTRATION</p>
-            </div>
-          </NavLink>
-        </li>
-      </ul>
-      <Outlet />
+    <div className={css.contAuth}>
+      <div className={css.contNavBurger}>
+        <ul className={css.authNavBurger}>
+          <li>
+            <NavLink
+              to="register"
+              style={({ isActive }) => ({
+                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.3)',
+              })}
+            >
+              <p>Registration</p>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="login"
+              style={({ isActive }) => ({
+                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.3)',
+              })}
+            >
+              <p>Log In</p>
+            </NavLink>
+          </li>
+        </ul>
+        <Outlet />
+      </div>
     </div>
   );
 };

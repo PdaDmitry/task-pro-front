@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { setClientAuth } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
 
+import css from './RegisterPage.module.css';
+
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,7 +41,6 @@ const RegisterPage = () => {
 
   return (
     <div>
-      <h1>Register Page</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -47,6 +48,7 @@ const RegisterPage = () => {
           placeholder="Enter your name"
           value={formData.name}
           onChange={handleChange}
+          className={css.input}
         />
         <input
           type="email"
@@ -54,6 +56,7 @@ const RegisterPage = () => {
           placeholder="Enter your emai"
           value={formData.email}
           onChange={handleChange}
+          className={css.input}
         />
         <input
           type="password"
@@ -61,10 +64,12 @@ const RegisterPage = () => {
           placeholder="Create a password"
           value={formData.password}
           onChange={handleChange}
+          className={css.inputLastElem}
         />
-        <button type="submit">Register Now</button>
+        <button type="submit" className={css.btnStyle}>
+          Register Now
+        </button>
       </form>
-      {/* {message && <p>{message}</p>} */}
     </div>
   );
 };
