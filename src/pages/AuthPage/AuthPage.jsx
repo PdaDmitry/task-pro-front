@@ -10,7 +10,7 @@ const AuthPage = () => {
             <NavLink
               to="register"
               style={({ isActive }) => ({
-                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.3)',
+                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
               })}
             >
               <p>Registration</p>
@@ -20,7 +20,7 @@ const AuthPage = () => {
             <NavLink
               to="login"
               style={({ isActive }) => ({
-                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.3)',
+                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
               })}
             >
               <p>Log In</p>
