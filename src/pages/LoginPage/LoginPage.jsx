@@ -56,7 +56,7 @@ const LoginPage = () => {
         <input
           type="password"
           name="password"
-          placeholder="Enter your password"
+          placeholder="Confirm a password"
           value={formData.password}
           onChange={handleChange}
           className={css.inputLastElem}
