@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { registerUser } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
 import request from '../../utils/axiosInstance';
 import { useDispatch } from 'react-redux';
@@ -14,45 +13,62 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^[^\s]{8,64}$/;
 
-  const validate = () => {
-    const newErrors = {};
+  const validateName = value => {
+    if (!value.trim()) return 'Name required';
+    if (!nameRegex.test(value)) return 'The name must be between 2 and 32 characters long!';
+    return '';
+  };
 
-    if (!formData.name) {
-      newErrors.name = 'Name required';
-    } else if (!nameRegex.test(formData.name)) {
-      newErrors.name = 'The name must be between 2 and 32 characters long.';
-    }
+  const validateEmail = value => {
+    if (!value.trim()) return 'Email required';
+    if (!emailRegex.test(value)) return 'Incorrect email!';
+    return '';
+  };
 
-    if (!formData.email) {
-      newErrors.email = 'Email required';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Incorrect email';
-    }
-
-    if (!formData.password) {
-      newErrors.password = 'Password required';
-    } else if (!passwordRegex.test(formData.password)) {
-      newErrors.password = 'Password must be between 8 and 64 characters long, no spaces.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const validatePassword = value => {
+    if (!value.trim()) return 'Password required';
+    if (!passwordRegex.test(value))
+      return 'Password must be between 8 and 64 characters long, no spaces!';
+    return '';
   };
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData(prev => ({ ...prev, [name]: value }));
+
+    let error = '';
+    if (name === 'name') error = validateName(value);
+    if (name === 'email') error = validateEmail(value);
+    if (name === 'password') error = validatePassword(value);
+
+    setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!validate()) return;
+    const nameError = validateName(formData.name);
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
+
+    const newErrors = {
+      name: nameError,
+      email: emailError,
+      password: passwordError,
+    };
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some(err => err)) {
+      return;
+    }
 
     try {
       const res = await request.post('/auth/register', formData);
@@ -68,7 +84,7 @@ const RegisterPage = () => {
       toast.success('Registration was successful!');
     } catch (err) {
       console.error('❌ Registration error:', err.response?.data || err.message);
-      toast.error(err);
+      toast.error(err.response?.data?.message || 'Registration failed');
     }
   };
 
@@ -89,7 +105,7 @@ const RegisterPage = () => {
         <input
           type="email"
           name="email"
-          placeholder="Enter your emai"
+          placeholder="Enter your email"
           value={formData.email}
           onChange={handleChange}
           className={css.input}
@@ -100,7 +116,6 @@ const RegisterPage = () => {
         <div className={css.passwordWrapper}>
           <input
             type={showPassword ? 'text' : 'password'}
-            // type="password"
             name="password"
             placeholder="Create a password"
             value={formData.password}
