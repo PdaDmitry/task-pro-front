@@ -1,56 +1,48 @@
 import { useState } from 'react';
 import { Dropdown, Button, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useSelector } from 'react-redux';
+
+import css from './Header.module.css';
+
+const themes = ['Light', 'Dark', 'Violet'];
 
 const Header = () => {
+  const currentUser = useSelector(state => state.auth.user);
   const [selectedTheme, setSelectedTheme] = useState(null);
 
   const handleMenuClick = e => {
     setSelectedTheme(e.key);
-    console.log('Selected theme:', e.key);
   };
 
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item
-        key="Light"
-        style={{
-          color: selectedTheme === 'Light' ? '#bedbb0' : '#161616',
-          backgroundColor: selectedTheme === 'Light' ? 'transparent' : 'transparent',
-        }}
-      >
-        Light
-      </Menu.Item>
-      <Menu.Item
-        key="Dark"
-        style={{
-          color: selectedTheme === 'Dark' ? '#bedbb0' : '#161616',
-          backgroundColor: selectedTheme === 'Dark' ? 'transparent' : 'transparent',
-        }}
-      >
-        Dark
-      </Menu.Item>
-      <Menu.Item
-        key="Violet"
-        style={{
-          color: selectedTheme === 'Violet' ? '#bedbb0' : '#161616',
-          backgroundColor: selectedTheme === 'Violet' ? 'transparent' : 'transparent',
-        }}
-      >
-        Violet
-      </Menu.Item>
-    </Menu>
-  );
+  const items = themes.map(theme => ({
+    key: theme,
+    label: <span style={{ color: selectedTheme === theme ? '#bedbb0' : '#161616' }}>{theme}</span>,
+  }));
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-      <GiHamburgerMenu />
-      <Dropdown overlay={menu} trigger={['click']}>
-        <Button type="text" style={{ padding: '4px 8px', color: '#161616' }}>
-          Theme <DownOutlined />
-        </Button>
-      </Dropdown>
+    <div className={css.contHeader}>
+      <svg className={css.menuSvg}>
+        <use href="/symbol-defs.svg#icon-menu-01-2"></use>
+      </svg>
+
+      <div className={css.container}>
+        <Dropdown menu={{ items, onClick: handleMenuClick }} trigger={['click']}>
+          <div className={css.contTheme}>
+            Theme
+            <svg className={css.themeSvg}>
+              <use href="/symbol-defs.svg#icon-chevron-down-2"></use>
+            </svg>
+          </div>
+        </Dropdown>
+
+        <div className={css.contUser}>
+          <p className={css.name}>{currentUser?.name}</p>
+          <svg className={css.iconSvg}>
+            <use href="/symbol-defs.svg#icon-user"></use>
+          </svg>
+        </div>
+      </div>
     </div>
   );
 };

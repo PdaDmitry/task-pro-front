@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <>
       <div>HomePage</div>
-      <p>Hello {currentUser?.name}</p>
+
       <button onClick={handleLogout}>Log Out</button>
     </>
   );

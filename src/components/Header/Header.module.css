@@ -1,0 +1,57 @@
+.contHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.menuSvg {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.contTheme {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: rgba(22, 22, 22, 0.8);
+}
+
+.themeSvg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.contUser {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.iconSvg {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
