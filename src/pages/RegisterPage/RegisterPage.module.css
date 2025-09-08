@@ -8,12 +8,8 @@
   padding-left: 18px;
 
   box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.08);
-  /* background: #1f1f1f; */
   background: #151515;
   margin-bottom: 14px;
-
-  font-family: var(--font-family);
-  font-weight: 400;
   font-size: 14px;
   letter-spacing: -0.02em;
   color: #fff;
@@ -49,14 +45,17 @@
 .inputLastElem::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
 .input::-moz-placeholder,
 .inputLastElem::-moz-placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
 .input:-ms-input-placeholder,
 .inputLastElem:-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
 .input:-moz-placeholder,
 .inputLastElem:-moz-placeholder {
   color: rgba(255, 255, 255, 0.5);
@@ -74,14 +73,14 @@
 
 .eyeBtn {
   position: absolute;
-  top: 14px;
-  right: 10px;
+  top: 15px;
+  right: 18px;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
-  color: #555;
+  color: rgba(255, 255, 255, 0.5);
   transition: color 0.2s ease;
 }
 
@@ -149,3 +148,15 @@
 }
 
 /* ========================================================================================== */
+
+@media screen and (min-width: 768px) {
+
+  .input,
+  .inputLastElem {
+    max-width: 344px;
+  }
+
+  .btnStyle {
+    max-width: 344px;
+  }
+}

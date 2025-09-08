@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setClientAuth } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import Loader from '../../components/Loader/Loader';
 
 import css from './RegisterPage.module.css';
 
@@ -15,6 +16,7 @@ const RegisterPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,6 +73,7 @@ const RegisterPage = () => {
     }
 
     try {
+      setIsLoading(true);
       const res = await request.post('/auth/register', formData);
       localStorage.setItem('token', res.data.token);
       console.log('✅ Successful registration:', res);
@@ -85,6 +88,8 @@ const RegisterPage = () => {
     } catch (err) {
       console.error('❌ Registration error:', err.response?.data || err.message);
       toast.error(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -134,10 +139,11 @@ const RegisterPage = () => {
         </div>
         {errors.password && <p className={css.errorPWD}>{errors.password}</p>}
 
-        <button type="submit" className={css.btnStyle}>
+        <button type="submit" className={css.btnStyle} disabled={isLoading}>
           Register Now
         </button>
       </form>
+      <Loader show={isLoading} />
     </div>
   );
 };
