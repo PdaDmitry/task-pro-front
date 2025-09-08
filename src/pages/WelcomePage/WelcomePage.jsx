@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import Vector from '../../../public/Vector-white.svg';
-import ImageStart from '../../../public/Image-start-mob-2x.png';
+import Vector from '/Vector-white.svg';
+import ImageStart from '/Image-start-mob-2x.png';
 
 import css from './WelcomePage.module.css';
 

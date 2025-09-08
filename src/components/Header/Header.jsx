@@ -7,7 +7,7 @@ import css from './Header.module.css';
 
 const themes = ['Light', 'Dark', 'Violet'];
 
-const Header = () => {
+const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const currentUser = useSelector(state => state.auth.user);
   const [selectedTheme, setSelectedTheme] = useState(null);
 
@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <div className={css.contHeader}>
-      <svg className={css.menuSvg}>
+      <svg className={css.menuSvg} onClick={() => setIsSidebarOpen(true)}>
         <use href="/symbol-defs.svg#icon-menu-01-2"></use>
       </svg>
 
@@ -42,6 +42,24 @@ const Header = () => {
             <use href="/symbol-defs.svg#icon-user"></use>
           </svg>
         </div>
+      </div>
+
+      {/* sidebar */}
+      <div
+        className={css.sidebar}
+        style={{
+          transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.3s ease-in-out',
+        }}
+      >
+        <button onClick={() => setIsSidebarOpen(false)} className={css.closeBtn}>
+          ×
+        </button>
+        <ul>
+          <li>example 1</li>
+          <li>example 2</li>
+          <li>example 3</li>
+        </ul>
       </div>
     </div>
   );

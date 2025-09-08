@@ -1,8 +1,10 @@
 .contHeader {
+  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
+  background: #fcfcfc;
 }
 
 .menuSvg {
@@ -54,4 +56,25 @@
   display: block;
   width: 32px;
   height: 32px;
+}
+
+/* =============================sidebar=============================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 225px;
+  height: 100vh;
+  background: #fff;
+
+  z-index: 100;
+  padding: 16px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+
+  font-size: 24px;
+  cursor: pointer;
 }

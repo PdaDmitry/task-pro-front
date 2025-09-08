@@ -7,36 +7,44 @@ import LoginPage from '../../pages/LoginPage/LoginPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import Header from '../Header/Header';
+import { useState } from 'react';
 
-// import css from './App.module.css'
+import css from './App.module.css';
 
 function App() {
   const location = useLocation();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const isWelcomePage = location.pathname === '/';
   const isRegisterPage = location.pathname === '/auth/register';
   const isLoginPage = location.pathname === '/auth/login';
 
   return (
     <>
-      {!isWelcomePage && !isRegisterPage && !isLoginPage && <Header />}
-      <Toaster />
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/auth" element={<AuthPage />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-        </Route>
+      <div className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}></div>
+      {/* {isSidebarOpen && <div className={css.backdrop}></div>} */}
+      <div>
+        {!isWelcomePage && !isRegisterPage && !isLoginPage && (
+          <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+        )}
+        <Toaster />
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/auth" element={<AuthPage />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </Route>
 
-        <Route
-          path="/homePage"
-          element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<p>NotFound</p>} />
-      </Routes>
+          <Route
+            path="/homePage"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<p>NotFound</p>} />
+        </Routes>
+      </div>
     </>
   );
 }
