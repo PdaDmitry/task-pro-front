@@ -20,8 +20,11 @@ function App() {
 
   return (
     <>
-      <div className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}></div>
-      {/* {isSidebarOpen && <div className={css.backdrop}></div>} */}
+      <div
+        className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
+
       <div>
         {!isWelcomePage && !isRegisterPage && !isLoginPage && (
           <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />

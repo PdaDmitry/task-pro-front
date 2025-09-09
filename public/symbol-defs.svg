@@ -187,5 +187,11 @@
 <path fill="none" stroke="#121212" style="stroke: var(--color2, #121212)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M17.778 10.815v10.37"></path>
 <path fill="none" stroke="#121212" style="stroke: var(--color2, #121212)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M12.592 16h10.37"></path>
 </symbol>
+
+<symbol id="icon-login" viewBox="0 0 32 32">
+<path fill="none" stroke="#bedbb0" style="stroke: var(--color1, #bedbb0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5" d="M11.867 10.080c0.413-4.8 2.88-6.76 8.28-6.76h0.173c5.96 0 8.347 2.387 8.347 8.347v8.693c0 5.96-2.387 8.347-8.347 8.347h-0.173c-5.36 0-7.827-1.933-8.267-6.653"></path>
+<path fill="none" stroke="#bedbb0" style="stroke: var(--color1, #bedbb0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5" d="M2.667 16h17.173"></path>
+<path fill="none" stroke="#bedbb0" style="stroke: var(--color1, #bedbb0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5" d="M16.867 11.533l4.467 4.467-4.467 4.467"></path>
+</symbol>
 </defs>
 </svg>
