@@ -1,0 +1,76 @@
+import { useState } from 'react';
+import CactusMob from '/Cactus/Cactus-mob-2x.png';
+import LogoutIcon from '../LogoutIcon/LogoutIcon';
+
+import css from './Sidebar.module.css';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../store/auth/authSlice';
+import toast from 'react-hot-toast';
+
+const Sidebar = ({ isSidebarOpen }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/auth/login');
+
+    toast.success('User is logged out!');
+  };
+
+  return (
+    <div
+      className={`${css.sidebar} ${
+        isSidebarOpen && window.innerWidth < 1440 ? css.sidebarOpen : ''
+      }`}
+    >
+      <div className={css.contBarTitle}>
+        <svg className={css.iconSvg}>
+          <use href="/symbol-defs.svg#icon-icon-1"></use>
+        </svg>
+        <h2 className={css.titleBar}>Task Pro</h2>
+      </div>
+
+      <p className={css.textMyBoard}>My boards</p>
+
+      <div className={css.contNewBoard}>
+        <p className={css.textCreateBoard}>Create a new board</p>
+        <svg
+          className={css.addBoardSvg}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <use
+            href={isHovered ? '/symbol-defs.svg#icon-normal' : '/symbol-defs.svg#icon-hover'}
+          ></use>
+        </svg>
+      </div>
+
+      <div className={css.contNeedHelp}>
+        <img src={CactusMob} alt="image_Cactus" className={css.imageCactusMob} />
+        <p className={css.text}>
+          If you need help with <span className={css.textSpan}>TaskPro</span>, check out our support
+          resources or reach out to our customer support team.
+        </p>
+        <div className={css.needHelp}>
+          <svg className={css.helpSvg}>
+            <use href="/symbol-defs.svg#icon-help-circle-1"></use>
+          </svg>
+          <p className={css.textHelp}>Need help?</p>
+        </div>
+      </div>
+
+      <div className={css.contLogOut}>
+        <button type="button" onClick={handleLogout} className={css.logoutBtn}>
+          <LogoutIcon className={css.logOutSvg} size={32} color="#bedbb0" />
+        </button>
+
+        <p className={css.textLogOut}>Log out </p>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;

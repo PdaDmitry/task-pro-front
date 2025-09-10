@@ -7,46 +7,64 @@ import LoginPage from '../../pages/LoginPage/LoginPage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import Header from '../Header/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import css from './App.module.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 function App() {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   const isWelcomePage = location.pathname === '/';
   const isRegisterPage = location.pathname === '/auth/register';
   const isLoginPage = location.pathname === '/auth/login';
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
-      <div
-        className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}
-        onClick={() => setIsSidebarOpen(false)}
-      ></div>
+      {windowWidth < 1440 && !isWelcomePage && !isRegisterPage && !isLoginPage && (
+        <div
+          className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
 
-      <div>
-        {!isWelcomePage && !isRegisterPage && !isLoginPage && (
-          <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+      <div className={css.layout}>
+        {windowWidth >= 1440 && !isWelcomePage && !isRegisterPage && !isLoginPage && (
+          <div className={css.left}>
+            <Sidebar />
+          </div>
         )}
-        <Toaster />
-        <Routes>
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="/auth" element={<AuthPage />}>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-          </Route>
+        <div className={css.main}>
+          {!isWelcomePage && !isRegisterPage && !isLoginPage && (
+            <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+          )}
+          <Toaster />
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/auth" element={<AuthPage />}>
+              <Route path="login" element={<LoginPage />} />
+              <Route path="register" element={<RegisterPage />} />
+            </Route>
 
-          <Route
-            path="/homePage"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<p>NotFound</p>} />
-        </Routes>
+            <Route
+              path="/homePage"
+              element={
+                <ProtectedRoute>
+                  <HomePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<p>NotFound</p>} />
+          </Routes>
+        </div>
       </div>
     </>
   );
