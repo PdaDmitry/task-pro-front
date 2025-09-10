@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 function App() {
   const location = useLocation();
   const currentUser = useSelector(state => state.auth.user);
+  // console.log('currentUser', currentUser);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

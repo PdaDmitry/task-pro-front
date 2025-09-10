@@ -4,7 +4,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
-  background: #fcfcfc;
+  /* background: #fcfcfc; */
+  background-color: var(--bg-color-header);
+  color: var(--text-color);
 }
 
 .menuSvg {
@@ -31,7 +33,9 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: rgba(22, 22, 22, 0.8);
+  /* color: rgba(22, 22, 22, 0.8); */
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .themeSvg {
@@ -57,7 +61,6 @@
   width: 32px;
   height: 32px;
 }
-
 
 @media screen and (min-width: 768px) {
   .contHeader {

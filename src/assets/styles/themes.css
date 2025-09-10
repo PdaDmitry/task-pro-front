@@ -1,20 +1,41 @@
 :root {
-    /* базовые значения по умолчанию */
-    --bg-color: #ffffff;
-    --text-color: #161616;
-    --accent-color: #bedbb0;
+  --bg-color: #f6f6f7;
+
+  /* Sidebar */
+  --bg-color-sidebar: #ffffff;
+  --text-color: #161616;
+  --text-my-board: rgba(22, 22, 22, 0.5);
+  --cont-my-board: rgba(22, 22, 22, 0.1);
+  --bg-color-need-help: #f6f6f7;
+  --text-span-color: #bedbb0;
+
+  /* Header */
+  --bg-color-header: #fcfcfc;
 }
 
 /* Dark */
+
 .theme-dark {
-    --bg-color: #1f1f1f;
-    --text-color: #f5f5f5;
-    --accent-color: #9dc888;
+  /* Sidebar */
+  --bg-color-sidebar: #121212;
+  --text-color: #ffffff;
+  --text-my-board: rgba(255, 255, 255, 0.5);
+  --cont-my-board: rgba(255, 255, 255, 0.3);
+  --bg-color-need-help: #1f1f1f;
+  --text-span-color: #bedbb0;
+
+  /* Header */
 }
 
 /* Violet */
 .theme-violet {
-    --bg-color: #f3e8ff;
-    --text-color: #2a1a40;
-    --accent-color: #a855f7;
+  /* Sidebar */
+  --bg-color-sidebar: #5255bc;
+  --text-color: #ffffff;
+  --text-my-board: rgba(255, 255, 255, 0.5);
+  --cont-my-board: rgba(255, 255, 255, 0.2);
+  --bg-color-need-help: rgba(255, 255, 255, 0.5);
+  --text-span-color: #5255bc;
+
+  /* Header */
 }

@@ -1,187 +1,190 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 225px;
-    height: 100vh;
-    justify-content: space-between;
-    background: #fff;
-    padding: 14px 14px 24px;
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  height: 100vh;
+  justify-content: space-between;
+  background: var(--bg-color-sidebar);
+  color: var(--text-color);
+  padding: 14px 14px 24px;
 }
 
 @media (max-width: 1439px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
-    }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
 
-    .sidebarOpen {
-        transform: translateX(0);
-    }
+  .sidebarOpen {
+    transform: translateX(0);
+  }
 }
 
 .contBarTitle {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 70px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 70px;
 }
 
 .iconSvg {
-    display: block;
-    width: 32px;
-    height: 32px;
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 
 .titleBar {
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: -0.04em;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.04em;
 }
 
 .textMyBoard {
-    font-size: 12px;
-    letter-spacing: -0.02em;
-    color: rgba(22, 22, 22, 0.5);
-    margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--text-my-board);
+  margin-bottom: 8px;
 }
 
 .contNewBoard {
-    display: flex;
-    align-items: center;
-    gap: 77px;
+  display: flex;
+  align-items: center;
+  gap: 77px;
 
-    border-top: 1px solid rgba(22, 22, 22, 0.1);
-    border-bottom: 1px solid rgba(22, 22, 22, 0.1);
-    padding: 14px 0;
+  border-top: 1px solid var(--cont-my-board);
+  border-bottom: 1px solid var(--cont-my-board);
+  padding: 14px 0;
 }
 
 .textCreateBoard {
-    width: 76px;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: -0.02em;
+  width: 76px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
 }
 
 .addBoardSvg {
-    display: block;
-    width: 40px;
-    height: 36px;
-    cursor: pointer;
+  display: block;
+  width: 40px !important;
+  height: 36px;
+  cursor: pointer;
 }
 
 .contNeedHelp {
-    width: 197px;
-    border-radius: 8px;
-    background: #f6f6f7;
-    padding: 14px;
-    margin-top: auto;
-    margin-bottom: 24px;
+  width: 197px;
+  border-radius: 8px;
+  background: var(--bg-color-need-help);
+  padding: 14px;
+  margin-top: auto;
+  margin-bottom: 24px;
 }
 
 .imageCactusMob {
-    width: 54px;
-    height: 78px;
-    margin-bottom: 14px;
+  width: 54px;
+  height: 78px;
+  margin-bottom: 14px;
 }
 
 .text,
 .textSpan {
-    width: 168px;
-    font-size: 12px;
-    line-height: 133%;
-    letter-spacing: -0.02em;
-    margin-bottom: 18px;
+  width: 168px;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  color: var(--text-color);
 }
 
 .textSpan {
-    color: #bedbb0;
+  color: var(--text-span-color) !important;
 }
 
 .needHelp {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .helpSvg {
-    display: block;
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    fill: none;
+  display: block;
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
 }
 
 .textHelp {
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
 }
 
 .contLogOut {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .logoutBtn {
-    display: block;
-    border: none;
-    background-color: inherit;
-    padding-left: 10px;
-
+  display: block;
+  border: none;
+  background-color: inherit;
+  padding-left: 10px;
 }
 
 .logOutSvg {
-    display: block;
-    cursor: pointer;
+  display: block;
+  cursor: pointer;
 }
 
 .textLogOut {
-    font-weight: 500;
-    font-size: 14px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-color);
 }
 
 @media screen and (min-width: 768px) {
-    .sidebar {
-        width: 260px;
-        padding: 24px;
-    }
+  .sidebar {
+    width: 260px;
+    padding: 24px;
+  }
 
-    .contBarTitle {
-        margin-bottom: 60px;
-    }
+  .contBarTitle {
+    margin-bottom: 60px;
+  }
 
-    .contNewBoard {
-        gap: 96px;
-    }
+  .contNewBoard {
+    gap: 96px;
+  }
 
-    .contNeedHelp {
-        width: 212px;
-        padding: 20px;
-    }
+  .contNeedHelp {
+    width: 212px;
+    padding: 20px;
+  }
 
-    .text,
-    .textSpan {
-        width: 172px;
-        font-size: 14px;
-        line-height: 143%;
-    }
+  .text,
+  .textSpan {
+    width: 172px;
+    font-size: 14px;
+    line-height: 143%;
+  }
 
-    .textSpan {
-        color: #bedbb0;
-    }
+  .textSpan {
+    color: #bedbb0;
+  }
 
-    .logoutBtn {
-        padding-left: 0;
-    }
+  .logoutBtn {
+    padding-left: 0;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-    .textLogOut {
-        font-size: 16px;
-    }
+  .textLogOut {
+    font-size: 16px;
+  }
 }

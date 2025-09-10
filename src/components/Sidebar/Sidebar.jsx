@@ -3,7 +3,7 @@ import CactusMob from '/Cactus/Cactus-mob-2x.png';
 import LogoutIcon from '../LogoutIcon/LogoutIcon';
 
 import css from './Sidebar.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
@@ -11,6 +11,9 @@ import toast from 'react-hot-toast';
 const Sidebar = ({ isSidebarOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentUser = useSelector(state => state.auth.user);
+  // console.log('currentUser', currentUser.theme);
+
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
 
@@ -29,7 +32,13 @@ const Sidebar = ({ isSidebarOpen }) => {
     >
       <div className={css.contBarTitle}>
         <svg className={css.iconSvg}>
-          <use href="/symbol-defs.svg#icon-icon-1"></use>
+          <use
+            href={
+              currentUser.theme === 'Violet'
+                ? '/symbol-defs.svg#icon-icon'
+                : '/symbol-defs.svg#icon-icon-1'
+            }
+          ></use>
         </svg>
         <h2 className={css.titleBar}>Task Pro</h2>
       </div>
@@ -42,12 +51,42 @@ const Sidebar = ({ isSidebarOpen }) => {
           className={css.addBoardSvg}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          {...(currentUser.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
         >
           <use
-            href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
+            href={
+              currentUser.theme === 'Violet'
+                ? isHovered
+                  ? '/symbol-defs.svg#icon-block'
+                  : '/symbol-defs.svg#icon-plus-4'
+                : isHovered
+                ? '/symbol-defs.svg#icon-hover'
+                : '/symbol-defs.svg#icon-normal'
+            }
           ></use>
         </svg>
       </div>
+
+      {/* <div className={css.contNewBoard}>
+        <p className={css.textCreateBoard}>Create a new board</p>
+        <svg
+          className={css.addBoardSvg}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <use
+            href={
+              currentUser.theme === 'Violet'
+                ? isHovered
+                  ? '/symbol-defs.svg#icon-plus-3'
+                  : '/symbol-defs.svg#icon-block'
+                : isHovered
+                ? '/symbol-defs.svg#icon-hover'
+                : '/symbol-defs.svg#icon-normal'
+            }
+          ></use>
+        </svg>
+      </div> */}
 
       <div className={css.contNeedHelp}>
         <img src={CactusMob} alt="image_Cactus" className={css.imageCactusMob} />
@@ -74,7 +113,15 @@ const Sidebar = ({ isSidebarOpen }) => {
           <LogoutIcon
             className={css.logOutSvg}
             size={32}
-            color={isHoveredLogOut ? '#9dc888' : '#bedbb0'}
+            color={
+              currentUser.theme === 'Violet'
+                ? isHoveredLogOut
+                  ? '#B8BCFD'
+                  : '#ffffff'
+                : isHoveredLogOut
+                ? '#9dc888'
+                : '#bedbb0'
+            }
           />
         </button>
 
