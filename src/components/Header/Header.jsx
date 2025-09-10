@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Dropdown } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
+import { updateTheme } from '../../store/auth/authSlice';
 
 const themes = ['Light', 'Dark', 'Violet'];
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const dispatch = useDispatch();
+
   const currentUser = useSelector(state => state.auth.user);
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -49,6 +52,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const handleMenuClick = e => {
     setSelectedTheme(e.key);
+    dispatch(updateTheme(e.key));
   };
 
   const items = themes.map(theme => ({

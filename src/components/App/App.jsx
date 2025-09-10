@@ -8,18 +8,32 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import Header from '../Header/Header';
 import { useEffect, useState } from 'react';
-
-import css from './App.module.css';
 import Sidebar from '../Sidebar/Sidebar';
+
+import '../../assets/styles/themes.css';
+import css from './App.module.css';
+import { useSelector } from 'react-redux';
 
 function App() {
   const location = useLocation();
+  const currentUser = useSelector(state => state.auth.user);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const isWelcomePage = location.pathname === '/';
   const isRegisterPage = location.pathname === '/auth/register';
   const isLoginPage = location.pathname === '/auth/login';
+
+  useEffect(() => {
+    const theme = (currentUser?.theme || '').toLowerCase();
+
+    document.body.classList.remove('theme-dark', 'theme-violet');
+
+    if (theme === 'dark' || theme === 'violet') {
+      document.body.classList.add(`theme-${theme}`);
+    }
+  }, [currentUser?.theme]);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
