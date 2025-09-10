@@ -12,6 +12,7 @@ const Sidebar = ({ isSidebarOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -43,7 +44,7 @@ const Sidebar = ({ isSidebarOpen }) => {
           onMouseLeave={() => setIsHovered(false)}
         >
           <use
-            href={isHovered ? '/symbol-defs.svg#icon-normal' : '/symbol-defs.svg#icon-hover'}
+            href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
           ></use>
         </svg>
       </div>
@@ -63,11 +64,21 @@ const Sidebar = ({ isSidebarOpen }) => {
       </div>
 
       <div className={css.contLogOut}>
-        <button type="button" onClick={handleLogout} className={css.logoutBtn}>
-          <LogoutIcon className={css.logOutSvg} size={32} color="#bedbb0" />
+        <button
+          type="button"
+          onClick={handleLogout}
+          className={css.logoutBtn}
+          onMouseEnter={() => setIsHoveredLogOut(true)}
+          onMouseLeave={() => setIsHoveredLogOut(false)}
+        >
+          <LogoutIcon
+            className={css.logOutSvg}
+            size={32}
+            color={isHoveredLogOut ? '#9dc888' : '#bedbb0'}
+          />
         </button>
 
-        <p className={css.textLogOut}>Log out </p>
+        <p className={css.textLogOut}>Log out</p>
       </div>
     </div>
   );

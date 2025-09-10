@@ -56,7 +56,7 @@
 
     border-top: 1px solid rgba(22, 22, 22, 0.1);
     border-bottom: 1px solid rgba(22, 22, 22, 0.1);
-    padding: 20px 0;
+    padding: 14px 0;
 }
 
 .textCreateBoard {
@@ -131,6 +131,8 @@
     display: block;
     border: none;
     background-color: inherit;
+    padding-left: 10px;
+
 }
 
 .logOutSvg {
@@ -141,4 +143,45 @@
 .textLogOut {
     font-weight: 500;
     font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+    .sidebar {
+        width: 260px;
+        padding: 24px;
+    }
+
+    .contBarTitle {
+        margin-bottom: 60px;
+    }
+
+    .contNewBoard {
+        gap: 96px;
+    }
+
+    .contNeedHelp {
+        width: 212px;
+        padding: 20px;
+    }
+
+    .text,
+    .textSpan {
+        width: 172px;
+        font-size: 14px;
+        line-height: 143%;
+    }
+
+    .textSpan {
+        color: #bedbb0;
+    }
+
+    .logoutBtn {
+        padding-left: 0;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .textLogOut {
+        font-size: 16px;
+    }
 }

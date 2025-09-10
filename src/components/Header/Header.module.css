@@ -57,3 +57,25 @@
   width: 32px;
   height: 32px;
 }
+
+
+@media screen and (min-width: 768px) {
+  .contHeader {
+    padding: 18px 32px;
+  }
+
+  .menuSvg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .contHeader {
+    padding: 18px 24px;
+  }
+
+  .container {
+    margin-left: auto;
+  }
+}
