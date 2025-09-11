@@ -59,13 +59,13 @@ const CreateBoardModal = ({ closeModal }) => {
         {/* Icon selection */}
         <p className={css.titleIcons}>Icons</p>
         <div className={css.contIcons}>
-          {backgrounds.map(bg => (
+          {icons.map(icon => (
             <img
-              key={bg}
-              src={bg}
-              alt="background"
-              className={`${css.iconItem} ${formData.background === bg ? css.active : ''}`}
-              onClick={() => setFormData(prev => ({ ...prev, background: bg }))}
+              key={icon}
+              src={icon}
+              alt="icon"
+              className={`${css.iconItem} ${formData.icon === icon ? css.active : ''}`}
+              onClick={() => setFormData(prev => ({ ...prev, icon }))}
             />
           ))}
         </div>
@@ -73,13 +73,13 @@ const CreateBoardModal = ({ closeModal }) => {
         {/* Selecting a background */}
         <p className={css.titleBgr}>Background</p>
         <div className={css.contBgr}>
-          {icons.map(icon => (
+          {backgrounds.map(bg => (
             <img
-              key={icon}
-              src={icon}
-              alt="icon"
-              className={`${css.bgItem} ${formData.icon === icon ? css.active : ''}`}
-              onClick={() => setFormData(prev => ({ ...prev, icon }))}
+              key={bg}
+              src={bg}
+              alt="background"
+              className={`${css.bgItem} ${formData.background === bg ? css.active : ''}`}
+              onClick={() => setFormData(prev => ({ ...prev, background: bg }))}
             />
           ))}
         </div>
