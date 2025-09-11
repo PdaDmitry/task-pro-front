@@ -6,16 +6,6 @@
   background-color: var(--bg-color-header);
 }
 
-.btnMenu {
-  display: block;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  width: 24px !important;
-  height: 24px !important;
-}
-
 .menuSvg {
   display: block;
   width: 24px;

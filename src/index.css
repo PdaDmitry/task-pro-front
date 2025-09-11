@@ -1,10 +1,10 @@
 body {
   font-family: 'Poppins', sans-serif;
-  /* background: #f6f6f7; */
-  /* color: #161616; */
+  background: #f6f6f7;
+  color: #161616;
   user-select: none;
-  background: var(--bg-color);
-  color: var(--text-color);
+  /* background: var(--bg-color);
+  color: var(--text-color); */
 }
 
 a {

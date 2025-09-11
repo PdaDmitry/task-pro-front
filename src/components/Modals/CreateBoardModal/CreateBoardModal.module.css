@@ -1,0 +1,156 @@
+.contNewBoard {
+  position: relative;
+  width: 100%;
+  max-width: 355px;
+  /* height: 433px; */
+  border-radius: 8px;
+  padding: 24px;
+  background: #fcfcfc;
+}
+
+.closeBtnSvg {
+  position: absolute;
+  display: block;
+  top: 14px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: #161616;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: #161616;
+}
+
+/* =======================input======================== */
+
+.input {
+  border: 1px solid rgba(190, 219, 176, 0.5);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 287px;
+  height: 49px;
+  padding-left: 18px;
+  background: #fcfcfc;
+  box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.08);
+
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #161616;
+
+  margin-bottom: 24px;
+
+  transition: border-color 0.3s ease;
+}
+
+.input:hover {
+  border-color: #bedbb0;
+}
+
+.input:focus {
+  border-color: #bedbb0;
+  outline: none;
+}
+
+/* For placeholder */
+.input::placeholder {
+  color: rgba(22, 22, 22, 0.2);
+  opacity: 1;
+}
+
+/* For different browsers */
+.input::-webkit-input-placeholder {
+  color: rgba(22, 22, 22, 0.2);
+}
+
+.input::-moz-placeholder {
+  color: rgba(22, 22, 22, 0.2);
+}
+
+.input:-ms-input-placeholder {
+  color: rgba(22, 22, 22, 0.2);
+}
+
+.input:-moz-placeholder {
+  color: rgba(22, 22, 22, 0.2);
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+  margin-bottom: 8px;
+}
+
+/* =============================================== */
+
+.titleIcons {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #161616;
+  margin-bottom: 14px;
+}
+
+.contIcons {
+  margin-bottom: 24px;
+}
+
+.iconItem {
+}
+
+.active {
+}
+
+/* =================== */
+
+.titleBgr {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #161616;
+  margin-bottom: 14px;
+}
+
+.contBgr {
+  margin-bottom: 40px;
+}
+
+.bgItem {
+}
+
+.createBoardtBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 8px;
+  border: none;
+  max-width: 287px;
+  width: 100%;
+  height: 49px;
+  background: #bedbb0;
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #161616;
+}
+
+.createBoardtBtn:hover {
+  background: #9dc888;
+}
+
+.createBtnSvg {
+  display: block;
+  width: 28px;
+  height: 28px;
+}

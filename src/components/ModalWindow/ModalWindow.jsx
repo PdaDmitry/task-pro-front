@@ -1,6 +1,4 @@
-// import Modal from 'react-modal';
-
-import { Modal } from 'antd';
+import Modal from 'react-modal';
 
 const modalStyles = {
   overlay: {

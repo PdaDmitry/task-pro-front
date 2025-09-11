@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -16,6 +18,10 @@ const Sidebar = ({ isSidebarOpen }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
+  const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
+
+  const openModal = () => setIsCreateBoardModalOpen(true);
+  const closeModal = () => setIsCreateBoardModalOpen(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -49,6 +55,7 @@ const Sidebar = ({ isSidebarOpen }) => {
         <p className={css.textCreateBoard}>Create a new board</p>
         <svg
           className={css.addBoardSvg}
+          onClick={openModal}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           {...(currentUser?.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
@@ -106,6 +113,10 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <p className={css.textLogOut}>Log out</p>
       </div>
+
+      <ModalWindow isOpen={isCreateBoardModalOpen} onClose={closeModal}>
+        <CreateBoardModal closeModal={closeModal} />
+      </ModalWindow>
     </div>
   );
 };
