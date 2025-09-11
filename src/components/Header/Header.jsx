@@ -11,6 +11,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.user);
+
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -63,9 +64,17 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <div className={css.contHeader}>
       {windowWidth < 1440 && (
-        <svg className={css.menuSvg} onClick={() => setIsSidebarOpen(true)}>
-          <use href="/symbol-defs.svg#icon-menu-01-2"></use>
-        </svg>
+        <button type="button" onClick={() => setIsSidebarOpen(true)} className={css.btnMenu}>
+          <svg className={css.menuSvg}>
+            <use
+              href={
+                currentUser?.theme === 'Dark'
+                  ? '/symbol-defs.svg#icon-menu-01-3'
+                  : '/symbol-defs.svg#icon-menu-01-2'
+              }
+            ></use>
+          </svg>
+        </button>
       )}
 
       <div className={css.container}>
@@ -73,7 +82,13 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <div className={css.contTheme}>
             Theme
             <svg className={css.themeSvg}>
-              <use href="/symbol-defs.svg#icon-chevron-down-2"></use>
+              <use
+                href={
+                  currentUser?.theme === 'Dark'
+                    ? '/symbol-defs.svg#icon-chevron-down-5'
+                    : '/symbol-defs.svg#icon-chevron-down-2'
+                }
+              ></use>
             </svg>
           </div>
         </Dropdown>

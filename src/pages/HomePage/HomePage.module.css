@@ -1,0 +1,9 @@
+.contHomePage {
+    background-color: var(--bg-color-cont-home-page);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 40px; */
+    color: var(--color-cont-home-page);
+}

@@ -11,6 +11,12 @@
 
   /* Header */
   --bg-color-header: #fcfcfc;
+  --text-color-cont-theme-header: rgba(22, 22, 22, 0.8);
+  --name: #161616;
+
+  /* Home Page */
+  --bg-color-cont-home-page: #f6f6f7;
+  --color-cont-home-page: rgba(22, 22, 22, 0.7);
 }
 
 /* Dark */
@@ -25,6 +31,13 @@
   --text-span-color: #bedbb0;
 
   /* Header */
+  --bg-color-header: #161616;
+  --text-color-cont-theme-header: rgba(255, 255, 255, 0.8);
+  --name: #ffffff;
+
+  /* Home Page */
+  --bg-color-cont-home-page: #1f1f1f;
+  --color-cont-home-page: rgba(255, 255, 255, 0.5);
 }
 
 /* Violet */
@@ -38,4 +51,11 @@
   --text-span-color: #5255bc;
 
   /* Header */
+  --bg-color-header: #fcfcfc;
+  --text-color-cont-theme-header: rgba(22, 22, 22, 0.8);
+  --name: #161616;
+
+  /* Home Page */
+  --bg-color-cont-home-page: #ecedfd;
+  --color-cont-home-page: rgba(22, 22, 22, 0.7);
 }

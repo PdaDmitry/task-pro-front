@@ -1,12 +1,17 @@
 .contHeader {
-  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
-  /* background: #fcfcfc; */
   background-color: var(--bg-color-header);
-  color: var(--text-color);
+}
+
+.btnMenu {
+  display: block;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .menuSvg {
@@ -16,6 +21,7 @@
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+
 }
 
 .container {
@@ -33,15 +39,15 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  /* color: rgba(22, 22, 22, 0.8); */
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  color: var(--text-color-cont-theme-header);
 }
 
 .themeSvg {
   display: block;
   width: 16px;
   height: 16px;
+  stroke: currentColor;
+  fill: none;
 }
 
 .contUser {
@@ -54,6 +60,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
+  color: var(--name);
 }
 
 .userSvg {

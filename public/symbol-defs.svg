@@ -85,11 +85,7 @@
 <path fill="none" stroke="#161616" style="stroke: var(--color7, #161616)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M12.111 16h7.778"></path>
 </symbol>
 
-<symbol id="icon-plus-4" viewBox="0 0 36 32">
-<path style="fill: var(--color6, #ecedfd)" d="M24 0h-16c-4.418 0-8 3.582-8 8v16c0 4.418 3.582 8 8 8h16c4.418 0 8-3.582 8-8v-16c0-4.418-3.582-8-8-8z"></path>
-<path style="stroke: var(--color7, #161616)" d="M16 12.111v7.778"></path>
-<path style="stroke: var(--color7, #161616)" d="M12.111 16h7.778"></path>
-</symbol>
+
 
 
 <symbol id="icon-icon" viewBox="0 0 32 32">

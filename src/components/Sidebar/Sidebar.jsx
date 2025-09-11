@@ -34,7 +34,7 @@ const Sidebar = ({ isSidebarOpen }) => {
         <svg className={css.iconSvg}>
           <use
             href={
-              currentUser.theme === 'Violet'
+              currentUser?.theme === 'Violet'
                 ? '/symbol-defs.svg#icon-icon'
                 : '/symbol-defs.svg#icon-icon-1'
             }
@@ -51,13 +51,13 @@ const Sidebar = ({ isSidebarOpen }) => {
           className={css.addBoardSvg}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          {...(currentUser.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
+          {...(currentUser?.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
         >
           <use
             href={
-              currentUser.theme === 'Violet'
+              currentUser?.theme === 'Violet'
                 ? isHovered
-                  ? '/symbol-defs.svg#icon-block'
+                  ? '/symbol-defs.svg#icon-plus-3'
                   : '/symbol-defs.svg#icon-plus-4'
                 : isHovered
                 ? '/symbol-defs.svg#icon-hover'
@@ -66,27 +66,6 @@ const Sidebar = ({ isSidebarOpen }) => {
           ></use>
         </svg>
       </div>
-
-      {/* <div className={css.contNewBoard}>
-        <p className={css.textCreateBoard}>Create a new board</p>
-        <svg
-          className={css.addBoardSvg}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <use
-            href={
-              currentUser.theme === 'Violet'
-                ? isHovered
-                  ? '/symbol-defs.svg#icon-plus-3'
-                  : '/symbol-defs.svg#icon-block'
-                : isHovered
-                ? '/symbol-defs.svg#icon-hover'
-                : '/symbol-defs.svg#icon-normal'
-            }
-          ></use>
-        </svg>
-      </div> */}
 
       <div className={css.contNeedHelp}>
         <img src={CactusMob} alt="image_Cactus" className={css.imageCactusMob} />
@@ -114,7 +93,7 @@ const Sidebar = ({ isSidebarOpen }) => {
             className={css.logOutSvg}
             size={32}
             color={
-              currentUser.theme === 'Violet'
+              currentUser?.theme === 'Violet'
                 ? isHoveredLogOut
                   ? '#B8BCFD'
                   : '#ffffff'
