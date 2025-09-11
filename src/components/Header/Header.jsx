@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import css from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { updateTheme } from '../../store/auth/authSlice';
+import request from '../../utils/axiosInstance';
+import toast from 'react-hot-toast';
+import Loader from '../Loader/Loader';
 
 const themes = ['Light', 'Dark', 'Violet'];
 
@@ -11,9 +14,11 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.user);
+  console.log('currentUser theme', currentUser?.theme === 'Dark');
 
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,9 +56,22 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
     };
   }, [setIsSidebarOpen]);
 
-  const handleMenuClick = e => {
+  const handleMenuClick = async e => {
     setSelectedTheme(e.key);
-    dispatch(updateTheme(e.key));
+
+    try {
+      setIsLoading(true);
+      const res = await request.patch('/users/updateTheme', { theme: e.key });
+
+      dispatch(updateTheme(res.data.user?.theme));
+      toast.success(`Theme updated to ${res.data.user?.theme}`);
+    } catch (err) {
+      console.error('❌ Update theme error:', err.response?.data?.message || err.message);
+
+      toast.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const items = themes.map(theme => ({
@@ -63,19 +81,20 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   return (
     <div className={css.contHeader}>
-      {windowWidth < 1440 && (
-        <button type="button" onClick={() => setIsSidebarOpen(true)} className={css.btnMenu}>
-          <svg className={css.menuSvg}>
-            <use
-              href={
-                currentUser?.theme === 'Dark'
-                  ? '/symbol-defs.svg#icon-menu-01-3'
-                  : '/symbol-defs.svg#icon-menu-01-2'
-              }
-            ></use>
+      {windowWidth < 1440 &&
+        (currentUser?.theme === 'Dark' ? (
+          <svg className={css.menuSvg} onClick={() => setIsSidebarOpen(true)}>
+            <use href="/symbol-defs.svg#icon-menu-01-3" />
           </svg>
-        </button>
-      )}
+        ) : (
+          <svg
+            className={css.menuSvg}
+            onClick={() => setIsSidebarOpen(true)}
+            color={currentUser?.theme === 'Violet' ? '#161616' : ''}
+          >
+            <use href="/symbol-defs.svg#icon-menu-01-2" />
+          </svg>
+        ))}
 
       <div className={css.container}>
         <Dropdown menu={{ items, onClick: handleMenuClick }} trigger={['click']}>
@@ -103,6 +122,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* sidebar */}
       {windowWidth < 1440 && <Sidebar isSidebarOpen={isSidebarOpen} />}
+      <Loader show={isLoading} />
     </div>
   );
 };

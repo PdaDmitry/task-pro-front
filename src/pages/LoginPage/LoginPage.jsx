@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import request from '../../utils/axiosInstance';
-import { setClientAuth } from '../../store/auth/authSlice';
+import { setClientAuth, updateTheme } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Loader from '../../components/Loader/Loader';
@@ -75,6 +75,8 @@ const LoginPage = () => {
           user: res.data.user,
         })
       );
+
+      dispatch(updateTheme(res.data.user?.theme));
 
       navigate('/homePage');
       toast.success(`Welcome ${res.data.user?.name}!`);
