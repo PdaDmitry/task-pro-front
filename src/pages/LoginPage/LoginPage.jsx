@@ -83,7 +83,7 @@ const LoginPage = () => {
     } catch (err) {
       console.error('❌ Login error:', err.response?.data?.message || err.message);
 
-      toast.error(err);
+      toast.error(err.response?.data?.message);
     } finally {
       setIsLoading(false);
     }

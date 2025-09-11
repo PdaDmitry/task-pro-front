@@ -14,7 +14,6 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.user);
-  console.log('currentUser theme', currentUser?.theme === 'Dark');
 
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
