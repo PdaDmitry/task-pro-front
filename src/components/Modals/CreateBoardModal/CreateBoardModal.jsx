@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import css from './CreateBoardModal.module.css';
+import { backgrounds } from '../../../data/backgroundIcons';
+import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
+import { icons } from '../../../data/icons';
 
-const backgrounds = ['/bg1.png', '/bg2.png', '/bg3.png'];
-const icons = ['/icon1.svg', '/icon2.svg', '/icon3.svg'];
+import css from './CreateBoardModal.module.css';
+import { useSelector } from 'react-redux';
 
 const CreateBoardModal = ({ closeModal }) => {
+  const currentUser = useSelector(state => state.auth.user);
   const [formData, setFormData] = useState({
     title: '',
     icon: '',
     background: '',
   });
   const [error, setError] = useState('');
+
+  const theme = currentUser?.theme || 'Light';
 
   const handleChange = e => {
     setFormData(prev => ({ ...prev, title: e.target.value }));
@@ -27,11 +32,7 @@ const CreateBoardModal = ({ closeModal }) => {
 
     console.log(formData);
 
-    setFormData({
-      title: '',
-      icon: '',
-      background: '',
-    });
+    setFormData({ title: '', icon: '', background: '' });
     setError('');
 
     closeModal();
@@ -58,33 +59,46 @@ const CreateBoardModal = ({ closeModal }) => {
 
         {/* Icon selection */}
         <p className={css.titleIcons}>Icons</p>
+
         <div className={css.contIcons}>
           {icons.map(icon => (
-            <img
-              key={icon}
-              src={icon}
-              alt="icon"
-              className={`${css.iconItem} ${formData.icon === icon ? css.active : ''}`}
-              onClick={() => setFormData(prev => ({ ...prev, icon }))}
-            />
+            <svg
+              key={icon.id}
+              className={`${css.iconItem} ${formData.icon === icon.id ? css.active : ''}`}
+              onClick={() => setFormData(prev => ({ ...prev, icon: icon.id }))}
+            >
+              <use href={`/symbol-defs.svg${icon.url}`} />
+            </svg>
           ))}
         </div>
 
         {/* Selecting a background */}
         <p className={css.titleBgr}>Background</p>
+
         <div className={css.contBgr}>
-          {backgrounds.map(bg => (
-            <img
-              key={bg}
-              src={bg}
-              alt="background"
-              className={`${css.bgItem} ${formData.background === bg ? css.active : ''}`}
-              onClick={() => setFormData(prev => ({ ...prev, background: bg }))}
-            />
-          ))}
+          {backgrounds.map(bg => {
+            const bgUrl = getBackgroundUrl(bg, theme);
+
+            return bgUrl.startsWith('#') ? (
+              <svg
+                key={bg.id}
+                className={`${css.bgItem} ${formData.background === bg.id ? css.active : ''}`}
+                onClick={() => setFormData(prev => ({ ...prev, background: bg.id }))}
+              >
+                <use href={`/symbol-defs.svg${bgUrl}`} />
+              </svg>
+            ) : (
+              <img
+                key={bg.id}
+                src={bgUrl}
+                alt="background"
+                className={`${css.bgItem} ${formData.background === bg.id ? css.active : ''}`}
+                onClick={() => setFormData(prev => ({ ...prev, background: bg.id }))}
+              />
+            );
+          })}
         </div>
 
-        {/* Кнопка создания */}
         <button type="submit" className={css.createBoardtBtn}>
           <svg className={css.createBtnSvg} onClick={closeModal}>
             <use href="/symbol-defs.svg#icon-plus-1"></use>

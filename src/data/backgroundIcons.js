@@ -1,0 +1,25 @@
+export const backgrounds = [
+  {
+    id: 'bgIcon0',
+    url: {
+      Light: '#icon-block-light-icon',
+      Dark: '#icon-block-black-icon',
+      Violet: '#icon-block-violet-icon',
+    },
+  },
+  { id: 'bgIcon1', url: '/bgIcons/bg-icon-1.png' },
+  { id: 'bgIcon2', url: '/bgIcons/bg-icon-2.png' },
+  { id: 'bgIcon3', url: '/bgIcons/bg-icon-3.png' },
+  { id: 'bgIcon4', url: '/bgIcons/bg-icon-4.png' },
+  { id: 'bgIcon5', url: '/bgIcons/bg-icon-5.png' },
+  { id: 'bgIcon6', url: '/bgIcons/bg-icon-6.png' },
+  { id: 'bgIcon7', url: '/bgIcons/bg-icon-7.png' },
+  { id: 'bgIcon8', url: '/bgIcons/bg-icon-8.png' },
+  { id: 'bgIcon9', url: '/bgIcons/bg-icon-9.png' },
+  { id: 'bgIcon10', url: '/bgIcons/bg-icon-10.png' },
+  { id: 'bgIcon11', url: '/bgIcons/bg-icon-11.png' },
+  { id: 'bgIcon12', url: '/bgIcons/bg-icon-12.png' },
+  { id: 'bgIcon13', url: '/bgIcons/bg-icon-13.png' },
+  { id: 'bgIcon14', url: '/bgIcons/bg-icon-14.png' },
+  { id: 'bgIcon15', url: '/bgIcons/bg-icon-15.png' },
+];

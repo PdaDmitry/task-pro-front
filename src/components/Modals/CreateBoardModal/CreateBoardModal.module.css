@@ -1,7 +1,7 @@
 .contNewBoard {
   position: relative;
-  width: 100%;
-  max-width: 355px;
+  /* width: 100%; */
+  width: 335px;
   /* height: 433px; */
   border-radius: 8px;
   padding: 24px;
@@ -99,13 +99,29 @@
 }
 
 .contIcons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   margin-bottom: 24px;
 }
 
 .iconItem {
+  display: block;
+  width: 18px;
+  height: 18px;
+  stroke: rgba(22, 22, 22, 0.5);
+  fill: none;
+
+  /* flex: 0 0 calc((100% - 7 * 4px) / 8); */
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.active {
+.iconItem.active {
+  transform: scale(1.2);
+  z-index: 1;
 }
 
 /* =================== */
@@ -119,10 +135,29 @@
 }
 
 .contBgr {
+  display: flex;
+  width: 252px;
+  flex-wrap: wrap;
+  gap: 4px;
   margin-bottom: 40px;
 }
 
 .bgItem {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+
+  flex: 0 0 calc((100% - 7 * 4px) / 8);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bgItem.active {
+  transform: scale(1.12);
+  z-index: 1;
 }
 
 .createBoardtBtn {
