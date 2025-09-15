@@ -53,12 +53,34 @@ const Sidebar = ({ isSidebarOpen }) => {
 
       <div className={css.contNewBoard}>
         <p className={css.textCreateBoard}>Create a new board</p>
+
         <svg
           className={css.addBoardSvg}
           onClick={openModal}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          {...(currentUser?.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
+        >
+          {currentUser?.theme === 'Violet' ? (
+            <use
+              href={
+                isHovered
+                  ? '/symbol-defs.svg#icon-violet-hover'
+                  : '/symbol-defs.svg#icon-violet-normal'
+              }
+            ></use>
+          ) : (
+            <use
+              href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
+            ></use>
+          )}
+        </svg>
+
+        {/* <svg
+          className={css.addBoardSvg}
+          onClick={openModal}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          // {...(currentUser?.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
         >
           <use
             href={
@@ -71,7 +93,7 @@ const Sidebar = ({ isSidebarOpen }) => {
                 : '/symbol-defs.svg#icon-normal'
             }
           ></use>
-        </svg>
+        </svg> */}
       </div>
 
       <div className={css.contNeedHelp}>
