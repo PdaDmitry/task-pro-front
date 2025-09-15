@@ -17,6 +17,20 @@
   /* Home Page */
   --bg-color-cont-home-page: #f6f6f7;
   --color-cont-home-page: rgba(22, 22, 22, 0.7);
+
+  /* New board modal */
+  --modal-new-board-bg-cont: #fcfcfc;
+  --modal-new-board-color: #161616;
+  --modal-new-board-input-border: rgba(190, 219, 176, 0.5);
+  --modal-new-board-input-bg: #fcfcfc;
+  --modal-new-board-input-box-shadow: rgba(22, 22, 22, 0.08);
+  --modal-new-board-input-hover-border: #bedbb0;
+  --modal-new-board-input-focus-border: #bedbb0;
+  --modal-new-board-placeholder-color: rgba(22, 22, 22, 0.2);
+  --modal-new-board-icon-item-stroke: rgba(22, 22, 22, 0.5);
+  --modal-new-board-button-bg: #bedbb0;
+  --modal-new-board-button-hover-bg: #9dc888;
+  --modal-new-board-color-btn: #161616;
 }
 
 /* Dark */
@@ -38,6 +52,20 @@
   /* Home Page */
   --bg-color-cont-home-page: #1f1f1f;
   --color-cont-home-page: rgba(255, 255, 255, 0.5);
+
+  /* New board modal */
+  --modal-new-board-bg-cont: #151515;
+  --modal-new-board-color: #ffffff;
+  --modal-new-board-input-border: rgba(190, 219, 176, 0.5);
+  --modal-new-board-input-bg: #1f1f1f;
+  --modal-new-board-input-box-shadow: rgba(22, 22, 22, 0.08);
+  --modal-new-board-input-hover-border: #bedbb0;
+  --modal-new-board-input-focus-border: #bedbb0;
+  --modal-new-board-placeholder-color: rgba(255, 255, 255, 0.5);
+  --modal-new-board-icon-item-stroke: rgba(255, 255, 255, 0.5);
+  --modal-new-board-button-bg: #bedbb0;
+  --modal-new-board-button-hover-bg: #9dc888;
+  --modal-new-board-color-btn: #161616;
 }
 
 /* Violet */
@@ -58,4 +86,7 @@
   /* Home Page */
   --bg-color-cont-home-page: #ecedfd;
   --color-cont-home-page: rgba(22, 22, 22, 0.7);
+
+  /* New board modal */
+
 }

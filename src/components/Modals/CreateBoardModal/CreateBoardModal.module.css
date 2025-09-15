@@ -5,7 +5,7 @@
   /* height: 433px; */
   border-radius: 8px;
   padding: 24px;
-  background: #fcfcfc;
+  background: var(--modal-new-board-bg-cont);
 }
 
 .closeBtnSvg {
@@ -15,34 +15,36 @@
   right: 14px;
   width: 18px;
   height: 18px;
-  stroke: currentColor;
-  fill: #161616;
+  /* stroke: currentColor; */
+  stroke: var(--modal-new-board-color);
+  /* fill: #161616; */
+
+  cursor: pointer;
 }
 
 .title {
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 18px;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
-  color: #161616;
+  color: var(--modal-new-board-color);
 }
 
 /* =======================input======================== */
 
 .input {
-  border: 1px solid rgba(190, 219, 176, 0.5);
+  border: 1px solid var(--modal-new-board-input-border);
   border-radius: 8px;
   width: 100%;
   max-width: 287px;
   height: 49px;
   padding-left: 18px;
-  background: #fcfcfc;
-  box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.08);
+  background: var(--modal-new-board-input-bg);
+  box-shadow: 0 4px 16px 0 var(--modal-new-board-input-box-shadow);
 
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--modal-new-board-color);
 
   margin-bottom: 24px;
 
@@ -50,35 +52,35 @@
 }
 
 .input:hover {
-  border-color: #bedbb0;
+  border-color: var(--modal-new-board-input-hover-border);
 }
 
 .input:focus {
-  border-color: #bedbb0;
+  border-color: var(--modal-new-board-input-focus-border);
   outline: none;
 }
 
 /* For placeholder */
 .input::placeholder {
-  color: rgba(22, 22, 22, 0.2);
+  color: var(--modal-new-board-placeholder-color);
   opacity: 1;
 }
 
 /* For different browsers */
 .input::-webkit-input-placeholder {
-  color: rgba(22, 22, 22, 0.2);
+  color: var(--modal-new-board-placeholder-color);
 }
 
 .input::-moz-placeholder {
-  color: rgba(22, 22, 22, 0.2);
+  color: var(--modal-new-board-placeholder-color);
 }
 
 .input:-ms-input-placeholder {
-  color: rgba(22, 22, 22, 0.2);
+  color: var(--modal-new-board-placeholder-color);
 }
 
 .input:-moz-placeholder {
-  color: rgba(22, 22, 22, 0.2);
+  color: var(--modal-new-board-placeholder-color);
 }
 
 .error {
@@ -94,7 +96,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--modal-new-board-color);
   margin-bottom: 14px;
 }
 
@@ -110,10 +112,8 @@
   display: block;
   width: 18px;
   height: 18px;
-  stroke: rgba(22, 22, 22, 0.5);
+  stroke: var(--modal-new-board-icon-item-stroke);
   fill: none;
-
-  /* flex: 0 0 calc((100% - 7 * 4px) / 8); */
   aspect-ratio: 1 / 1;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -130,7 +130,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--modal-new-board-color);
   margin-bottom: 14px;
 }
 
@@ -171,17 +171,17 @@
   max-width: 287px;
   width: 100%;
   height: 49px;
-  background: #bedbb0;
+  background: var(--modal-new-board-button-bg);
   cursor: pointer;
 
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--modal-new-board-color-btn);
 }
 
 .createBoardtBtn:hover {
-  background: #9dc888;
+  background: var(--modal-new-board-button-hover-bg);
 }
 
 .createBtnSvg {
