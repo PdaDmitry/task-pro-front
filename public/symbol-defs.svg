@@ -253,14 +253,14 @@
 
 
 
-<!-- Обычная -->
 <symbol id="icon-violet-normal" viewBox="0 0 36 32">
   <path fill="#ffffff" style="fill: var(--color4, #ffffff)" d="M5.333 0h24.889c2.946 0 5.333 2.388 5.333 5.333v21.333c0 2.946-2.388 5.333-5.333 5.333h-24.889c-2.946 0-5.333-2.388-5.333-5.333v-21.333c0-2.946 2.388-5.333 5.333-5.333z"></path>
-  <path fill="none" stroke="#ecedfd" stroke-opacity="0.4" style="stroke: var(--color2, #ecedfd); stroke-opacity: 0.4" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M17.778 10.815v10.37"></path>
-  <path fill="none" stroke="#ecedfd" stroke-opacity="0.4" style="stroke: var(--color2, #ecedfd); stroke-opacity: 0.4" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M12.592 16h10.37"></path>
+  <path fill="none" stroke="#6a6de0" style="stroke: var(--color2, #6a6de0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.8" d="M17.778 10.815v10.37"></path>
+  <path fill="none" stroke="#6a6de0" style="stroke: var(--color2, #6a6de0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.8" d="M12.592 16h10.37"></path>
 </symbol>
 
-<!-- Hover -->
+
+
 <symbol id="icon-violet-hover" viewBox="0 0 36 32">
   <path fill="#ecedfd" fill-opacity="0.4" style="fill: var(--color4, #ecedfd); fill-opacity: 0.4" d="M5.333 0h24.889c2.946 0 5.333 2.388 5.333 5.333v21.333c0 2.946-2.388 5.333-5.333 5.333h-24.889c-2.946 0-5.333-2.388-5.333-5.333v-21.333c0-2.946 2.388-5.333 5.333-5.333z"></path>
   <path fill="none" stroke="#ffffff" style="stroke: var(--color2, #ffffff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M17.778 10.815v10.37"></path>

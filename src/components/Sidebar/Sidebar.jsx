@@ -74,26 +74,6 @@ const Sidebar = ({ isSidebarOpen }) => {
             ></use>
           )}
         </svg>
-
-        {/* <svg
-          className={css.addBoardSvg}
-          onClick={openModal}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          // {...(currentUser?.theme === 'Violet' ? { viewBox: '0 0 36 32' } : {})}
-        >
-          <use
-            href={
-              currentUser?.theme === 'Violet'
-                ? isHovered
-                  ? '/symbol-defs.svg#icon-plus-3'
-                  : '/symbol-defs.svg#icon-plus-4'
-                : isHovered
-                ? '/symbol-defs.svg#icon-hover'
-                : '/symbol-defs.svg#icon-normal'
-            }
-          ></use>
-        </svg> */}
       </div>
 
       <div className={css.contNeedHelp}>

@@ -1,9 +1,38 @@
 .contHomePage {
-    background-color: var(--bg-color-cont-home-page);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* font-size: 40px; */
-    color: var(--color-cont-home-page);
+  background-color: var(--bg-color-cont-home-page);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 40px; */
+  color: var(--color-cont-home-page);
+}
+
+.homePageContent {
+  width: 100%;
+  max-width: 335px;
+}
+
+.textHomePage {
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--tex-home-page-color);
+  text-align: center;
+}
+
+.textHomeSpan {
+  color: var(--color-text-home-span);
+}
+
+@media screen and (min-width: 768px) {
+  .homePageContent {
+    max-width: 486px;
+  }
+
+  .textHomePage {
+    font-size: 14px;
+    line-height: 129%;
+  }
 }

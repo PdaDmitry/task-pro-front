@@ -1,8 +1,6 @@
 .contNewBoard {
   position: relative;
-  /* width: 100%; */
   width: 335px;
-  /* height: 433px; */
   border-radius: 8px;
   padding: 24px;
   background: var(--modal-new-board-bg-cont);
@@ -15,10 +13,7 @@
   right: 14px;
   width: 18px;
   height: 18px;
-  /* stroke: currentColor; */
   stroke: var(--modal-new-board-color);
-  /* fill: #161616; */
-
   cursor: pointer;
 }
 
@@ -47,7 +42,7 @@
   color: var(--modal-new-board-color);
 
   margin-bottom: 24px;
-
+  opacity: 0.4;
   transition: border-color 0.3s ease;
 }
 
@@ -160,12 +155,13 @@
   z-index: 1;
 }
 
-.createBoardtBtn {
+.createBoardtBtn,
+.createBoardtBtnViolet {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-
+  outline: none;
   border-radius: 8px;
   border: none;
   max-width: 287px;
@@ -182,6 +178,14 @@
 
 .createBoardtBtn:hover {
   background: var(--modal-new-board-button-hover-bg);
+}
+
+.createBoardtBtnViolet {
+  background: var(--modal-new-board-button-bg-violet);
+}
+
+.createBoardtBtnViolet:hover {
+  background: var(--modal-new-board-button-hover-bg-violet);
 }
 
 .createBtnSvg {

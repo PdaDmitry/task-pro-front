@@ -99,9 +99,20 @@ const CreateBoardModal = ({ closeModal }) => {
           })}
         </div>
 
-        <button type="submit" className={css.createBoardtBtn}>
+        <button
+          type="submit"
+          className={
+            currentUser?.theme === 'Violet' ? css.createBoardtBtnViolet : css.createBoardtBtn
+          }
+        >
           <svg className={css.createBtnSvg} onClick={closeModal}>
-            <use href="/symbol-defs.svg#icon-plus-1"></use>
+            <use
+              href={
+                currentUser?.theme === 'Violet'
+                  ? '/symbol-defs.svg#icon-plus-4'
+                  : '/symbol-defs.svg#icon-plus-1'
+              }
+            ></use>
           </svg>
           Create
         </button>

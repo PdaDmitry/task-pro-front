@@ -17,6 +17,8 @@
   /* Home Page */
   --bg-color-cont-home-page: #f6f6f7;
   --color-cont-home-page: rgba(22, 22, 22, 0.7);
+  /* --tex-home-page-color: rgba(22, 22, 22, 0.7); */
+  --color-text-home-span: #bedbb0;
 
   /* New board modal */
   --modal-new-board-bg-cont: #fcfcfc;
@@ -52,6 +54,7 @@
   /* Home Page */
   --bg-color-cont-home-page: #1f1f1f;
   --color-cont-home-page: rgba(255, 255, 255, 0.5);
+  --color-text-home-span: #bedbb0;
 
   /* New board modal */
   --modal-new-board-bg-cont: #151515;
@@ -86,7 +89,14 @@
   /* Home Page */
   --bg-color-cont-home-page: #ecedfd;
   --color-cont-home-page: rgba(22, 22, 22, 0.7);
+  --color-text-home-span: #5255bc;
 
   /* New board modal */
-
+  --modal-new-board-input-border: #7b7ede;
+  --modal-new-board-input-box-shadow: rgba(22, 22, 22, 0.08);
+  --modal-new-board-input-hover-border: #4a4dad;
+  --modal-new-board-input-focus-border: #4a4dad;
+  --modal-new-board-button-hover-bg-violet: #7b7ede;
+  --modal-new-board-button-bg-violet: #5255bc;
+  --modal-new-board-color-btn: #ffffff;
 }
