@@ -114,6 +114,11 @@
   transition: transform 0.2s ease;
 }
 
+.iconItem:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
 .iconItem.active {
   transform: scale(1.2);
   z-index: 1;
@@ -148,6 +153,11 @@
   cursor: pointer;
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bgItem:hover {
+  transform: scale(1.1);
+  z-index: 1;
 }
 
 .bgItem.active {
