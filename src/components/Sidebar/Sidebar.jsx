@@ -10,6 +10,9 @@ import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
 import { icons } from '../../data/icons';
+import { removeBoard } from '../../store/boards/boards';
+import request from '../../utils/axiosInstance';
+import { Popconfirm } from 'antd';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -36,6 +39,20 @@ const Sidebar = ({ isSidebarOpen }) => {
   const getIconUrlById = iconId => {
     const foundIcon = icons.find(icon => icon.id === iconId);
     return foundIcon ? foundIcon.url : '#icon-Project';
+  };
+
+  const handleDeleteBoard = async boardId => {
+    try {
+      const res = await request.delete('/boards/deleteBoard', { data: { boardId } });
+      if (res.data.status) {
+        dispatch(removeBoard(boardId));
+
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error('Error deleting board:', error);
+      toast.error('Failed to delete board. Please try again.');
+    }
   };
 
   return (
@@ -104,9 +121,16 @@ const Sidebar = ({ isSidebarOpen }) => {
                   <svg className={css.updateBoardSvg}>
                     <use href="/symbol-defs.svg#icon-pencil-01"></use>
                   </svg>
-                  <svg className={css.deleteBoardSvg}>
-                    <use href="/symbol-defs.svg#icon-trash-04-1"></use>
-                  </svg>
+                  <Popconfirm
+                    title="Are you sure you want to delete this board?"
+                    onConfirm={() => handleDeleteBoard(board._id)}
+                    okText="Confirm"
+                    cancelText="Cancel"
+                  >
+                    <svg className={css.deleteBoardSvg}>
+                      <use href="/symbol-defs.svg#icon-trash-04-1"></use>
+                    </svg>
+                  </Popconfirm>
                 </div>
               </div>
             </li>
