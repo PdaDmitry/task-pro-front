@@ -58,6 +58,7 @@
   border-top: 1px solid var(--cont-my-board);
   border-bottom: 1px solid var(--cont-my-board);
   padding: 14px 0;
+  margin-bottom: 40px;
 }
 
 .textCreateBoard {
@@ -73,6 +74,59 @@
   height: 36px;
   cursor: pointer;
 }
+
+/* ========================boards list======================== */
+
+.boardItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px 14px;
+  /* margin: 0 -14px; */
+  cursor: pointer;
+  color: rgba(22, 22, 22, 0.5);
+
+  width: 100%;
+}
+
+.activeBoard {
+  color: #161616;
+  border-right: 4px solid #bedbb0;
+  background: #f6f6f7;
+}
+
+.boardInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.boardIcon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  stroke: var(--modal-new-board-icon-item-stroke);
+  fill: none;
+}
+
+.boardTitle {}
+
+.boardSettings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.updateBoardSvg,
+.deleteBoardSvg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  stroke: var(--modal-new-board-icon-item-stroke);
+  fill: none;
+}
+
+/* =========================================================== */
 
 .contNeedHelp {
   width: 197px;

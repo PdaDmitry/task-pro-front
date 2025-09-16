@@ -1,0 +1,21 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  boardsList: [],
+};
+
+const boardsSlice = createSlice({
+  name: 'boards',
+  initialState,
+  reducers: {
+    setBoardsList: (state, action) => {
+      state.boardsList = action.payload;
+    },
+    addBoard: (state, action) => {
+      state.boardsList.push(action.payload);
+    },
+  },
+});
+
+export const { setBoards, addBoard } = boardsSlice.actions;
+export const boardsReducer = boardsSlice.reducer;

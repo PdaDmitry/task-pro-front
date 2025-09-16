@@ -11,6 +11,7 @@ import {
   persistStore,
 } from 'redux-persist';
 import { authReducer } from './auth/authSlice';
+import { boardsReducer } from './boards/boards,js';
 
 const persistAuthConfig = {
   key: 'auth',
@@ -18,11 +19,19 @@ const persistAuthConfig = {
   whitelist: ['token', 'user'],
 };
 
+const persistBoardsConfig = {
+  key: 'boards',
+  storage,
+  whitelist: ['boardsList'],
+};
+
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
+const persistedBoardsReducer = persistReducer(persistBoardsConfig, boardsReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
+    boards: persistedBoardsReducer,
     // tasks: tasksReducer,
   },
   middleware: getDefaultMiddleware =>

@@ -9,16 +9,19 @@ import { logout } from '../../store/auth/authSlice';
 import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
+import { icons } from '../../data/icons';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.auth.user);
-  // console.log('currentUser', currentUser.theme);
+  const boardsList = useSelector(state => state.boards.boardsList);
+  // console.log('boardsList', boardsList);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
+  const [activeBoardId, setActiveBoardId] = useState(null);
 
   const openModal = () => setIsCreateBoardModalOpen(true);
   const closeModal = () => setIsCreateBoardModalOpen(false);
@@ -28,6 +31,11 @@ const Sidebar = ({ isSidebarOpen }) => {
     navigate('/auth/login');
 
     toast.success('User is logged out!');
+  };
+
+  const getIconUrlById = iconId => {
+    const foundIcon = icons.find(icon => icon.id === iconId);
+    return foundIcon ? foundIcon.url : '#icon-Project';
   };
 
   return (
@@ -48,9 +56,7 @@ const Sidebar = ({ isSidebarOpen }) => {
         </svg>
         <h2 className={css.titleBar}>Task Pro</h2>
       </div>
-
       <p className={css.textMyBoard}>My boards</p>
-
       <div className={css.contNewBoard}>
         <p className={css.textCreateBoard}>Create a new board</p>
 
@@ -76,6 +82,35 @@ const Sidebar = ({ isSidebarOpen }) => {
         </svg>
       </div>
 
+      {boardsList &&
+        boardsList.length !== 0 &&
+        boardsList.map(board => (
+          <div
+            key={board._id}
+            className={`${css.boardItem} ${activeBoardId === board._id ? css.activeBoard : ''}`}
+            onClick={() => setActiveBoardId(board._id)}
+          >
+            <div className={css.boardInfo}>
+              <svg className={css.boardIcon}>
+                <use href={`/symbol-defs.svg${getIconUrlById(board.icon)}`} />
+              </svg>
+
+              <p className={css.boardTitle}>{board.title}</p>
+            </div>
+
+            {activeBoardId === board._id && (
+              <div className={css.boardSettings}>
+                <svg className={css.updateBoardSvg}>
+                  <use href="/symbol-defs.svg#icon-pencil-01"></use>
+                </svg>
+                <svg className={css.deleteBoardSvg}>
+                  <use href="/symbol-defs.svg#icon-trash-04-1"></use>
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+
       <div className={css.contNeedHelp}>
         <img src={CactusMob} alt="image_Cactus" className={css.imageCactusMob} />
         <p className={css.text}>
@@ -89,7 +124,6 @@ const Sidebar = ({ isSidebarOpen }) => {
           <p className={css.textHelp}>Need help?</p>
         </div>
       </div>
-
       <div className={css.contLogOut}>
         <button
           type="button"
@@ -115,7 +149,6 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <p className={css.textLogOut}>Log out</p>
       </div>
-
       <ModalWindow isOpen={isCreateBoardModalOpen} onClose={closeModal}>
         <CreateBoardModal closeModal={closeModal} />
       </ModalWindow>

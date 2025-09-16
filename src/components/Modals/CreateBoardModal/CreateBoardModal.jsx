@@ -4,16 +4,22 @@ import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
 
 import css from './CreateBoardModal.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import request from '../../../utils/axiosInstance';
+import Loader from '../../Loader/Loader';
+import { addBoard } from '../../../store/boards/boards,js';
 
 const CreateBoardModal = ({ closeModal }) => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const [formData, setFormData] = useState({
     title: '',
-    icon: '',
-    background: '',
+    icon: 'icon0',
+    background: 'bgIcon0',
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const theme = currentUser?.theme || 'Light';
 
@@ -22,7 +28,7 @@ const CreateBoardModal = ({ closeModal }) => {
     if (error) setError('');
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!formData.title.trim()) {
@@ -30,7 +36,22 @@ const CreateBoardModal = ({ closeModal }) => {
       return;
     }
 
-    console.log(formData);
+    // console.log(formData);
+
+    try {
+      setIsLoading(true);
+      const res = await request.post('/boards/createBoard', formData);
+
+      // console.log(res.data);
+      dispatch(addBoard(res.data.board));
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error('Error creating board:', error);
+      toast.error('Failed to create board. Please try again.');
+      return;
+    } finally {
+      setIsLoading(false);
+    }
 
     setFormData({ title: '', icon: '', background: '' });
     setError('');
@@ -105,7 +126,7 @@ const CreateBoardModal = ({ closeModal }) => {
             currentUser?.theme === 'Violet' ? css.createBoardtBtnViolet : css.createBoardtBtn
           }
         >
-          <svg className={css.createBtnSvg} onClick={closeModal}>
+          <svg className={css.createBtnSvg}>
             <use
               href={
                 currentUser?.theme === 'Violet'
@@ -117,6 +138,7 @@ const CreateBoardModal = ({ closeModal }) => {
           Create
         </button>
       </form>
+      <Loader show={isLoading} />
     </div>
   );
 };
