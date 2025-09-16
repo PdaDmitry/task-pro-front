@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
 import Loader from '../../Loader/Loader';
-import { addBoard } from '../../../store/boards/boards,js';
+import { addBoard } from '../../../store/boards/boards.js';
 
 const CreateBoardModal = ({ closeModal }) => {
   const dispatch = useDispatch();

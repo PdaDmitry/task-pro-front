@@ -82,34 +82,37 @@ const Sidebar = ({ isSidebarOpen }) => {
         </svg>
       </div>
 
-      {boardsList &&
-        boardsList.length !== 0 &&
-        boardsList.map(board => (
-          <div
-            key={board._id}
-            className={`${css.boardItem} ${activeBoardId === board._id ? css.activeBoard : ''}`}
-            onClick={() => setActiveBoardId(board._id)}
-          >
-            <div className={css.boardInfo}>
-              <svg className={css.boardIcon}>
-                <use href={`/symbol-defs.svg${getIconUrlById(board.icon)}`} />
-              </svg>
-
-              <p className={css.boardTitle}>{board.title}</p>
-            </div>
-
-            {activeBoardId === board._id && (
-              <div className={css.boardSettings}>
-                <svg className={css.updateBoardSvg}>
-                  <use href="/symbol-defs.svg#icon-pencil-01"></use>
+      {boardsList && boardsList.length > 0 && (
+        <ul className={css.boardsList}>
+          {boardsList.map(board => (
+            <li
+              key={board._id}
+              className={`${css.boardItem} ${activeBoardId === board._id ? css.activeBoard : ''}`}
+              onClick={() => setActiveBoardId(board._id)}
+            >
+              <div className={css.boardInfo}>
+                <svg
+                  className={`${css.boardIcon} ${activeBoardId === board._id ? css.activeSVG : ''}`}
+                >
+                  <use href={`/symbol-defs.svg${getIconUrlById(board.icon)}`} />
                 </svg>
-                <svg className={css.deleteBoardSvg}>
-                  <use href="/symbol-defs.svg#icon-trash-04-1"></use>
-                </svg>
+                <p className={css.boardTitle}>{board.title}</p>
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className={css.boardSettings}>
+                <div className={css.updateDelBoard}>
+                  <svg className={css.updateBoardSvg}>
+                    <use href="/symbol-defs.svg#icon-pencil-01"></use>
+                  </svg>
+                  <svg className={css.deleteBoardSvg}>
+                    <use href="/symbol-defs.svg#icon-trash-04-1"></use>
+                  </svg>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <div className={css.contNeedHelp}>
         <img src={CactusMob} alt="image_Cactus" className={css.imageCactusMob} />

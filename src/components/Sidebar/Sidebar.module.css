@@ -77,41 +77,67 @@
 
 /* ========================boards list======================== */
 
+.boardsList {
+  margin: 0 -14px 4px;
+}
+
 .boardItem {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 23px 14px;
-  /* margin: 0 -14px; */
-  cursor: pointer;
-  color: rgba(22, 22, 22, 0.5);
-
-  width: 100%;
+  padding: 20px 14px;
+  margin-bottom: 4px;
+  min-height: 61px;
+  color: var(--board-item-color);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.activeBoard {
-  color: #161616;
-  border-right: 4px solid #bedbb0;
-  background: #f6f6f7;
+.boardItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+  background: var(--board-item-border-r);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .boardInfo {
   display: flex;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
 }
 
 .boardIcon {
   display: block;
   width: 18px;
   height: 18px;
-  stroke: var(--modal-new-board-icon-item-stroke);
+  stroke: var(--board-item-icon-stroke);
   fill: none;
 }
 
-.boardTitle {}
+.boardTitle {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
 
 .boardSettings {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.updateDelBoard {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -122,8 +148,27 @@
   display: block;
   width: 16px;
   height: 16px;
-  stroke: var(--modal-new-board-icon-item-stroke);
+  stroke: var(--board-item-icon-stroke);
   fill: none;
+  cursor: pointer;
+}
+
+.activeSVG {
+  stroke: var(--board-item-activeSVG);
+}
+
+.activeBoard {
+  color: var(--active-board-color);
+  background: var(--active-board-bg);
+}
+
+.activeBoard::before {
+  opacity: 1;
+}
+
+.activeBoard .boardSettings {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* =========================================================== */
@@ -214,6 +259,18 @@
 
   .contNewBoard {
     gap: 96px;
+  }
+
+  .boardsList {
+    margin: 0 -24px 4px;
+  }
+
+  .boardItem {
+    padding: 20px 24px;
+  }
+
+  .boardInfo {
+    gap: 8px;
   }
 
   .contNeedHelp {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import request from '../../utils/axiosInstance';
 import { setClientAuth, updateTheme } from '../../store/auth/authSlice';
@@ -8,10 +8,14 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Loader from '../../components/Loader/Loader';
 
 import css from './LoginPage.module.css';
+import { setBoardsList } from '../../store/boards/boards';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const currentUser = useSelector(state => state.auth.user);
+  // console.log('Current User from Redux:', currentUser);
 
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -77,6 +81,9 @@ const LoginPage = () => {
       );
 
       dispatch(updateTheme(res.data.user?.theme));
+
+      const resBoards = await request.get('/boards/getUserBoards');
+      dispatch(setBoardsList(resBoards.data.boards));
 
       navigate('/homePage');
       toast.success(`Welcome ${res.data.user?.name}!`);

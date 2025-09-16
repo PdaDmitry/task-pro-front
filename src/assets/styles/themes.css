@@ -33,6 +33,14 @@
   --modal-new-board-button-bg: #bedbb0;
   --modal-new-board-button-hover-bg: #9dc888;
   --modal-new-board-color-btn: #161616;
+
+  /* boardItem */
+  --board-item-color: rgba(22, 22, 22, 0.5);
+  --active-board-color: #161616;
+  --active-board-bg: #f6f6f7;
+  --board-item-border-r: #bedbb0;
+  --board-item-icon-stroke: rgba(22, 22, 22, 0.5);
+  --board-item-activeSVG: #161616;
 }
 
 /* Dark */
@@ -69,6 +77,14 @@
   --modal-new-board-button-bg: #bedbb0;
   --modal-new-board-button-hover-bg: #9dc888;
   --modal-new-board-color-btn: #161616;
+
+  /* boardItem */
+  --board-item-color: rgba(255, 255, 255, 0.5);
+  --active-board-color: #ffffff;
+  --active-board-bg: #1f1f1f;
+  --board-item-border-r: #bedbb0;
+  --board-item-icon-stroke: rgba(255, 255, 255, 0.5);
+  --board-item-activeSVG: #ffffff;
 }
 
 /* Violet */
@@ -99,4 +115,12 @@
   --modal-new-board-button-hover-bg-violet: #7b7ede;
   --modal-new-board-button-bg-violet: #5255bc;
   --modal-new-board-color-btn: #ffffff;
+
+  /* boardItem */
+  --board-item-color: rgba(255, 255, 255, 0.5);
+  --active-board-color: #ffffff;
+  --active-board-bg: rgba(236, 237, 253, 0.4);
+  --board-item-border-r: #ffffff;
+  --board-item-icon-stroke: rgba(255, 255, 255, 0.5);
+  --board-item-activeSVG: #ffffff;
 }

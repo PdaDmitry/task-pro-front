@@ -11,7 +11,7 @@ import {
   persistStore,
 } from 'redux-persist';
 import { authReducer } from './auth/authSlice';
-import { boardsReducer } from './boards/boards,js';
+import { boardsReducer } from './boards/boards';
 
 const persistAuthConfig = {
   key: 'auth',

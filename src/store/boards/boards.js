@@ -17,5 +17,5 @@ const boardsSlice = createSlice({
   },
 });
 
-export const { setBoards, addBoard } = boardsSlice.actions;
+export const { setBoardsList, addBoard } = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;
