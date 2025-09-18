@@ -22,7 +22,7 @@ const persistAuthConfig = {
 const persistBoardsConfig = {
   key: 'boards',
   storage,
-  whitelist: ['boardsList'],
+  whitelist: ['boardsList', 'activeBoard'],
 };
 
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);

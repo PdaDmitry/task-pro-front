@@ -1,15 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
-
-import css from './HomePage.module.css';
 import ActiveBoard from '../../components/ActiveBoard/ActiveBoard';
 
+import css from './HomePage.module.css';
+import { getBackgroundImage } from '../../utils/getBackgroundImage';
+
 const HomePage = () => {
-  // const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
-  // console.log('activeBoardId', activeBoard);
+  const width = window.innerWidth;
+
+  // console.log('activeBoard in HomePage', activeBoard);
+
+  const bgUrl = getBackgroundImage(activeBoard?.background, width);
 
   return (
-    <div className={css.contHomePage}>
+    <div
+      className={css.contHomePage}
+      style={
+        activeBoard?._id
+          ? {
+              backgroundImage: `url(${bgUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }
+          : {}
+      }
+    >
       {activeBoard?._id ? (
         <ActiveBoard />
       ) : (

@@ -1,0 +1,92 @@
+export const backgrounds = [
+  {
+    id: 'bgIcon1',
+    mobile: '/bgsMobile/bg1-2x-mob.jpg',
+    tablet: '/bgsTab/bg1-2x-tab.jpg',
+    desktop: '/bgsDesk/bg1-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon2',
+    mobile: '/bgsMobile/bg2-2x-mob.jpg',
+    tablet: '/bgsTab/bg2-2x-tab.jpg',
+    desktop: '/bgsDesk/bg2-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon3',
+    mobile: '/bgsMobile/bg3-2x-mob.jpg',
+    tablet: '/bgsTab/bg3-2x-tab.jpg',
+    desktop: '/bgsDesk/bg3-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon4',
+    mobile: '/bgsMobile/bg4-2x-mob.jpg',
+    tablet: '/bgsTab/bg4-2x-tab.jpg',
+    desktop: '/bgsDesk/bg4-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon5',
+    mobile: '/bgsMobile/bg5-2x-mob.jpg',
+    tablet: '/bgsTab/bg5-2x-tab.jpg',
+    desktop: '/bgsDesk/bg5-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon6',
+    mobile: '/bgsMobile/bg6-2x-mob.jpg',
+    tablet: '/bgsTab/bg6-2x-tab.jpg',
+    desktop: '/bgsDesk/bg6-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon7',
+    mobile: '/bgsMobile/bg7-2x-mob.jpg',
+    tablet: '/bgsTab/bg7-2x-tab.jpg',
+    desktop: '/bgsDesk/bg7-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon8',
+    mobile: '/bgsMobile/bg8-2x-mob.jpg',
+    tablet: '/bgsTab/bg8-2x-tab.jpg',
+    desktop: '/bgsDesk/bg8-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon9',
+    mobile: '/bgsMobile/bg9-2x-mob.jpg',
+    tablet: '/bgsTab/bg9-2x-tab.jpg',
+    desktop: '/bgsDesk/bg9-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon10',
+    mobile: '/bgsMobile/bg10-2x-mob.jpg',
+    tablet: '/bgsTab/bg10-2x-tab.jpg',
+    desktop: '/bgsDesk/bg10-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon11',
+    mobile: '/bgsMobile/bg11-2x-mob.jpg',
+    tablet: '/bgsTab/bg11-2x-tab.jpg',
+    desktop: '/bgsDesk/bg11-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon12',
+    mobile: '/bgsMobile/bg12-2x-mob.jpg',
+    tablet: '/bgsTab/bg12-2x-tab.jpg',
+    desktop: '/bgsDesk/bg12-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon13',
+    mobile: '/bgsMobile/bg13-2x-mob.jpg',
+    tablet: '/bgsTab/bg13-2x-tab.jpg',
+    desktop: '/bgsDesk/bg13-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon14',
+    mobile: '/bgsMobile/bg14-2x-mob.jpg',
+    tablet: '/bgsTab/bg14-2x-tab.jpg',
+    desktop: '/bgsDesk/bg14-2x-desk.jpg',
+  },
+  {
+    id: 'bgIcon15',
+    mobile: '/bgsMobile/bg15-2x-mob.jpg',
+    tablet: '/bgsTab/bg15-2x-tab.jpg',
+    desktop: '/bgsDesk/bg15-2x-desk.jpg',
+  },
+];
