@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 const ActiveBoard = () => {
   const activeBoard = useSelector(state => state.boards.activeBoard);
+  // console.log('activeBoard', activeBoard);
   //   const [boardData, setBoardData] = useState(null);
   //   const [loading, setLoading] = useState(false);
 
@@ -31,7 +32,7 @@ const ActiveBoard = () => {
   //   if (!boardData) return <p>No data</p>;
 
   return (
-    <div>{activeBoard?.activeBoardId}</div>
+    <div>{activeBoard?._id}</div>
     // <div className={css.boardContent}>
     //   {boardData.columns.map(col => (
     //     <div key={col._id} className={css.column}>

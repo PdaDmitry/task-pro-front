@@ -120,7 +120,9 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
       </div>
 
       {/* sidebar */}
-      {windowWidth < 1440 && <Sidebar isSidebarOpen={isSidebarOpen} />}
+      {windowWidth < 1440 && (
+        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+      )}
       <Loader show={isLoading} />
     </div>
   );

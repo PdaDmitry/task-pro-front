@@ -10,22 +10,22 @@ import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
 import { icons } from '../../data/icons';
-import { removeBoard, setActiveBoardId } from '../../store/boards/boards';
+import { removeBoard, setActiveBoard } from '../../store/boards/boards';
 import request from '../../utils/axiosInstance';
 import { Popconfirm } from 'antd';
 
-const Sidebar = ({ isSidebarOpen }) => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.auth.user);
   const boardsList = useSelector(state => state.boards.boardsList);
-  const activeBoardId = useSelector(state => state.boards.activeBoardId);
+  const activeBoard = useSelector(state => state.boards.activeBoard);
+  // console.log('activeBoard', activeBoard?.activeBoardId);
   // console.log('boardsList', boardsList);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
-  // const [activeBoardId, setActiveBoardId] = useState(null);
 
   const openModal = () => setIsCreateBoardModalOpen(true);
   const closeModal = () => setIsCreateBoardModalOpen(false);
@@ -56,9 +56,10 @@ const Sidebar = ({ isSidebarOpen }) => {
     }
   };
 
-  const openBoard = boardId => {
-    // dispatch(setActiveBoardId(boardId));
-    console.log('Open board with ID Sidebar:', boardId);
+  const openBoard = board => {
+    dispatch(setActiveBoard(board));
+
+    window.innerWidth < 1440 && setIsSidebarOpen(false);
   };
 
   return (
@@ -110,13 +111,15 @@ const Sidebar = ({ isSidebarOpen }) => {
           {boardsList.map(board => (
             <li
               key={board._id}
-              className={`${css.boardItem} ${activeBoardId === board._id ? css.activeBoard : ''}`}
-              // onClick={() => setActiveBoardId(board._id)}
-              onClick={() => dispatch(setActiveBoardId(board._id))}
+              className={`${css.boardItem} ${
+                activeBoard?._id === board._id ? css.activeBoard : ''
+              }`}
             >
-              <div className={css.boardInfo} onClick={() => openBoard(board._id)}>
+              <div className={css.boardInfo} onClick={() => openBoard(board)}>
                 <svg
-                  className={`${css.boardIcon} ${activeBoardId === board._id ? css.activeSVG : ''}`}
+                  className={`${css.boardIcon} ${
+                    activeBoard?._id === board._id ? css.activeSVG : ''
+                  }`}
                 >
                   <use href={`/symbol-defs.svg${getIconUrlById(board.icon)}`} />
                 </svg>

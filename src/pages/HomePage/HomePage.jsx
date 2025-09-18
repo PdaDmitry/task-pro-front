@@ -6,11 +6,11 @@ import ActiveBoard from '../../components/ActiveBoard/ActiveBoard';
 const HomePage = () => {
   // const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
-  // console.log('activeBoardId', activeBoard?.activeBoardId);
+  // console.log('activeBoardId', activeBoard);
 
   return (
     <div className={css.contHomePage}>
-      {activeBoard?.activeBoardId ? (
+      {activeBoard?._id ? (
         <ActiveBoard />
       ) : (
         <div className={css.homePageContent}>
