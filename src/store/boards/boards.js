@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   boardsList: [],
+  activeBoard: {},
 };
 
 const boardsSlice = createSlice({
@@ -23,8 +24,12 @@ const boardsSlice = createSlice({
     removeBoard: (state, action) => {
       state.boardsList = state.boardsList.filter(b => b._id !== action.payload);
     },
+    setActiveBoardId: (state, action) => {
+      state.activeBoard.activeBoardId = action.payload;
+    },
   },
 });
 
-export const { setBoardsList, addBoard, updateBoardInList, removeBoard } = boardsSlice.actions;
+export const { setBoardsList, addBoard, updateBoardInList, removeBoard, setActiveBoardId } =
+  boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

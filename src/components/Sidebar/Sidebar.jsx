@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
 import { icons } from '../../data/icons';
-import { removeBoard } from '../../store/boards/boards';
+import { removeBoard, setActiveBoardId } from '../../store/boards/boards';
 import request from '../../utils/axiosInstance';
 import { Popconfirm } from 'antd';
 
@@ -19,12 +19,13 @@ const Sidebar = ({ isSidebarOpen }) => {
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.auth.user);
   const boardsList = useSelector(state => state.boards.boardsList);
+  const activeBoardId = useSelector(state => state.boards.activeBoardId);
   // console.log('boardsList', boardsList);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
-  const [activeBoardId, setActiveBoardId] = useState(null);
+  // const [activeBoardId, setActiveBoardId] = useState(null);
 
   const openModal = () => setIsCreateBoardModalOpen(true);
   const closeModal = () => setIsCreateBoardModalOpen(false);
@@ -53,6 +54,11 @@ const Sidebar = ({ isSidebarOpen }) => {
       console.error('Error deleting board:', error);
       toast.error('Failed to delete board. Please try again.');
     }
+  };
+
+  const openBoard = boardId => {
+    // dispatch(setActiveBoardId(boardId));
+    console.log('Open board with ID Sidebar:', boardId);
   };
 
   return (
@@ -105,9 +111,10 @@ const Sidebar = ({ isSidebarOpen }) => {
             <li
               key={board._id}
               className={`${css.boardItem} ${activeBoardId === board._id ? css.activeBoard : ''}`}
-              onClick={() => setActiveBoardId(board._id)}
+              // onClick={() => setActiveBoardId(board._id)}
+              onClick={() => dispatch(setActiveBoardId(board._id))}
             >
-              <div className={css.boardInfo}>
+              <div className={css.boardInfo} onClick={() => openBoard(board._id)}>
                 <svg
                   className={`${css.boardIcon} ${activeBoardId === board._id ? css.activeSVG : ''}`}
                 >
