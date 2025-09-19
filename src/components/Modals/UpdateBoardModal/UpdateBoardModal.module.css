@@ -1,0 +1,238 @@
+.contNewBoard {
+    position: relative;
+    width: 335px;
+    border-radius: 8px;
+    padding: 24px;
+    background: var(--modal-new-board-bg-cont);
+}
+
+.closeBtnSvg {
+    position: absolute;
+    display: block;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    height: 18px;
+    stroke: var(--modal-new-board-color);
+    cursor: pointer;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--modal-new-board-color);
+}
+
+/* =======================input======================== */
+
+.input {
+    border: 1px solid var(--modal-new-board-input-border);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 287px;
+    height: 49px;
+    padding-left: 18px;
+    background: var(--modal-new-board-input-bg);
+    box-shadow: 0 4px 16px 0 var(--modal-new-board-input-box-shadow);
+
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--modal-new-board-color);
+
+    margin-bottom: 24px;
+    /* opacity: 0.4; */
+    transition: border-color 0.3s ease;
+}
+
+.input:hover {
+    border-color: var(--modal-new-board-input-hover-border);
+}
+
+.input:focus {
+    border-color: var(--modal-new-board-input-focus-border);
+    outline: none;
+}
+
+/* For placeholder */
+.input::placeholder {
+    color: var(--modal-new-board-placeholder-color);
+    opacity: 1;
+}
+
+/* For different browsers */
+.input::-webkit-input-placeholder {
+    color: var(--modal-new-board-placeholder-color);
+}
+
+.input::-moz-placeholder {
+    color: var(--modal-new-board-placeholder-color);
+}
+
+.input:-ms-input-placeholder {
+    color: var(--modal-new-board-placeholder-color);
+}
+
+.input:-moz-placeholder {
+    color: var(--modal-new-board-placeholder-color);
+}
+
+.error {
+    font-size: 10px;
+    color: red;
+    margin-bottom: 8px;
+}
+
+/* =============================================== */
+
+.titleIcons {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--modal-new-board-color);
+    margin-bottom: 14px;
+}
+
+.contIcons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.iconItem {
+    display: block;
+    width: 18px;
+    height: 18px;
+    stroke: var(--modal-new-board-icon-item-stroke);
+    fill: none;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.iconItem:hover {
+    transform: scale(1.2);
+    z-index: 1;
+}
+
+.iconItem.active {
+    transform: scale(1.2);
+    z-index: 1;
+}
+
+/* =================== */
+
+.titleBgr {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--modal-new-board-color);
+    margin-bottom: 14px;
+}
+
+.contBgr {
+    display: flex;
+    width: 252px;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 40px;
+}
+
+.bgItem {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+
+    flex: 0 0 calc((100% - 7 * 4px) / 8);
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bgItem:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.bgItem.active {
+    transform: scale(1.12);
+    z-index: 1;
+}
+
+.createBoardtBtn,
+.createBoardtBtnViolet {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    max-width: 287px;
+    width: 100%;
+    height: 49px;
+    background: var(--modal-new-board-button-bg);
+    cursor: pointer;
+
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: var(--modal-new-board-color-btn);
+}
+
+.createBoardtBtn:hover {
+    background: var(--modal-new-board-button-hover-bg);
+}
+
+.createBoardtBtnViolet {
+    background: var(--modal-new-board-button-bg-violet);
+}
+
+.createBoardtBtnViolet:hover {
+    background: var(--modal-new-board-button-hover-bg-violet);
+}
+
+.createBtnSvg {
+    display: block;
+    width: 28px;
+    height: 28px;
+}
+
+@media screen and (min-width: 768px) {
+    .contNewBoard {
+        width: 350px;
+    }
+
+    .input {
+        max-width: 302px;
+    }
+
+    .iconItem {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contBgr {
+        width: 299px;
+        gap: 5px;
+    }
+
+
+    .bgItem {
+        width: 33px;
+        height: 33px;
+
+        flex: 0 0 calc((100% - 7 * 5px) / 8);
+    }
+
+    .createBoardtBtn,
+    .createBoardtBtnViolet {
+        max-width: 302px;
+    }
+}
+
+@media screen and (min-width: 1440px) {}

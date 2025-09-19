@@ -13,6 +13,7 @@ import { icons } from '../../data/icons';
 import { removeBoard, setActiveBoard } from '../../store/boards/boards';
 import request from '../../utils/axiosInstance';
 import { Popconfirm } from 'antd';
+import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -26,9 +27,13 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
+  const [isUpdateBoardModalOpen, setIsUpdateBoardModalOpen] = useState(false);
 
   const openModal = () => setIsCreateBoardModalOpen(true);
   const closeModal = () => setIsCreateBoardModalOpen(false);
+
+  const openUpdateBoardModal = () => setIsUpdateBoardModalOpen(true);
+  const closeUpdateBoardModal = () => setIsUpdateBoardModalOpen(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -128,7 +133,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
               <div className={css.boardSettings}>
                 <div className={css.updateDelBoard}>
-                  <svg className={css.updateBoardSvg}>
+                  <svg className={css.updateBoardSvg} onClick={openUpdateBoardModal}>
                     <use href="/symbol-defs.svg#icon-pencil-01"></use>
                   </svg>
                   <Popconfirm
@@ -188,6 +193,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       </div>
       <ModalWindow isOpen={isCreateBoardModalOpen} onClose={closeModal}>
         <CreateBoardModal closeModal={closeModal} />
+      </ModalWindow>
+
+      <ModalWindow isOpen={isUpdateBoardModalOpen} onClose={closeUpdateBoardModal}>
+        <UpdateBoardModal closeModal={closeUpdateBoardModal} />
       </ModalWindow>
     </div>
   );

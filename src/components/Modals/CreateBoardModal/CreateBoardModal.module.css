@@ -87,7 +87,6 @@
 /* =============================================== */
 
 .titleIcons {
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
@@ -99,7 +98,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   margin-bottom: 24px;
 }
 
@@ -203,3 +201,38 @@
   width: 28px;
   height: 28px;
 }
+
+@media screen and (min-width: 768px) {
+  .contNewBoard {
+    width: 350px;
+  }
+
+  .input {
+    max-width: 302px;
+  }
+
+  .iconItem {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contBgr {
+    width: 299px;
+    gap: 5px;
+  }
+
+
+  .bgItem {
+    width: 33px;
+    height: 33px;
+
+    flex: 0 0 calc((100% - 7 * 5px) / 8);
+  }
+
+  .createBoardtBtn,
+  .createBoardtBtnViolet {
+    max-width: 302px;
+  }
+}
+
+@media screen and (min-width: 1440px) {}

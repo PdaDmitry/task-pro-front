@@ -3,20 +3,22 @@ import { backgrounds } from '../../../data/backgroundIcons';
 import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
 
-import css from './CreateBoardModal.module.css';
+import css from './UpdateBoardModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
 import Loader from '../../Loader/Loader';
-import { addBoard } from '../../../store/boards/boards.js';
 
-const CreateBoardModal = ({ closeModal }) => {
+const UpdateBoardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
+  const activeBoard = useSelector(state => state.boards.activeBoard);
+  //   console.log('activeBoard in UpdateBoardModal', activeBoard);
+
   const [formData, setFormData] = useState({
-    title: '',
-    icon: 'icon0',
-    background: 'bgIcon0',
+    title: activeBoard?.title || '',
+    icon: activeBoard?.icon || 'icon0',
+    background: activeBoard?.background || 'bgIcon0',
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,21 +38,23 @@ const CreateBoardModal = ({ closeModal }) => {
       return;
     }
 
-    try {
-      setIsLoading(true);
-      const res = await request.post('/boards/createBoard', formData);
+    console.log(formData);
 
-      dispatch(addBoard(res.data.board));
-      toast.success(res.data.message);
-    } catch (error) {
-      console.error('Error creating board:', error);
-      toast.error('Failed to create board. Please try again.');
-      return;
-    } finally {
-      setIsLoading(false);
-    }
+    // try {
+    //   setIsLoading(true);
+    //   const res = await request.post('/boards/createBoard', formData);
 
-    setFormData({ title: '', icon: '', background: '' });
+    //   dispatch(addBoard(res.data.board));
+    //   toast.success(res.data.message);
+    // } catch (error) {
+    //   console.error('Error creating board:', error);
+    //   toast.error('Failed to create board. Please try again.');
+    //   return;
+    // } finally {
+    //   setIsLoading(false);
+    // }
+
+    // setFormData({ title: '', icon: '', background: '' });
     setError('');
 
     closeModal();
@@ -61,7 +65,7 @@ const CreateBoardModal = ({ closeModal }) => {
       <svg className={css.closeBtnSvg} onClick={closeModal}>
         <use href="/symbol-defs.svg#icon-x-close-1"></use>
       </svg>
-      <h2 className={css.title}>New board</h2>
+      <h2 className={css.title}>Edit board</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Board name */}
@@ -140,4 +144,4 @@ const CreateBoardModal = ({ closeModal }) => {
   );
 };
 
-export default CreateBoardModal;
+export default UpdateBoardModal;
