@@ -52,22 +52,31 @@ const ActiveBoard = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <svg
-            className={css.createColumnSvg}
-            style={
-              currentUser?.theme === 'Violet' && isHovered
-                ? { fill: '#5255bc' }
-                : { fill: '#696dee' }
-            }
-          >
+          {currentUser?.theme === 'Violet' ? (
+            <svg className={css.icon}>
+              {/* <use href="symbol-defs.svg#icon-normal-2"></use> */}
+              href={isHovered ? '/symbol-defs.svg#icon-normal-2' : '/symbol-defs.svg#icon-hover-1'}
+            </svg>
+          ) : (
+            <svg className={css.createColumnSvg}>
+              <use
+                href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
+              ></use>
+            </svg>
+          )}
+          {/* <svg className={css.createColumnSvg}>
             {currentUser?.theme === 'Violet' ? (
-              <use href="/symbol-defs.svg#icon-block"></use>
+              <use
+                href={
+                  isHovered ? '/symbol-defs.svg#icon-hover-1' : '/symbol-defs.svg#icon-normal-2'
+                }
+              ></use>
             ) : (
               <use
                 href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
               ></use>
             )}
-          </svg>
+          </svg> */}
           Add another column
         </button>
       </div>
