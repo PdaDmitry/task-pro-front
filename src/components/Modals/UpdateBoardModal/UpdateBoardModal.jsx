@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { backgrounds } from '../../../data/backgroundIcons';
 import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
-
-import css from './UpdateBoardModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
 import Loader from '../../Loader/Loader';
+import { updateBoardInList } from '../../../store/boards/boards';
+
+import css from './UpdateBoardModal.module.css';
 
 const UpdateBoardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
-  //   console.log('activeBoard in UpdateBoardModal', activeBoard);
 
   const [formData, setFormData] = useState({
     title: activeBoard?.title || '',
@@ -38,23 +38,21 @@ const UpdateBoardModal = ({ closeModal }) => {
       return;
     }
 
-    console.log(formData);
+    try {
+      setIsLoading(true);
+      const res = await request.put(`/boards/updateBoard/${activeBoard._id}`, formData);
 
-    // try {
-    //   setIsLoading(true);
-    //   const res = await request.post('/boards/createBoard', formData);
+      dispatch(updateBoardInList(res.data.board));
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error('Error updating board:', error);
+      toast.error('Failed to update board. Please try again.');
+      return;
+    } finally {
+      setIsLoading(false);
+    }
 
-    //   dispatch(addBoard(res.data.board));
-    //   toast.success(res.data.message);
-    // } catch (error) {
-    //   console.error('Error creating board:', error);
-    //   toast.error('Failed to create board. Please try again.');
-    //   return;
-    // } finally {
-    //   setIsLoading(false);
-    // }
-
-    // setFormData({ title: '', icon: '', background: '' });
+    setFormData({ title: '', icon: '', background: '' });
     setError('');
 
     closeModal();
@@ -136,7 +134,7 @@ const UpdateBoardModal = ({ closeModal }) => {
               }
             ></use>
           </svg>
-          Create
+          Edit
         </button>
       </form>
       <Loader show={isLoading} />

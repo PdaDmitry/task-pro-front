@@ -20,6 +20,9 @@ const boardsSlice = createSlice({
       if (index !== -1) {
         state.boardsList[index] = action.payload;
       }
+      if (state.activeBoard?._id === action.payload._id) {
+        state.activeBoard = action.payload;
+      }
     },
     removeBoard: (state, action) => {
       state.boardsList = state.boardsList.filter(b => b._id !== action.payload);

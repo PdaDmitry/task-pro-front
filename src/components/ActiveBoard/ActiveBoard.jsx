@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 // import request from '../../utils/axiosInstance';
 
-// import css from './ActiveBoard.module.css';
+import css from './ActiveBoard.module.css';
 
 const ActiveBoard = () => {
+  const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
   // console.log('activeBoard', activeBoard);
   //   const [boardData, setBoardData] = useState(null);
@@ -32,7 +33,32 @@ const ActiveBoard = () => {
   //   if (!boardData) return <p>No data</p>;
 
   return (
-    <div>{activeBoard?._id}</div>
+    <div className={css.contActiveBoard}>
+      <div className={css.contTitleBoard}>
+        <h2 className={css.titleBoard}>{activeBoard?.title}</h2>
+        <div className={css.contFilter}>
+          <svg className={css.filterSvg}>
+            <use href="/symbol-defs.svg#icon-filter"></use>
+          </svg>
+          <p className={css.titleFilter}>Filters</p>
+        </div>
+      </div>
+      <div>
+        <button type="submit" className={css.addColumnBtn}>
+          <svg className={css.createColumnSvg}>
+            <use
+              href={
+                currentUser?.theme === 'Violet'
+                  ? '/symbol-defs.svg#icon-plus-2'
+                  : '/symbol-defs.svg#icon-plus-1'
+              }
+            ></use>
+          </svg>
+          Add another column
+        </button>
+      </div>
+    </div>
+
     // <div className={css.boardContent}>
     //   {boardData.columns.map(col => (
     //     <div key={col._id} className={css.column}>

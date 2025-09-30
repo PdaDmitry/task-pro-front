@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ActiveBoard from '../../components/ActiveBoard/ActiveBoard';
+import { getBackgroundImage } from '../../utils/getBackgroundImage';
 
 import css from './HomePage.module.css';
-import { getBackgroundImage } from '../../utils/getBackgroundImage';
 
 const HomePage = () => {
   const activeBoard = useSelector(state => state.boards.activeBoard);
