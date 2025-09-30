@@ -56,29 +56,18 @@ const ActiveBoard = () => {
             className={css.createColumnSvg}
             style={
               currentUser?.theme === 'Violet' && isHovered
-                ? { fill: '#696dee' }
-                : { fill: 'a3a5e7' }
+                ? { fill: '#5255bc' }
+                : { fill: '#696dee' }
             }
           >
             {currentUser?.theme === 'Violet' ? (
-              <use
-                href={isHovered ? '/symbol-defs.svg#icon-plus-1' : '/symbol-defs.svg#icon-plus-2'}
-              ></use>
+              <use href="/symbol-defs.svg#icon-block"></use>
             ) : (
               <use
                 href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
               ></use>
             )}
           </svg>
-          {/* <svg className={css.createColumnSvg}>
-            <use
-              href={
-                currentUser?.theme === 'Violet'
-                  ? '/symbol-defs.svg#icon-plus-2'
-                  : '/symbol-defs.svg#icon-plus-1'
-              }
-            ></use>
-          </svg> */}
           Add another column
         </button>
       </div>

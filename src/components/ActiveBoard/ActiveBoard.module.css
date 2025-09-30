@@ -54,7 +54,7 @@
   background: #ffffffe8;
   height: 56px;
   cursor: pointer;
-  color: #a3a5e7;
+  /* color: #a3a5e7; */
 }
 
 /* .addColumnBtn:hover {
@@ -63,7 +63,7 @@
 
 .createColumnSvg {
   display: block;
-  width: 28px;
+  width: 28px !important;
   height: 28px;
   /* stroke: currentColor; */
   /* fill: none; */
