@@ -8,12 +8,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 39px;
+  color: var(--cont-title-board-color);
 }
 
 .contFilter {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 5px;
   cursor: pointer;
 }
 
@@ -22,7 +24,12 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: #161616;
+  padding: 5px;
+}
+
+.background {
+  background-color: #ffffff;
+  border-radius: 6px;
 }
 
 .filterSvg {
@@ -38,7 +45,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: rgba(22, 22, 22, 0.8);
+  /* color: rgba(22, 22, 22, 0.8); */
 }
 
 .addColumnBtn {
@@ -51,32 +58,13 @@
 
   border-radius: 8px;
   border: none;
-  background: #ffffffe8;
+  background: #ffffff;
   height: 56px;
   cursor: pointer;
-  /* color: #a3a5e7; */
 }
-
-/* .addColumnBtn:hover {
-    background: #efededdf;
-} */
 
 .createColumnSvg {
   display: block;
   width: 28px;
   height: 28px;
-  /* stroke: currentColor; */
-  /* fill: none; */
-}
-
-.icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
-.iconNormal {
-  width: 1.111328125em;
 }

@@ -1,0 +1,143 @@
+.contAddColumn {
+  position: relative;
+  width: 335px;
+  border-radius: 8px;
+  padding: 24px;
+  background: var(--modal-new-board-bg-cont);
+}
+
+.closeBtnSvg {
+  position: absolute;
+  display: block;
+  top: 14px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  stroke: var(--modal-new-board-color);
+  cursor: pointer;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: #161616;
+}
+
+.input {
+  border: 1px solid var(--modal-new-board-input-border);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 287px;
+  height: 49px;
+  padding-left: 18px;
+  background: var(--modal-new-board-input-bg);
+  box-shadow: 0 4px 16px 0 var(--modal-new-board-input-box-shadow);
+
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color);
+
+  margin-bottom: 24px;
+  /* opacity: 0.4; */
+  transition: border-color 0.3s ease;
+}
+
+.input:hover {
+  border-color: var(--modal-new-board-input-hover-border);
+}
+
+.input:focus {
+  border-color: var(--modal-new-board-input-focus-border);
+  outline: none;
+}
+
+/* For placeholder */
+.input::placeholder {
+  color: var(--modal-new-board-placeholder-color);
+  opacity: 1;
+}
+
+/* For different browsers */
+.input::-webkit-input-placeholder {
+  color: var(--modal-new-board-placeholder-color);
+}
+
+.input::-moz-placeholder {
+  color: var(--modal-new-board-placeholder-color);
+}
+
+.input:-ms-input-placeholder {
+  color: var(--modal-new-board-placeholder-color);
+}
+
+.input:-moz-placeholder {
+  color: var(--modal-new-board-placeholder-color);
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+  margin-bottom: 8px;
+}
+
+/* ============================================================= */
+
+.addColumntBtn,
+.addColumnBtnViolet {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  max-width: 287px;
+  width: 100%;
+  height: 49px;
+  background: var(--modal-new-board-button-bg);
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color-btn);
+}
+
+.addColumntBtn:hover {
+  background: var(--modal-new-board-button-hover-bg);
+}
+
+.addColumnBtnViolet {
+  background: var(--modal-new-board-button-bg-violet);
+}
+
+.addColumnBtnViolet:hover {
+  background: var(--modal-new-board-button-hover-bg-violet);
+}
+
+.createBtnSvg {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+@media screen and (min-width: 768px) {
+  .contAddColumn {
+    width: 350px;
+  }
+
+  .input {
+    max-width: 302px;
+  }
+
+  .addColumntBtn,
+  .addColumnBtnViolet {
+    max-width: 302px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+}

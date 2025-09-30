@@ -3,42 +3,39 @@ import { useSelector } from 'react-redux';
 // import request from '../../utils/axiosInstance';
 
 import css from './ActiveBoard.module.css';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 
 const ActiveBoard = () => {
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
 
   const [isHovered, setIsHovered] = useState(false);
-  // console.log('activeBoard', activeBoard);
-  //   const [boardData, setBoardData] = useState(null);
-  //   const [loading, setLoading] = useState(false);
+  const [isAddColumn, setIsAddColumn] = useState(false);
 
-  //   useEffect(() => {
-  // if (!activeBoard?.activeBoardId) return;
-  // setLoading(true);
-
-  // const fetchBoard = async () => {
-  //   try {
-  //     const res = await request.get(`/boards/${activeBoardId}/full`);
-  //     setBoardData(res.data); // { title, columns: [...] }
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // fetchBoard();
-  //   }, [activeBoard?.activeBoardId]);
-
-  //   if (loading) return <p>Loading...</p>;
-  //   if (!boardData) return <p>No data</p>;
+  const openModal = () => setIsAddColumn(true);
+  const closeModal = () => setIsAddColumn(false);
 
   return (
     <div className={css.contActiveBoard}>
-      <div className={css.contTitleBoard}>
-        <h2 className={css.titleBoard}>{activeBoard?.title}</h2>
-        <div className={css.contFilter}>
+      <div
+        className={css.contTitleBoard}
+        style={{
+          color: currentUser?.theme && activeBoard?.background !== 'bgIcon0' ? '#161616' : '',
+        }}
+      >
+        <h2
+          className={`${css.titleBoard} ${
+            activeBoard?.background !== 'bgIcon0' ? css.background : ''
+          }`}
+        >
+          {activeBoard?.title}
+        </h2>
+        <div
+          className={`${css.contFilter} ${
+            activeBoard?.background !== 'bgIcon0' ? css.background : ''
+          }`}
+        >
           <svg className={css.filterSvg}>
             <use href="/symbol-defs.svg#icon-filter"></use>
           </svg>
@@ -49,26 +46,18 @@ const ActiveBoard = () => {
         <button
           type="submit"
           className={css.addColumnBtn}
+          // onClick={handleAddColumn}
+          onClick={openModal}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {currentUser?.theme === 'Violet' ? (
-            <svg className={css.icon}>
-              {/* <use href="symbol-defs.svg#icon-normal-2"></use> */}
-              href={isHovered ? '/symbol-defs.svg#icon-normal-2' : '/symbol-defs.svg#icon-hover-1'}
-            </svg>
-          ) : (
-            <svg className={css.createColumnSvg}>
-              <use
-                href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
-              ></use>
-            </svg>
-          )}
-          {/* <svg className={css.createColumnSvg}>
+          <svg className={css.createColumnSvg}>
             {currentUser?.theme === 'Violet' ? (
               <use
                 href={
-                  isHovered ? '/symbol-defs.svg#icon-hover-1' : '/symbol-defs.svg#icon-normal-2'
+                  isHovered
+                    ? '/iconsSVG/symbol-defs-2.svg#icon-normal-2'
+                    : '/iconsSVG/symbol-defs-2.svg#icon-hover-1'
                 }
               ></use>
             ) : (
@@ -76,10 +65,14 @@ const ActiveBoard = () => {
                 href={isHovered ? '/symbol-defs.svg#icon-hover' : '/symbol-defs.svg#icon-normal'}
               ></use>
             )}
-          </svg> */}
+          </svg>
           Add another column
         </button>
       </div>
+
+      <ModalWindow isOpen={isAddColumn} onClose={closeModal}>
+        <AddColumnModal closeModal={closeModal} />
+      </ModalWindow>
     </div>
 
     // <div className={css.boardContent}>

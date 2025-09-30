@@ -41,6 +41,9 @@
   --board-item-border-r: #bedbb0;
   --board-item-icon-stroke: rgba(22, 22, 22, 0.5);
   --board-item-activeSVG: #161616;
+
+  /* ActiveBoard */
+  --cont-title-board-color: #161616;
 }
 
 /* Dark */
@@ -85,6 +88,9 @@
   --board-item-border-r: #bedbb0;
   --board-item-icon-stroke: rgba(255, 255, 255, 0.5);
   --board-item-activeSVG: #ffffff;
+
+  /* ActiveBoard */
+  --cont-title-board-color: #ffffff;
 }
 
 /* Violet */
@@ -123,4 +129,7 @@
   --board-item-border-r: #ffffff;
   --board-item-icon-stroke: rgba(255, 255, 255, 0.5);
   --board-item-activeSVG: #ffffff;
+
+  /* ActiveBoard */
+  --cont-title-board-color: #161616;
 }
