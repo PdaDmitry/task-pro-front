@@ -14,6 +14,7 @@ import { removeBoard, setActiveBoard } from '../../store/boards/boards';
 import request from '../../utils/axiosInstance';
 import { Popconfirm } from 'antd';
 import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
+import Loader from '../Loader/Loader';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
   const [isUpdateBoardModalOpen, setIsUpdateBoardModalOpen] = useState(false);
 
@@ -49,6 +51,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const handleDeleteBoard = async boardId => {
     try {
+      setIsLoading(true);
       const res = await request.delete('/boards/deleteBoard', { data: { boardId } });
       if (res.data.status) {
         dispatch(removeBoard(boardId));
@@ -58,6 +61,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     } catch (error) {
       console.error('Error deleting board:', error);
       toast.error('Failed to delete board. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -198,6 +203,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <ModalWindow isOpen={isUpdateBoardModalOpen} onClose={closeUpdateBoardModal}>
         <UpdateBoardModal closeModal={closeUpdateBoardModal} />
       </ModalWindow>
+
+      {/* <Loader show={isLoading} /> */}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 .contNewBoard {
     position: relative;
-    width: 335px;
+    width: 100%;
+    max-width: 335px;
     border-radius: 8px;
     padding: 24px;
     background: var(--modal-new-board-bg-cont);
@@ -204,7 +205,7 @@
 
 @media screen and (min-width: 768px) {
     .contNewBoard {
-        width: 350px;
+        max-width: 350px;
     }
 
     .input {

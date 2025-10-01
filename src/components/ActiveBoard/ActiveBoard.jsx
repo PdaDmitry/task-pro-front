@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 // import request from '../../utils/axiosInstance';
 
@@ -74,25 +74,6 @@ const ActiveBoard = () => {
         <AddColumnModal closeModal={closeModal} />
       </ModalWindow>
     </div>
-
-    // <div className={css.boardContent}>
-    //   {boardData.columns.map(col => (
-    //     <div key={col._id} className={css.column}>
-    //       <h3>{col.title}</h3>
-    //       <div className={css.cards}>
-    //         {col.cards.length ? (
-    //           col.cards.map(card => (
-    //             <div key={card._id} className={css.card}>
-    //               {card.title}
-    //             </div>
-    //           ))
-    //         ) : (
-    //           <p>No cards</p>
-    //         )}
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
   );
 };
 

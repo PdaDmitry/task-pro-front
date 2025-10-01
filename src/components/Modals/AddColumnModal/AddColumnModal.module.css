@@ -1,6 +1,7 @@
 .contAddColumn {
   position: relative;
-  width: 335px;
+  width: 90vw;
+  max-width: 335px;
   border-radius: 8px;
   padding: 24px;
   background: var(--modal-new-board-bg-cont);
@@ -18,12 +19,11 @@
 }
 
 .title {
-  font-family: var(--font-family);
   font-weight: 500;
   font-size: 18px;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
-  color: #161616;
+  color: var(--modal-new-board-color);
 }
 
 .input {
@@ -41,7 +41,6 @@
   color: var(--modal-new-board-color);
 
   margin-bottom: 24px;
-  /* opacity: 0.4; */
   transition: border-color 0.3s ease;
 }
 
@@ -126,7 +125,7 @@
 
 @media screen and (min-width: 768px) {
   .contAddColumn {
-    width: 350px;
+    max-width: 350px;
   }
 
   .input {
@@ -139,5 +138,4 @@
   }
 }
 
-@media screen and (min-width: 1440px) {
-}
+@media screen and (min-width: 1440px) {}
