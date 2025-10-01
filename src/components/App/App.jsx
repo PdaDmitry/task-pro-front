@@ -13,11 +13,12 @@ import Sidebar from '../Sidebar/Sidebar';
 import '../../assets/styles/themes.css';
 import css from './App.module.css';
 import { useSelector } from 'react-redux';
+import Loader from '../Loader/Loader';
 
 function App() {
   const location = useLocation();
   const currentUser = useSelector(state => state.auth.user);
-  // console.log('currentUser', currentUser);
+  const isLoading = useSelector(state => state.loader.isLoading);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -44,6 +45,7 @@ function App() {
 
   return (
     <>
+      <Loader show={isLoading} />
       {windowWidth < 1440 && !isWelcomePage && !isRegisterPage && !isLoginPage && (
         <div
           className={`${css.backdrop} ${isSidebarOpen ? css.backdropVisible : ''}`}

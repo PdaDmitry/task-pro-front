@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Dropdown } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import css from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { updateTheme } from '../../store/auth/authSlice';
 import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
-import Loader from '../Loader/Loader';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+
+import css from './Header.module.css';
 
 const themes = ['Light', 'Dark', 'Violet'];
 
@@ -17,7 +18,6 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,7 +59,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setSelectedTheme(e.key);
 
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.patch('/users/updateTheme', { theme: e.key });
 
       dispatch(updateTheme(res.data.user?.theme));
@@ -69,7 +69,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       toast.error(err);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -123,7 +123,6 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {windowWidth < 1440 && (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       )}
-      <Loader show={isLoading} />
     </div>
   );
 };

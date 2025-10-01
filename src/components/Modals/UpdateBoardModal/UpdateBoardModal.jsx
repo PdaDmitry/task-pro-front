@@ -3,10 +3,11 @@ import { backgrounds } from '../../../data/backgroundIcons';
 import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateBoardInList } from '../../../store/boards/boards';
+import { setIsLoading } from '../../../store/loader/loaderSlice';
+
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
-import Loader from '../../Loader/Loader';
-import { updateBoardInList } from '../../../store/boards/boards';
 
 import css from './UpdateBoardModal.module.css';
 
@@ -21,7 +22,6 @@ const UpdateBoardModal = ({ closeModal }) => {
     background: activeBoard?.background || 'bgIcon0',
   });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const theme = currentUser?.theme || 'Light';
 
@@ -39,7 +39,7 @@ const UpdateBoardModal = ({ closeModal }) => {
     }
 
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.put(`/boards/updateBoard/${activeBoard._id}`, formData);
 
       dispatch(updateBoardInList(res.data.board));
@@ -49,7 +49,7 @@ const UpdateBoardModal = ({ closeModal }) => {
       toast.error('Failed to update board. Please try again.');
       return;
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
 
     setFormData({ title: '', icon: '', background: '' });
@@ -137,7 +137,6 @@ const UpdateBoardModal = ({ closeModal }) => {
           Edit
         </button>
       </form>
-      <Loader show={isLoading} />
     </div>
   );
 };

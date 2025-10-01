@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import { authReducer } from './auth/authSlice';
 import { boardsReducer } from './boards/boards';
+import { loaderReducer } from './loader/loaderSlice';
 
 const persistAuthConfig = {
   key: 'auth',
@@ -32,6 +33,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     boards: persistedBoardsReducer,
+    loader: loaderReducer,
     // tasks: tasksReducer,
   },
   middleware: getDefaultMiddleware =>

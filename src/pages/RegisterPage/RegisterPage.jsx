@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import request from '../../utils/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { setClientAuth } from '../../store/auth/authSlice';
-import toast from 'react-hot-toast';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import Loader from '../../components/Loader/Loader';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+
+import request from '../../utils/axiosInstance';
+import toast from 'react-hot-toast';
 
 import css from './RegisterPage.module.css';
 
@@ -16,7 +17,6 @@ const RegisterPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,7 +73,7 @@ const RegisterPage = () => {
     }
 
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.post('/auth/register', formData);
       localStorage.setItem('token', res.data.token);
 
@@ -89,7 +89,7 @@ const RegisterPage = () => {
       console.error('❌ Registration error:', err.response?.data || err.message);
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -143,7 +143,6 @@ const RegisterPage = () => {
           Register Now
         </button>
       </form>
-      <Loader show={isLoading} />
     </div>
   );
 };

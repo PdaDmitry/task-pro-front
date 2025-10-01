@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import request from '../../utils/axiosInstance';
 import { setClientAuth, updateTheme } from '../../store/auth/authSlice';
-import toast from 'react-hot-toast';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import Loader from '../../components/Loader/Loader';
+import { setBoardsList } from '../../store/boards/boards';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+
+import request from '../../utils/axiosInstance';
+import toast from 'react-hot-toast';
 
 import css from './LoginPage.module.css';
-import { setBoardsList } from '../../store/boards/boards';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^[^\s]{8,64}$/;
@@ -68,18 +68,16 @@ const LoginPage = () => {
     }
 
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.post('/auth/login', formData);
 
       localStorage.setItem('token', res.data.token);
-
       dispatch(
         setClientAuth({
           token: res.data.token,
           user: res.data.user,
         })
       );
-
       dispatch(updateTheme(res.data.user?.theme));
 
       const resBoards = await request.get('/boards/getUserBoards');
@@ -92,7 +90,7 @@ const LoginPage = () => {
 
       toast.error(err.response?.data?.message);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -135,7 +133,6 @@ const LoginPage = () => {
           Log In Now
         </button>
       </form>
-      <Loader show={isLoading} />
     </div>
   );
 };

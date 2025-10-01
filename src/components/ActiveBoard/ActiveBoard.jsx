@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 // import request from '../../utils/axiosInstance';
 
-import css from './ActiveBoard.module.css';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
+
+import css from './ActiveBoard.module.css';
 
 const ActiveBoard = () => {
   const currentUser = useSelector(state => state.auth.user);

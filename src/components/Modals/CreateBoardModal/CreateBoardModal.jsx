@@ -2,24 +2,25 @@ import { useState } from 'react';
 import { backgrounds } from '../../../data/backgroundIcons';
 import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
-
-import css from './CreateBoardModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { addBoard } from '../../../store/boards/boards.js';
+import { setIsLoading } from '../../../store/loader/loaderSlice.js';
+
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
-import Loader from '../../Loader/Loader';
-import { addBoard } from '../../../store/boards/boards.js';
+
+import css from './CreateBoardModal.module.css';
 
 const CreateBoardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
+
   const [formData, setFormData] = useState({
     title: '',
     icon: 'icon0',
     background: 'bgIcon0',
   });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const theme = currentUser?.theme || 'Light';
 
@@ -37,7 +38,7 @@ const CreateBoardModal = ({ closeModal }) => {
     }
 
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.post('/boards/createBoard', formData);
 
       dispatch(addBoard(res.data.board));
@@ -47,7 +48,7 @@ const CreateBoardModal = ({ closeModal }) => {
       toast.error('Failed to create board. Please try again.');
       return;
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
 
     setFormData({ title: '', icon: '', background: '' });
@@ -135,7 +136,6 @@ const CreateBoardModal = ({ closeModal }) => {
           Create
         </button>
       </form>
-      <Loader show={isLoading} />
     </div>
   );
 };

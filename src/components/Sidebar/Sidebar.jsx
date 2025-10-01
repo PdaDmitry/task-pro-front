@@ -1,20 +1,21 @@
 import { useState } from 'react';
-import CactusMob from '/Cactus/Cactus-mob-2x.png';
-import LogoutIcon from '../LogoutIcon/LogoutIcon';
-
-import css from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/auth/authSlice';
+import { icons } from '../../data/icons';
+import { removeBoard, setActiveBoard } from '../../store/boards/boards';
+import { Popconfirm } from 'antd';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+
+import CactusMob from '/Cactus/Cactus-mob-2x.png';
+import LogoutIcon from '../LogoutIcon/LogoutIcon';
 import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
-import { icons } from '../../data/icons';
-import { removeBoard, setActiveBoard } from '../../store/boards/boards';
 import request from '../../utils/axiosInstance';
-import { Popconfirm } from 'antd';
 import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
-import Loader from '../Loader/Loader';
+
+import css from './Sidebar.module.css';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -22,12 +23,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const currentUser = useSelector(state => state.auth.user);
   const boardsList = useSelector(state => state.boards.boardsList);
   const activeBoard = useSelector(state => state.boards.activeBoard);
-  // console.log('activeBoard', activeBoard?.activeBoardId);
-  // console.log('boardsList', boardsList);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
   const [isUpdateBoardModalOpen, setIsUpdateBoardModalOpen] = useState(false);
 
@@ -51,7 +49,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const handleDeleteBoard = async boardId => {
     try {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       const res = await request.delete('/boards/deleteBoard', { data: { boardId } });
       if (res.data.status) {
         dispatch(removeBoard(boardId));
@@ -62,7 +60,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       console.error('Error deleting board:', error);
       toast.error('Failed to delete board. Please try again.');
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -203,8 +201,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <ModalWindow isOpen={isUpdateBoardModalOpen} onClose={closeUpdateBoardModal}>
         <UpdateBoardModal closeModal={closeUpdateBoardModal} />
       </ModalWindow>
-
-      {/* <Loader show={isLoading} /> */}
     </div>
   );
 };
