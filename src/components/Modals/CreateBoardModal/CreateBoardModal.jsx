@@ -3,7 +3,7 @@ import { backgrounds } from '../../../data/backgroundIcons';
 import { getBackgroundUrl } from '../../../utils/getBackgroundUrl';
 import { icons } from '../../../data/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBoard } from '../../../store/boards/boards.js';
+import { addBoard, setActiveBoard } from '../../../store/boards/boards.js';
 import { setIsLoading } from '../../../store/loader/loaderSlice.js';
 
 import toast from 'react-hot-toast';
@@ -42,6 +42,7 @@ const CreateBoardModal = ({ closeModal }) => {
       const res = await request.post('/boards/createBoard', formData);
 
       dispatch(addBoard(res.data.board));
+      dispatch(setActiveBoard(res.data.board));
       toast.success(res.data.message);
     } catch (error) {
       console.error('Error creating board:', error);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setClientAuth } from '../../store/auth/authSlice';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { setIsLoading } from '../../store/loader/loaderSlice';
@@ -13,6 +13,7 @@ import css from './RegisterPage.module.css';
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(state => state.loader.isLoading);
 
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });

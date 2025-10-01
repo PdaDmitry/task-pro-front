@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/auth/authSlice';
 import { icons } from '../../data/icons';
-import { removeBoard, setActiveBoard } from '../../store/boards/boards';
+import { removeBoard, returnInitialState, setActiveBoard } from '../../store/boards/boards';
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 
@@ -37,6 +37,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(returnInitialState());
     navigate('/auth/login');
 
     toast.success('User is logged out!');

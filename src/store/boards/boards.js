@@ -31,9 +31,19 @@ const boardsSlice = createSlice({
     setActiveBoard: (state, action) => {
       state.activeBoard = action.payload;
     },
+    returnInitialState: (state, action) => {
+      state.boardsList = [];
+      state.activeBoard = null;
+    },
   },
 });
 
-export const { setBoardsList, addBoard, updateBoardInList, removeBoard, setActiveBoard } =
-  boardsSlice.actions;
+export const {
+  setBoardsList,
+  addBoard,
+  updateBoardInList,
+  removeBoard,
+  setActiveBoard,
+  returnInitialState,
+} = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

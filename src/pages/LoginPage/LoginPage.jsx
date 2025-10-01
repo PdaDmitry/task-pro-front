@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setClientAuth, updateTheme } from '../../store/auth/authSlice';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -14,6 +14,7 @@ import css from './LoginPage.module.css';
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(state => state.loader.isLoading);
 
   // const currentUser = useSelector(state => state.auth.user);
   // console.log('Current User from Redux:', currentUser);
