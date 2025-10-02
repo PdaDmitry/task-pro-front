@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import css from './AddColumnModal.module.css';
 import { useSelector } from 'react-redux';
-import Loader from '../../Loader/Loader';
+
+import css from './AddColumnModal.module.css';
 
 const AddColumnModal = ({ closeModal }) => {
   const currentUser = useSelector(state => state.auth.user);
@@ -10,7 +10,6 @@ const AddColumnModal = ({ closeModal }) => {
     title: '',
   });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = e => {
     setFormData(prev => ({ ...prev, title: e.target.value }));
@@ -52,7 +51,6 @@ const AddColumnModal = ({ closeModal }) => {
           Add
         </button>
       </form>
-      <Loader show={isLoading} />
     </div>
   );
 };
