@@ -6,10 +6,12 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 
 import css from './ActiveBoard.module.css';
+import Column from '../Column/Column';
 
 const ActiveBoard = () => {
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
+  const columnsList = useSelector(state => state.columns.columnsList);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isAddColumn, setIsAddColumn] = useState(false);
@@ -43,11 +45,25 @@ const ActiveBoard = () => {
           <p className={css.titleFilter}>Filters</p>
         </div>
       </div>
-      <div>
+      <div className={css.contColumnsBtnAdd}>
+        {columnsList?.length > 0 && (
+          <ul className={css.columnsList}>
+            {columnsList
+              ?.slice()
+              .sort((a, b) => a.order - b.order)
+              .map(col => (
+                <li key={col._id} className={css.columnItem}>
+                  <Column title={col.title} columnId={col._id} />
+
+                  {/* карточки задач */}
+                </li>
+              ))}
+          </ul>
+        )}
+
         <button
           type="submit"
           className={css.addColumnBtn}
-          // onClick={handleAddColumn}
           onClick={openModal}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

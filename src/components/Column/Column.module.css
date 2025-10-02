@@ -1,0 +1,35 @@
+.contColumn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  /* width: 100%;
+  max-width: 335px; */
+  width: 335px;
+  height: 56px;
+  background: #fff;
+  padding: 20px 18px;
+}
+
+.titleColumn {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: #161616;
+}
+
+.updateDelBoard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.updateColumnSvg,
+.deleteColumnSvg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  stroke: var(--board-item-icon-stroke);
+  fill: none;
+  cursor: pointer;
+}

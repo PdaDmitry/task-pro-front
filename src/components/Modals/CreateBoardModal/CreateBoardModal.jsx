@@ -46,7 +46,7 @@ const CreateBoardModal = ({ closeModal }) => {
       toast.success(res.data.message);
     } catch (error) {
       console.error('Error creating board:', error);
-      toast.error('Failed to create board. Please try again.');
+      toast.error(error.response.data.message);
       return;
     } finally {
       dispatch(setIsLoading(false));

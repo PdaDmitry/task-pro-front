@@ -13,6 +13,7 @@ import {
 import { authReducer } from './auth/authSlice';
 import { boardsReducer } from './boards/boards';
 import { loaderReducer } from './loader/loaderSlice';
+import { columnsReducer } from './columns/columnsSlise';
 
 const persistAuthConfig = {
   key: 'auth',
@@ -26,15 +27,22 @@ const persistBoardsConfig = {
   whitelist: ['boardsList', 'activeBoard'],
 };
 
+const persistColumnsConfig = {
+  key: 'columns',
+  storage,
+  whitelist: ['columnsList', 'activeColumn'],
+};
+
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 const persistedBoardsReducer = persistReducer(persistBoardsConfig, boardsReducer);
+const persistedColumnsReducer = persistReducer(persistColumnsConfig, columnsReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     boards: persistedBoardsReducer,
     loader: loaderReducer,
-    // tasks: tasksReducer,
+    columns: persistedColumnsReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
