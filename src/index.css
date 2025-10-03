@@ -3,8 +3,11 @@ body {
   background: #f6f6f7;
   color: #161616;
   user-select: none;
-  /* background: var(--bg-color);
-  color: var(--text-color); */
+
+  overflow: hidden;
+  height: 100%;
+  /* margin: 0; */
+  /* padding: 0; */
 }
 
 a {

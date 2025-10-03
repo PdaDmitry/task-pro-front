@@ -1,6 +1,8 @@
 .contActiveBoard {
   width: 100%;
-  padding: 14px 20px;
+  padding: 14px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .contTitleBoard {
@@ -49,7 +51,6 @@
 
 .contColumnsBtnAdd {
   display: flex;
-  /* gap: 34px; */
   align-items: center;
 }
 
@@ -60,6 +61,11 @@
   margin-right: 34px;
 }
 
+.columnItem {
+  flex-shrink: 0;
+  height: 100%; /* колонка занимает всю высоту */
+}
+
 /* ============================================== */
 
 .addColumnBtn {
@@ -67,8 +73,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  /* width: 100%;
-  max-width: 335px; */
+
   width: 335px;
   border-radius: 8px;
   border: none;
@@ -82,4 +87,10 @@
   display: block;
   width: 28px;
   height: 28px;
+}
+
+@media screen and (min-width: 768px) {
+  .contActiveBoard {
+    padding: 14px 20px;
+  }
 }

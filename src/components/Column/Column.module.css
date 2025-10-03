@@ -1,9 +1,8 @@
 .contColumn {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  max-height: 812px;
-  justify-content: space-between;
+  height: 100%; /* вместо 100vh */
+  min-height: 500px;
 }
 
 .columnContent {
@@ -67,6 +66,8 @@
   font-size: 14px;
   letter-spacing: -0.02em;
   color: var(--modal-new-board-color-btn);
+
+  margin-top: auto;
 }
 
 .addCardBtn:hover {
