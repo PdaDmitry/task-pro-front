@@ -5,7 +5,7 @@ import css from './AddColumnModal.module.css';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
-import { addColumn, removeColumnsList } from '../../../store/columns/columnsSlise';
+import { addColumn } from '../../../store/columns/columnsSlise';
 
 const AddColumnModal = ({ closeModal }) => {
   const dispatch = useDispatch();

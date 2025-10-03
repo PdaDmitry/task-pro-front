@@ -16,6 +16,7 @@ import request from '../../utils/axiosInstance';
 import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
 
 import css from './Sidebar.module.css';
+import { setColumnsList } from '../../store/columns/columnsSlise';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -65,8 +66,20 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     }
   };
 
-  const openBoard = board => {
-    dispatch(setActiveBoard(board));
+  const openBoard = async board => {
+    try {
+      dispatch(setIsLoading(true));
+      dispatch(setActiveBoard(board));
+      const resColumns = await request.get('/columns/getBoardColumns', {
+        params: { boardId: board._id },
+      });
+
+      dispatch(setColumnsList(resColumns.data.columns));
+    } catch (err) {
+      console.error('❌ Error loading data:', err.response?.data?.message || err.message);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
 
     window.innerWidth < 1440 && setIsSidebarOpen(false);
   };

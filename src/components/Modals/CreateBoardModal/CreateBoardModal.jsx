@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
 
 import css from './CreateBoardModal.module.css';
+import { removeColumnsList } from '../../../store/columns/columnsSlise.js';
 
 const CreateBoardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const CreateBoardModal = ({ closeModal }) => {
 
     try {
       dispatch(setIsLoading(true));
+      dispatch(removeColumnsList());
       const res = await request.post('/boards/createBoard', formData);
 
       dispatch(addBoard(res.data.board));
