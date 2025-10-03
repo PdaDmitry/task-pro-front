@@ -54,8 +54,6 @@ const ActiveBoard = () => {
               .map(col => (
                 <li key={col._id} className={css.columnItem}>
                   <Column title={col.title} columnId={col._id} />
-
-                  {/* карточки задач */}
                 </li>
               ))}
           </ul>

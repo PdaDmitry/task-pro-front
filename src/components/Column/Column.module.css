@@ -1,5 +1,19 @@
 .contColumn {
   display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 812px;
+  justify-content: space-between;
+}
+
+.columnContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
@@ -32,4 +46,43 @@
   stroke: var(--board-item-icon-stroke);
   fill: none;
   cursor: pointer;
+}
+
+.addCardBtn,
+.addCardBtnViolet {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+  width: 335px;
+  border-radius: 8px;
+  border: none;
+  background: var(--modal-new-board-button-bg);
+  height: 56px;
+  cursor: pointer;
+  align-self: flex-start;
+
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color-btn);
+}
+
+.addCardBtn:hover {
+  background: var(--modal-new-board-button-hover-bg);
+}
+
+.addCardBtnViolet {
+  background: var(--modal-new-board-button-bg-violet);
+}
+
+.addCardBtnViolet:hover {
+  background: var(--modal-new-board-button-hover-bg-violet);
+}
+
+.createCardSvg {
+  display: block;
+  width: 28px;
+  height: 28px;
 }

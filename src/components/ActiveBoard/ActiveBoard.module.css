@@ -49,7 +49,7 @@
 
 .contColumnsBtnAdd {
   display: flex;
-  gap: 34px;
+  /* gap: 34px; */
   align-items: center;
 }
 
@@ -57,6 +57,7 @@
   display: flex;
   gap: 34px;
   align-items: center;
+  margin-right: 34px;
 }
 
 /* ============================================== */
@@ -74,6 +75,7 @@
   background: #ffffff;
   height: 56px;
   cursor: pointer;
+  align-self: flex-start;
 }
 
 .createColumnSvg {

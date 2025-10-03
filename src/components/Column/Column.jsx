@@ -1,6 +1,6 @@
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeColumn } from '../../store/columns/columnsSlise';
 
 import request from '../../utils/axiosInstance';
@@ -13,6 +13,7 @@ import { useState } from 'react';
 
 const Column = ({ title, columnId }) => {
   const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.auth.user);
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
 
@@ -38,22 +39,42 @@ const Column = ({ title, columnId }) => {
 
   return (
     <div className={css.contColumn}>
-      <h3 className={css.titleColumn}>{title}</h3>
-      <div className={css.updateDelBoard}>
-        <svg className={css.updateColumnSvg} onClick={openModal}>
-          <use href="/symbol-defs.svg#icon-pencil-01"></use>
-        </svg>
-        <Popconfirm
-          title="Are you sure you want to delete this column?"
-          onConfirm={handleDeleteColumn}
-          okText="Confirm"
-          cancelText="Cancel"
-        >
-          <svg className={css.deleteColumnSvg}>
-            <use href="/symbol-defs.svg#icon-trash-04-1"></use>
-          </svg>
-        </Popconfirm>
+      <div className={css.columnContent}>
+        <div className={css.column}>
+          <h3 className={css.titleColumn}>{title}</h3>
+          <div className={css.updateDelBoard}>
+            <svg className={css.updateColumnSvg} onClick={openModal}>
+              <use href="/symbol-defs.svg#icon-pencil-01"></use>
+            </svg>
+            <Popconfirm
+              title="Are you sure you want to delete this column?"
+              onConfirm={handleDeleteColumn}
+              okText="Confirm"
+              cancelText="Cancel"
+            >
+              <svg className={css.deleteColumnSvg}>
+                <use href="/symbol-defs.svg#icon-trash-04-1"></use>
+              </svg>
+            </Popconfirm>
+          </div>
+        </div>
       </div>
+
+      <button
+        type="submit"
+        className={currentUser?.theme === 'Violet' ? css.addCardBtnViolet : css.addCardBtn}
+      >
+        <svg className={css.createCardSvg}>
+          <use
+            href={
+              currentUser?.theme === 'Violet'
+                ? '/symbol-defs.svg#icon-plus-4'
+                : '/symbol-defs.svg#icon-plus-1'
+            }
+          ></use>
+        </svg>
+        Add another card
+      </button>
 
       <ModalWindow isOpen={isUpdateColumn} onClose={closeModal}>
         <AddColumnModal
