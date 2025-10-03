@@ -46,7 +46,7 @@ const UpdateBoardModal = ({ closeModal }) => {
       toast.success(res.data.message);
     } catch (error) {
       console.error('Error updating board:', error);
-      toast.error('Failed to update board. Please try again.');
+      toast.error(error.response.data.message);
       return;
     } finally {
       dispatch(setIsLoading(false));

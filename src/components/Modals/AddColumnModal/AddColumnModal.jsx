@@ -60,12 +60,12 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
       toast.error(error.response.data.message);
       return;
     } finally {
-      setFormData({ title: '' });
-      setError('');
-
-      closeModal();
       dispatch(setIsLoading(false));
     }
+    setFormData({ title: '' });
+    setError('');
+
+    closeModal();
   };
 
   return (
