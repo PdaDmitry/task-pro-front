@@ -19,12 +19,19 @@ const columnsSlice = createSlice({
     addColumn: (state, action) => {
       state.columnsList.push(action.payload);
     },
-    removeColumnsList: (state, action) => {
+    updateColumnInList: (state, action) => {
+      const index = state.columnsList.findIndex(с => с._id === action.payload._id);
+      if (index !== -1) {
+        state.columnsList[index] = action.payload;
+      }
+    },
+    removeColumnsList: state => {
       state.columnsList = [];
       // state.activeColumn = null;
     },
   },
 });
 
-export const { setColumnsList, addColumn, removeColumnsList, removeColumn } = columnsSlice.actions;
+export const { setColumnsList, addColumn, updateColumnInList, removeColumnsList, removeColumn } =
+  columnsSlice.actions;
 export const columnsReducer = columnsSlice.reducer;

@@ -5,32 +5,40 @@ import css from './AddColumnModal.module.css';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
 import toast from 'react-hot-toast';
 import request from '../../../utils/axiosInstance';
-import { addColumn } from '../../../store/columns/columnsSlise';
+import { addColumn, updateColumnInList } from '../../../store/columns/columnsSlise';
 
-const AddColumnModal = ({ closeModal }) => {
+const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateColumn = false }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const columnsList = useSelector(state => state.columns.columnsList);
-  // console.log('columnsList:', columnsList);
+
   const order = columnsList?.length > 0 ? Math.max(...columnsList.map(c => c.order)) : -1;
 
   const [formData, setFormData] = useState({
     title: '',
     order: order + 1,
-    boardId: activeBoard._id,
+    boardId: activeBoard?._id,
   });
+  const [updateColumn, setUpdateColumn] = useState(forUpdateColumnTitle);
   const [error, setError] = useState('');
 
   const handleChange = e => {
-    setFormData(prev => ({ ...prev, title: e.target.value }));
+    if (isUpdateColumn) {
+      setUpdateColumn(e.target.value);
+    } else {
+      setFormData(prev => ({ ...prev, title: e.target.value }));
+    }
+
     if (error) setError('');
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!formData.title.trim()) {
+    const title = isUpdateColumn ? updateColumn : formData.title;
+
+    if (!title.trim()) {
       setError('Column name is required');
       return;
     }
@@ -38,23 +46,26 @@ const AddColumnModal = ({ closeModal }) => {
     try {
       dispatch(setIsLoading(true));
 
-      const res = await request.post('/columns/createColumn', formData);
-
-      dispatch(addColumn(res.data.column));
-      // dispatch(setActiveBoard(res.data.board));
-      toast.success(res.data.message);
+      if (isUpdateColumn) {
+        const res = await request.put(`/columns/updateColumn/${columnId}`, { title });
+        dispatch(updateColumnInList(res.data.column));
+        toast.success(res.data.message);
+      } else {
+        const res = await request.post('/columns/createColumn', formData);
+        dispatch(addColumn(res.data.column));
+        toast.success(res.data.message);
+      }
     } catch (error) {
       console.error('Error creating column:', error);
       toast.error(error.response.data.message);
       return;
     } finally {
+      setFormData({ title: '' });
+      setError('');
+
+      closeModal();
       dispatch(setIsLoading(false));
     }
-
-    setFormData({ title: '' });
-    setError('');
-
-    closeModal();
   };
 
   return (
@@ -62,14 +73,14 @@ const AddColumnModal = ({ closeModal }) => {
       <svg className={css.closeBtnSvg} onClick={closeModal}>
         <use href="/symbol-defs.svg#icon-x-close-1"></use>
       </svg>
-      <h2 className={css.title}>Add column</h2>
+      <h2 className={css.title}> {isUpdateColumn ? 'Edit column' : 'Add column'}</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Board name */}
         <input
           type="text"
           placeholder="Title"
-          value={formData.title}
+          value={isUpdateColumn ? updateColumn : formData.title}
           onChange={handleChange}
           className={css.input}
           style={error ? { borderColor: 'red', marginBottom: '2px' } : {}}
@@ -89,7 +100,7 @@ const AddColumnModal = ({ closeModal }) => {
               }
             ></use>
           </svg>
-          Add
+          {isUpdateColumn ? 'Edit' : 'Add'}
         </button>
       </form>
     </div>

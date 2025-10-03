@@ -31,7 +31,7 @@ const boardsSlice = createSlice({
     setActiveBoard: (state, action) => {
       state.activeBoard = action.payload;
     },
-    returnInitialState: (state, action) => {
+    returnInitialState: state => {
       state.boardsList = [];
       state.activeBoard = null;
     },
