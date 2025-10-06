@@ -1,4 +1,4 @@
-.sidebar {
+/* .sidebar {
   display: flex;
   flex-direction: column;
   width: 225px;
@@ -7,6 +7,20 @@
   background: var(--bg-color-sidebar);
   color: var(--text-color);
   padding: 14px 14px 24px;
+} */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 225px;
+  height: 100dvh;
+  min-height: 0;
+
+  background: var(--bg-color-sidebar);
+  color: var(--text-color);
+  padding: 14px 14px 24px;
+  overflow: hidden;
 }
 
 @media (max-width: 1439px) {
@@ -78,8 +92,29 @@
 /* ========================boards list======================== */
 
 .boardsList {
+  flex: 1 1 auto;
+  overflow-y: auto;
   margin: 0 -14px 4px;
+  padding-right: 0;
+  scrollbar-width: thin;
+
+  direction: rtl;
 }
+
+.boardsList>* {
+  direction: ltr;
+}
+
+.boardsList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.boardsList::-webkit-scrollbar-thumb {
+  background: var(--cont-my-board);
+  border-radius: 4px;
+}
+
+/* =========================================================== */
 
 .boardItem {
   position: relative;
@@ -180,6 +215,8 @@
   padding: 14px;
   margin-top: auto;
   margin-bottom: 24px;
+
+  flex-shrink: 0;
 }
 
 .imageCactusMob {
@@ -227,6 +264,8 @@
   display: flex;
   align-items: center;
   gap: 14px;
+
+  flex-shrink: 0;
 }
 
 .logoutBtn {
