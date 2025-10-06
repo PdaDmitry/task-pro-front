@@ -14,7 +14,8 @@
   flex-direction: column;
   justify-content: space-between;
   width: 225px;
-  height: 100dvh;
+  /* height: 100dvh; */
+  height: 100vh;
   min-height: 0;
 
   background: var(--bg-color-sidebar);
@@ -31,6 +32,8 @@
     z-index: 100;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
+
+    height: 100vh;
   }
 
   .sidebarOpen {
@@ -99,6 +102,8 @@
   scrollbar-width: thin;
 
   direction: rtl;
+
+  min-height: 130px;
 }
 
 .boardsList>* {

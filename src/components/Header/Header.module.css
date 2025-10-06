@@ -5,7 +5,7 @@
   padding: 14px 20px;
   background-color: var(--bg-color-header);
 
-  /* position: relative; */
+  position: relative;
 }
 
 .menuSvg {
