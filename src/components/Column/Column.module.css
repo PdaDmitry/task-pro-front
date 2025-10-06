@@ -46,7 +46,8 @@
   display: block;
   width: 16px;
   height: 16px;
-  stroke: var(--board-item-icon-stroke);
+  /* stroke: var(--board-item-icon-stroke); */
+  stroke: rgba(22, 22, 22, 0.5);
   fill: none;
   cursor: pointer;
 }
