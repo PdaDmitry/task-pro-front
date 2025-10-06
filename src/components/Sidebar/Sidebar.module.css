@@ -103,10 +103,10 @@
 
   direction: rtl;
 
-  min-height: 130px;
+  min-height: 120px;
 }
 
-.boardsList>* {
+.boardsList > * {
   direction: ltr;
 }
 
