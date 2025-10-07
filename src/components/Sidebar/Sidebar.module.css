@@ -100,7 +100,7 @@
   margin: 0 -14px 4px;
   padding-right: 0;
   scrollbar-width: thin;
-
+  scrollbar-color: var(--color-horizontal-scroll) var(--horizontal-scroll-track-color);
   direction: rtl;
 
   min-height: 120px;

@@ -68,7 +68,8 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: #888 #f1f1f1;
+
+  scrollbar-color: var(--color-horizontal-scroll) var(--horizontal-scroll-track-color);
 }
 
 .contColumnsBtnAdd::-webkit-scrollbar {
@@ -87,6 +88,7 @@
 
 .contColumnsBtnAdd::-webkit-scrollbar-thumb:hover {
   background: #555;
+  /* background: var(--horizontal-scroll-hover); */
 }
 
 .columnsList {

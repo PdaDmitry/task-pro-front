@@ -24,6 +24,12 @@ const UpdateBoardModal = ({ closeModal }) => {
   const [error, setError] = useState('');
 
   const theme = currentUser?.theme || 'Light';
+  const MAX_TITLE_LENGTH = 12;
+
+  const truncateTitle = title => {
+    if (title.length <= MAX_TITLE_LENGTH) return title;
+    return title.substring(0, MAX_TITLE_LENGTH) + '...';
+  };
 
   const handleChange = e => {
     setFormData(prev => ({ ...prev, title: e.target.value }));
@@ -40,7 +46,13 @@ const UpdateBoardModal = ({ closeModal }) => {
 
     try {
       dispatch(setIsLoading(true));
-      const res = await request.put(`/boards/updateBoard/${activeBoard._id}`, formData);
+
+      const truncatedData = {
+        ...formData,
+        title: truncateTitle(formData.title),
+      };
+
+      const res = await request.put(`/boards/updateBoard/${activeBoard._id}`, truncatedData);
 
       dispatch(updateBoardInList(res.data.board));
       toast.success(res.data.message);

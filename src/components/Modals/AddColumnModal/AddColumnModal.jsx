@@ -23,6 +23,11 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
   const [updateColumn, setUpdateColumn] = useState(forUpdateColumnTitle);
   const [error, setError] = useState('');
 
+  const truncateTitle = title => {
+    if (title.length <= 15) return title;
+    return title.substring(0, 20) + '...';
+  };
+
   const handleChange = e => {
     if (isUpdateColumn) {
       setUpdateColumn(e.target.value);
@@ -36,12 +41,14 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const title = isUpdateColumn ? updateColumn : formData.title;
+    let title = isUpdateColumn ? updateColumn : formData.title;
 
     if (!title.trim()) {
       setError('Column name is required');
       return;
     }
+
+    title = truncateTitle(title.trim());
 
     try {
       dispatch(setIsLoading(true));
@@ -51,7 +58,10 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
         dispatch(updateColumnInList(res.data.column));
         toast.success(res.data.message);
       } else {
-        const res = await request.post('/columns/createColumn', formData);
+        const res = await request.post('/columns/createColumn', {
+          ...formData,
+          title,
+        });
         dispatch(addColumn(res.data.column));
         toast.success(res.data.message);
       }

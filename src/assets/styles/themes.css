@@ -44,6 +44,11 @@
 
   /* ActiveBoard */
   --cont-title-board-color: #161616;
+
+  /* horizontal scrolling */
+  --color-horizontal-scroll: #bedbb0;
+  --horizontal-scroll-track-color: #ffffff;
+  --horizontal-scroll-hover: #9dc888;
 }
 
 /* Dark */
@@ -91,6 +96,11 @@
 
   /* ActiveBoard */
   --cont-title-board-color: #ffffff;
+
+  /* horizontal scrolling */
+  --color-horizontal-scroll: #161616;
+  --horizontal-scroll-track-color: #ffffff;
+  --horizontal-scroll-hover: rgba(255, 255, 255, 0.1);
 }
 
 /* Violet */
@@ -132,4 +142,9 @@
 
   /* ActiveBoard */
   --cont-title-board-color: #161616;
+
+  /* horizontal scrolling */
+  --color-horizontal-scroll: #b8bcfd;
+  --horizontal-scroll-track-color: #ffffff;
+  --horizontal-scroll-hover: #5255bc;
 }

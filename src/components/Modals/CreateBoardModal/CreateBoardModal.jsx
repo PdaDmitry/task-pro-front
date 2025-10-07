@@ -24,6 +24,12 @@ const CreateBoardModal = ({ closeModal }) => {
   const [error, setError] = useState('');
 
   const theme = currentUser?.theme || 'Light';
+  const MAX_TITLE_LENGTH = 12;
+
+  const truncateTitle = title => {
+    if (title.length <= MAX_TITLE_LENGTH) return title;
+    return title.substring(0, MAX_TITLE_LENGTH) + '...';
+  };
 
   const handleChange = e => {
     setFormData(prev => ({ ...prev, title: e.target.value }));
@@ -41,7 +47,13 @@ const CreateBoardModal = ({ closeModal }) => {
     try {
       dispatch(setIsLoading(true));
       dispatch(removeColumnsList());
-      const res = await request.post('/boards/createBoard', formData);
+
+      const truncatedData = {
+        ...formData,
+        title: truncateTitle(formData.title),
+      };
+
+      const res = await request.post('/boards/createBoard', truncatedData);
 
       dispatch(addBoard(res.data.board));
       dispatch(setActiveBoard(res.data.board));
