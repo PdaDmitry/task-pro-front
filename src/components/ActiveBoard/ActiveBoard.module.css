@@ -56,16 +56,46 @@
   align-items: stretch;
   gap: 24px;
   flex: 1 1 auto;
+  /* flex: 0 0 auto; */
   min-height: 0;
   overflow-x: auto;
+  margin-bottom: 70px;
+
+  width: calc(100vw - 40px);
+  max-width: calc(100vw - 40px);
+
+  padding-bottom: 6px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.contColumnsBtnAdd::-webkit-scrollbar {
+  height: 8px;
+}
+
+.contColumnsBtnAdd::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.contColumnsBtnAdd::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.contColumnsBtnAdd::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .columnsList {
-  display: flex;
+  display: inline-flex;
   gap: 34px;
-  flex-wrap: nowrap;
   align-items: stretch;
   height: 100%;
+  width: max-content;
+  white-space: nowrap;
 }
 
 .columnItem {
@@ -78,6 +108,7 @@
 /* ============================================== */
 
 .addColumnBtn {
+  flex: 0 0 auto;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -90,6 +121,9 @@
   height: 56px;
   cursor: pointer;
   align-self: flex-start;
+
+  flex-shrink: 0;
+  outline: none;
 }
 
 .createColumnSvg {
@@ -101,5 +135,10 @@
 @media screen and (min-width: 768px) {
   .contActiveBoard {
     padding: 14px 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .contColumnsBtnAdd {
   }
 }
