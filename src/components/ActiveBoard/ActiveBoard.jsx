@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import request from '../../utils/axiosInstance';
+import { setColumnsList } from '../../store/columns/columnsSlise';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
+import request from '../../utils/axiosInstance';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 import Column from '../Column/Column';
 
 import css from './ActiveBoard.module.css';
-import { setColumnsList } from '../../store/columns/columnsSlise';
-// import { DragDropContext, Droppable } from '@hello-pangea/dnd';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
+  const result = list.slice();
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result;
@@ -25,7 +24,7 @@ const ActiveBoard = () => {
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const columnsList = useSelector(state => state.columns.columnsList);
 
-  // console.log('columnsList', columnsList);
+  // console.log('activeBoard', activeBoard?._id);
 
   const [isHovered, setIsHovered] = useState(false);
   const [isAddColumn, setIsAddColumn] = useState(false);
@@ -47,6 +46,8 @@ const ActiveBoard = () => {
 
   const handleDragEnd = async result => {
     const { destination, source, type } = result;
+    console.log('onDragEnd called:', result);
+
     if (!destination) return;
     if (destination.index === source.index) return;
 
@@ -54,19 +55,20 @@ const ActiveBoard = () => {
       const newColumns = reorder(columns, source.index, destination.index);
       setColumns(newColumns);
 
-      dispatch(setColumnsList(newColumns));
-
       try {
-        await request.patch('/columns/reorder', {
+        const res = await request.patch('/columns/reorder', {
           columns: newColumns.map((c, i) => ({ _id: c._id, order: i })),
+          boardId: activeBoard._id,
         });
+
+        dispatch(setColumnsList(res.data.columns));
       } catch (err) {
         console.error('Failed to persist columns order', err);
       }
     }
   };
 
-  if (!activeBoard) return null;
+  // if (!activeBoard) return null;
 
   // ============================================================================
 
