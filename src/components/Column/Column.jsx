@@ -11,7 +11,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 import { useState } from 'react';
 
-const Column = ({ title, columnId }) => {
+const Column = ({ title, columnId, dragHandleProps }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
 
@@ -41,7 +41,16 @@ const Column = ({ title, columnId }) => {
     <div className={css.contColumn}>
       <div className={css.columnContent}>
         <div className={css.column}>
-          <h3 className={css.titleColumn}>{title}</h3>
+          <div
+            className={css.columnHeader}
+            {...(dragHandleProps || {})}
+            role="button"
+            tabIndex={0}
+            aria-label={`Drag column ${title}`}
+          >
+            <h3 className={css.titleColumn}>{title}</h3>
+          </div>
+
           <div className={css.updateDelBoard}>
             <svg className={css.updateColumnSvg} onClick={openModal}>
               <use href="/symbol-defs.svg#icon-pencil-01"></use>

@@ -15,6 +15,34 @@
   justify-content: flex-start;
 }
 
+/* ============================================================================ */
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: grab;
+  /* визуально видно, что можно тянуть */
+  user-select: none;
+  /* чтобы текст не выделялся при перетаскивании */
+  outline: none;
+  /* чтобы drag-handle не ломал выравнивание */
+  min-width: 0;
+}
+
+/* Когда зажали мышь */
+.columnHeader:active {
+  cursor: grabbing;
+}
+
+/* Фокус (для доступности клавиатурой) */
+.columnHeader:focus {
+  box-shadow: 0 0 0 3px rgba(123, 108, 255, 0.12);
+  border-radius: 6px;
+}
+
+/* ============================================================================ */
+
 .column {
   display: flex;
   justify-content: space-between;
