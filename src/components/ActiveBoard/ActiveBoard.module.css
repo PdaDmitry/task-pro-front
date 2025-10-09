@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 14px 20px;
+  padding: 14px;
   min-height: 0;
 }
 
@@ -59,10 +59,10 @@
   /* flex: 0 0 auto; */
   min-height: 0;
   overflow-x: auto;
-  margin-bottom: 70px;
+  margin-bottom: 65px;
 
-  width: calc(100vw - 40px);
-  max-width: calc(100vw - 40px);
+  width: calc(100vw - 28px);
+  max-width: calc(100vw - 28px);
 
   padding-bottom: 6px;
   scroll-behavior: smooth;
@@ -137,13 +137,45 @@
 
 @media screen and (min-width: 768px) {
   .contActiveBoard {
-    padding: 14px 24px;
+    padding: 18px 32px;
+  }
+
+  .titleBoard {
+    font-size: 16px;
+  }
+
+  .filterSvg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .titleFilter {
+    font-size: 16px;
+  }
+
+  .contColumnsBtnAdd {
+    margin-bottom: 70px;
+    width: calc(100dvw - 62px);
+    max-width: calc(100dvw - 62px);
   }
 }
 
 @media screen and (min-width: 1440px) {
+  .titleBoard {
+    font-size: 18px;
+  }
+
+  .filterSvg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .titleFilter {
+    font-size: 18px;
+  }
+
   .contColumnsBtnAdd {
-    width: calc(100dvw - 260px - 40px);
-    max-width: calc(100dvw - 260px - 40px);
+    width: calc(100dvw - 260px - 62px);
+    max-width: calc(100dvw - 260px - 62px);
   }
 }

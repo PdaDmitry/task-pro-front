@@ -116,29 +116,31 @@ const ActiveBoard = () => {
       <div className={css.contColumnsBtnAdd}>
         {/* ============================================================================ */}
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={e => {
-            handleDragEnd(e);
-            handleDragFinalize();
-          }}
-          onDragCancel={handleDragFinalize}
-        >
-          <SortableContext
-            items={columns.map(c => String(c._id))}
-            strategy={horizontalListSortingStrategy}
+        {columnsList?.length > 0 && (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={e => {
+              handleDragEnd(e);
+              handleDragFinalize();
+            }}
+            onDragCancel={handleDragFinalize}
           >
-            <ul className={css.columnsList}>
-              {columns.map(col => (
-                <SortableColumnWrapper key={String(col._id)} id={String(col._id)}>
-                  <Column columnId={col._id} title={col.title} />
-                </SortableColumnWrapper>
-              ))}
-            </ul>
-          </SortableContext>
-        </DndContext>
+            <SortableContext
+              items={columns.map(c => String(c._id))}
+              strategy={horizontalListSortingStrategy}
+            >
+              <ul className={css.columnsList}>
+                {columns.map(col => (
+                  <SortableColumnWrapper key={String(col._id)} id={String(col._id)}>
+                    <Column columnId={col._id} title={col.title} />
+                  </SortableColumnWrapper>
+                ))}
+              </ul>
+            </SortableContext>
+          </DndContext>
+        )}
 
         {/* ============================================================================ */}
 
