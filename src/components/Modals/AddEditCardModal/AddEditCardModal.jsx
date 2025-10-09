@@ -122,7 +122,7 @@ const AddEditCardModal = ({ closeModal }) => {
     //  setFormData({ title: '' });
     //  setError('');
 
-    //  closeModal();
+    closeModal();
   };
 
   return (
