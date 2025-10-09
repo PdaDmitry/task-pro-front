@@ -10,6 +10,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 
 import css from './Column.module.css';
+import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
 
 const Column = ({
   title,
@@ -23,9 +24,13 @@ const Column = ({
   const currentUser = useSelector(state => state.auth.user);
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
+  const [isOpenAddCard, setIsOpenAddCard] = useState(false);
 
   const openModal = () => setIsUpdateColumn(true);
   const closeModal = () => setIsUpdateColumn(false);
+
+  const openModalAddCard = () => setIsOpenAddCard(true);
+  const closeModalAddCard = () => setIsOpenAddCard(false);
 
   const handleDeleteColumn = async () => {
     try {
@@ -79,8 +84,9 @@ const Column = ({
       </div>
 
       <button
-        type="submit"
+        type="button"
         className={currentUser?.theme === 'Violet' ? css.addCardBtnViolet : css.addCardBtn}
+        onClick={openModalAddCard}
       >
         <svg className={css.createCardSvg}>
           <use
@@ -101,6 +107,10 @@ const Column = ({
           forUpdateColumnTitle={title}
           isUpdateColumn={isUpdateColumn}
         />
+      </ModalWindow>
+
+      <ModalWindow isOpen={isOpenAddCard} onClose={closeModalAddCard}>
+        <AddEditCardModal closeModal={closeModalAddCard} />
       </ModalWindow>
     </div>
   );

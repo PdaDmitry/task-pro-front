@@ -145,7 +145,7 @@ const ActiveBoard = () => {
         {/* ============================================================================ */}
 
         <button
-          type="submit"
+          type="button"
           className={css.addColumnBtn}
           onClick={openModal}
           onMouseEnter={() => setIsHovered(true)}
