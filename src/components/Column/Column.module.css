@@ -24,6 +24,8 @@
   user-select: none;
   outline: none !important;
   min-width: 0;
+
+  touch-action: none;
 }
 
 .columnHeader:active {

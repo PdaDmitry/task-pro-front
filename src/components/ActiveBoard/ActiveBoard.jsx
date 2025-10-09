@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setColumnsList } from '../../store/columns/columnsSlise';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+} from '@dnd-kit/core';
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 
 import SortableColumnWrapper from '../SortableColumnWrapper/SortableColumnWrapper';
@@ -37,7 +45,11 @@ const ActiveBoard = () => {
     }
   }, [columnsList]);
 
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
+  );
 
   const handleDragEnd = async event => {
     const { active, over } = event;
@@ -65,12 +77,13 @@ const ActiveBoard = () => {
 
   const handleDragStart = () => {
     document.body.style.userSelect = 'none';
-  };
-  const handleDragFinalize = () => {
-    document.body.style.userSelect = '';
+    document.querySelector(`.${css.contColumnsBtnAdd}`).style.overflowY = 'hidden';
   };
 
-  if (!activeBoard) return null;
+  const handleDragFinalize = () => {
+    document.body.style.userSelect = '';
+    document.querySelector(`.${css.contColumnsBtnAdd}`).style.overflowY = '';
+  };
 
   // ============================================================================
 
