@@ -2,16 +2,23 @@ import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeColumn } from '../../store/columns/columnsSlise';
+import { useState } from 'react';
 
 import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
-
-import css from './Column.module.css';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
-import { useState } from 'react';
 
-const Column = ({ title, columnId, dragHandleProps }) => {
+import css from './Column.module.css';
+
+const Column = ({
+  title,
+  columnId,
+  dragActivatorRef,
+  dragListeners,
+  dragAttributes,
+  // isDragging, // boolean
+}) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
 
@@ -43,7 +50,9 @@ const Column = ({ title, columnId, dragHandleProps }) => {
         <div className={css.column}>
           <div
             className={css.columnHeader}
-            {...(dragHandleProps || {})}
+            ref={dragActivatorRef}
+            {...(dragAttributes || {})}
+            {...(dragListeners || {})}
             role="button"
             tabIndex={0}
             aria-label={`Drag column ${title}`}

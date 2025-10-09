@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setColumnsList } from '../../store/columns/columnsSlise';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 
+import SortableColumnWrapper from '../SortableColumnWrapper/SortableColumnWrapper';
 import request from '../../utils/axiosInstance';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 import Column from '../Column/Column';
 
 import css from './ActiveBoard.module.css';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = list.slice();
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
 
 const ActiveBoard = () => {
   const dispatch = useDispatch();
@@ -24,11 +19,9 @@ const ActiveBoard = () => {
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const columnsList = useSelector(state => state.columns.columnsList);
 
-  // console.log('activeBoard', activeBoard?._id);
-
   const [isHovered, setIsHovered] = useState(false);
   const [isAddColumn, setIsAddColumn] = useState(false);
-  const [columns, setColumns] = useState([]); //////////////////////////////
+  const [columns, setColumns] = useState([]);
 
   const openModal = () => setIsAddColumn(true);
   const closeModal = () => setIsAddColumn(false);
@@ -44,31 +37,40 @@ const ActiveBoard = () => {
     }
   }, [columnsList]);
 
-  const handleDragEnd = async result => {
-    const { destination, source, type } = result;
-    console.log('onDragEnd called:', result);
+  const sensors = useSensors(useSensor(PointerSensor));
 
-    if (!destination) return;
-    if (destination.index === source.index) return;
+  const handleDragEnd = async event => {
+    const { active, over } = event;
+    if (!over) return;
+    if (String(active.id) === String(over.id)) return;
 
-    if (type === 'COLUMN') {
-      const newColumns = reorder(columns, source.index, destination.index);
-      setColumns(newColumns);
+    const oldIndex = columns.findIndex(c => String(c._id) === String(active.id));
+    const newIndex = columns.findIndex(c => String(c._id) === String(over.id));
+    if (oldIndex === -1 || newIndex === -1) return;
 
-      try {
-        const res = await request.patch('/columns/reorder', {
-          columns: newColumns.map((c, i) => ({ _id: c._id, order: i })),
-          boardId: activeBoard._id,
-        });
+    const newOrder = arrayMove(columns, oldIndex, newIndex);
+    setColumns(newOrder);
 
-        dispatch(setColumnsList(res.data.columns));
-      } catch (err) {
-        console.error('Failed to persist columns order', err);
-      }
+    try {
+      const res = await request.patch('/columns/reorder', {
+        columns: newOrder.map((c, i) => ({ _id: c._id, order: i })),
+        boardId: activeBoard._id,
+      });
+
+      dispatch(setColumnsList(res.data.columns));
+    } catch (err) {
+      console.error('Failed to persist columns order', err);
     }
   };
 
-  // if (!activeBoard) return null;
+  const handleDragStart = () => {
+    document.body.style.userSelect = 'none';
+  };
+  const handleDragFinalize = () => {
+    document.body.style.userSelect = '';
+  };
+
+  if (!activeBoard) return null;
 
   // ============================================================================
 
@@ -100,54 +102,30 @@ const ActiveBoard = () => {
       </div>
       <div className={css.contColumnsBtnAdd}>
         {/* ============================================================================ */}
-        {/* {columnsList?.length > 0 && (
-          <ul className={css.columnsList}>
-            {columnsList
-              ?.slice()
-              .sort((a, b) => a.order - b.order)
-              .map(col => (
-                <li key={col._id} className={css.columnItem}>
-                  <Column title={col.title} columnId={col._id} />
-                </li>
+
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={e => {
+            handleDragEnd(e);
+            handleDragFinalize();
+          }}
+          onDragCancel={handleDragFinalize}
+        >
+          <SortableContext
+            items={columns.map(c => String(c._id))}
+            strategy={horizontalListSortingStrategy}
+          >
+            <ul className={css.columnsList}>
+              {columns.map(col => (
+                <SortableColumnWrapper key={String(col._id)} id={String(col._id)}>
+                  <Column columnId={col._id} title={col.title} />
+                </SortableColumnWrapper>
               ))}
-          </ul>
-        )} */}
-        {/* ============================================================================ */}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId={`board-${activeBoard._id}`} direction="horizontal" type="COLUMN">
-            {provided => (
-              <ul className={css.columnsList} {...provided.droppableProps} ref={provided.innerRef}>
-                {columns.map((col, index) => (
-                  <Draggable key={String(col._id)} draggableId={String(col._id)} index={index}>
-                    {(draggableProvided, snapshot) => (
-                      <li
-                        ref={draggableProvided.innerRef}
-                        {...draggableProvided.draggableProps}
-                        className={css.columnItem}
-                        style={{
-                          ...draggableProvided.draggableProps.style,
-                          /* визуальные подсказки при перетаскивании */
-                          boxShadow: snapshot.isDragging
-                            ? '0 6px 20px rgba(0,0,0,0.12)'
-                            : undefined,
-                          transition: snapshot.isDragging ? 'none' : 'transform 150ms ease',
-                        }}
-                      >
-                        {/* Передаём dragHandleProps в Column, чтобы перетаскивать только за заголовок */}
-                        <Column
-                          columnId={col._id}
-                          title={col.title}
-                          dragHandleProps={draggableProvided.dragHandleProps}
-                        />
-                      </li>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
+            </ul>
+          </SortableContext>
+        </DndContext>
 
         {/* ============================================================================ */}
 
