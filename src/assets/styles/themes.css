@@ -49,6 +49,9 @@
   --color-horizontal-scroll: #bedbb0;
   --horizontal-scroll-track-color: #ffffff;
   --horizontal-scroll-hover: #9dc888;
+
+  /* AddCardModal */
+  --radioTitle-color: rgba(22, 22, 22, 0.5);
 }
 
 /* Dark */
@@ -101,6 +104,9 @@
   --color-horizontal-scroll: #161616;
   --horizontal-scroll-track-color: #ffffff;
   --horizontal-scroll-hover: rgba(255, 255, 255, 0.1);
+
+  /* AddCardModal */
+  --radioTitle-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Violet */
@@ -147,4 +153,7 @@
   --color-horizontal-scroll: #b8bcfd;
   --horizontal-scroll-track-color: #ffffff;
   --horizontal-scroll-hover: #5255bc;
+
+  /* AddCardModal */
+  --radioTitle-color: rgba(22, 22, 22, 0.5);
 }

@@ -49,6 +49,7 @@
   height: 154px;
   padding: 14px 18px;
   margin-bottom: 24px;
+  resize: none;
 }
 
 .input:hover,
@@ -70,19 +71,16 @@
 }
 
 /* For different browsers */
-.input::-webkit-input-placeholder {
-  color: var(--modal-new-board-placeholder-color);
-}
-
-.input::-moz-placeholder {
-  color: var(--modal-new-board-placeholder-color);
-}
-
-.input:-ms-input-placeholder {
-  color: var(--modal-new-board-placeholder-color);
-}
-
-.input:-moz-placeholder {
+.input::placeholder,
+.textarea::placeholder,
+.input::-webkit-input-placeholder,
+.textarea::-webkit-input-placeholder,
+.input::-moz-placeholder,
+.textarea::-moz-placeholder,
+.input:-ms-input-placeholder,
+.textarea:-ms-input-placeholder,
+.input:-moz-placeholder,
+.textarea:-moz-placeholder {
   color: var(--modal-new-board-placeholder-color);
 }
 
@@ -90,6 +88,52 @@
   font-size: 10px;
   color: red;
   margin-bottom: 8px;
+}
+
+/* ============================Radio buttons==================== */
+
+.radioGroup {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.radioTitle {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--radioTitle-color);
+  margin-bottom: 4px;
+}
+
+.radioOption {
+  /* display: flex;
+  align-items: center; */
+}
+
+.radioInput {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.radioIcon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ============================================================= */

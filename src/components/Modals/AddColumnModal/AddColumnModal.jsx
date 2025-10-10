@@ -24,7 +24,7 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
   const [error, setError] = useState('');
 
   const truncateTitle = title => {
-    if (title.length <= 15) return title;
+    if (title.length <= 20) return title;
     return title.substring(0, 20) + '...';
   };
 

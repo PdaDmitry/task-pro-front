@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/md';
+import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 
 import css from './AddEditCardModal.module.css';
+
+const priorityColors = [
+  // { value: 'rgba(22, 22, 22, 0.3)', label: 'Without' },
+  { value: 'rgba(22, 22, 22, 0.3)', darkValue: 'rgba(255, 255, 255, 0.3)', label: 'Without' },
+  { value: '#8fa1d0', label: 'Low' },
+  { value: '#e09cb5', label: 'Medium' },
+  { value: '#bedbb0', label: 'High' },
+];
 
 const AddEditCardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -21,46 +29,20 @@ const AddEditCardModal = ({ closeModal }) => {
     boardId: activeBoard?._id,
     // columnId,
   });
-  //   const [updateColumn, setUpdateColumn] = useState(forUpdateColumnTitle);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [error, setError] = useState('');
-  const [descriptionError, setDescriptionError] = useState('');
+  const [errors, setErrors] = useState({
+    title: '',
+    description: '',
+  });
 
-  const priorityColors = [
-    { value: 'rgba(22, 22, 22, 0.3)', label: 'Without' },
-    { value: '#8fa1d0', label: 'Low' },
-    { value: '#e09cb5', label: 'Medium' },
-    { value: '#bedbb0', label: 'High' },
-  ];
-
-  const truncateTitle = title => {
-    if (title.length <= 15) return title;
-    return title.substring(0, 20) + '...';
+  const validateTitle = value => {
+    if (!value.trim()) return 'Card name is required!';
+    if (value.length > 20) return 'Maximum 20 characters';
   };
 
-  const handleChange = e => {
-    // if (isUpdateColumn) {
-    //   setUpdateColumn(e.target.value);
-    // } else {
-    //   setFormData(prev => ({ ...prev, title: e.target.value }));
-    // }
-
-    const { name, value } = e.target;
-
-    if (error) setError('');
-    if (name === 'description') {
-      if (!value.trim()) {
-        setDescriptionError('Поле обязательно для заполнения');
-      } else if (value.length > 190) {
-        setDescriptionError('Максимум 190 символов');
-      } else {
-        setDescriptionError('');
-      }
-    }
-
-    setFormData(prev => ({ ...prev, [name]: value }));
-
-    // if (descriptionError && name === 'description') setDescriptionError('');
+  const validateDescription = value => {
+    if (!value.trim()) return 'The "Description" field cannot be empty.!';
+    if (value.length > 90) return 'Maximum 90 characters';
   };
 
   const handChangePriority = colorValue => {
@@ -71,29 +53,34 @@ const AddEditCardModal = ({ closeModal }) => {
     setShowCalendar(!showCalendar);
   };
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+
+    setFormData(prev => ({ ...prev, [name]: value }));
+
+    let error = '';
+    if (name === 'title') error = validateTitle(value);
+    if (name === 'description') error = validateDescription(value);
+
+    setErrors(prev => ({ ...prev, [name]: error }));
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let title = formData.title;
+    const titleError = validateTitle(formData.title);
+    const descriptionError = validateDescription(formData.description);
 
-    // let title = isUpdateColumn ? updateColumn : formData.title;
+    const newErrors = {
+      title: titleError,
+      description: descriptionError,
+    };
 
-    if (!title.trim()) {
-      setError('Card name is required');
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some(err => err)) {
       return;
     }
-
-    if (!formData.description.trim()) {
-      setDescriptionError('Поле обязательно для заполнения');
-      return;
-    }
-
-    if (formData.description.trim().length > 190) {
-      setDescriptionError('Максимум 190 символов');
-      return;
-    }
-
-    title = truncateTitle(title.trim());
 
     console.log('Form data:', formData);
 
@@ -139,13 +126,12 @@ const AddEditCardModal = ({ closeModal }) => {
           type="text"
           placeholder="Title"
           name="title"
-          //   value={isUpdateColumn ? updateColumn : formData.title}
           value={formData.title}
           onChange={handleChange}
           className={css.input}
-          style={error ? { borderColor: 'red', marginBottom: '2px' } : {}}
+          style={errors.title ? { borderColor: 'red', marginBottom: '2px' } : {}}
         />
-        {error && <p className={css.error}>{error}</p>}
+        {errors.title && <p className={css.error}>{errors.title}</p>}
 
         <textarea
           name="description"
@@ -154,49 +140,43 @@ const AddEditCardModal = ({ closeModal }) => {
           onChange={handleChange}
           className={css.textarea}
           rows={4}
-          style={descriptionError ? { borderColor: 'red', marginBottom: '2px' } : {}}
+          style={errors.description ? { borderColor: 'red', marginBottom: '2px' } : {}}
         />
-        {descriptionError && <p className={css.error}>{descriptionError}</p>}
+        {errors.description && <p className={css.error}>{errors.description}</p>}
 
         {/* Radio buttons for Label color */}
         <div className={css.radioSection}>
           <h3 className={css.radioTitle}>Label color</h3>
           <ul className={css.radioGroup}>
-            {priorityColors.map(color => (
-              <li key={color.value} className={css.radioOption}>
-                <input
-                  type="radio"
-                  id={`color-${color.value}`}
-                  name="labelColor"
-                  value={color.value}
-                  checked={formData.labelColor === color.value}
-                  onChange={() => handChangePriority(color.value)}
-                  className={css.radioInput}
-                />
-                <label htmlFor={`color-${color.value}`} className={css.radioLabel}>
-                  {formData.labelColor === color.value ? (
-                    <MdOutlineRadioButtonChecked
-                      style={{
-                        width: '20px',
-                        height: '20px',
-                        marginRight: '8px',
-                        fill: color.value,
-                      }}
-                    />
-                  ) : (
-                    <MdRadioButtonUnchecked
-                      style={{
-                        width: '20px',
-                        height: '20px',
-                        marginRight: '8px',
-                        color: color.value,
-                      }}
-                    />
-                  )}
-                  <span className={css.textRadio}>{color.label}</span>
-                </label>
-              </li>
-            ))}
+            {priorityColors.map(color => {
+              const fillColor =
+                currentUser?.theme === 'Dark' && color.darkValue ? color.darkValue : color.value;
+
+              return (
+                <li key={color.value} className={css.radioOption}>
+                  <input
+                    type="radio"
+                    id={`color-${color.value}`}
+                    name="labelColor"
+                    value={color.value}
+                    checked={formData.priority === color.value}
+                    onChange={() => handChangePriority(color.value)}
+                    className={css.radioInput}
+                  />
+                  <label htmlFor={`color-${color.value}`} className={css.radioLabel}>
+                    <div className={css.radioIcon}>
+                      {formData.priority === color.value ? (
+                        <MdOutlineRadioButtonChecked
+                          style={{ width: '100%', height: '100%', fill: fillColor }}
+                        />
+                      ) : (
+                        <MdCircle style={{ width: '100%', height: '100%', fill: fillColor }} />
+                      )}
+                    </div>
+                  </label>
+                </li>
+              );
+            })}
           </ul>
         </div>
 

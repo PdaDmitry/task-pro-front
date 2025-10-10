@@ -28,6 +28,12 @@
   touch-action: none;
 }
 
+.columnHeader:focus,
+.columnHeader:focus-visible,
+.columnHeader:active {
+  box-shadow: none !important;
+}
+
 .columnHeader:active {
   cursor: grabbing;
 }
@@ -37,11 +43,6 @@
   border-radius: 6px;
 }
 
-/* .dragActive .columnHeader {
-  outline: none !important;
-  box-shadow: none !important;
-} */
-
 /* ============================================================================ */
 
 .column {
@@ -49,10 +50,11 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  width: 335px;
+  width: 332px;
   height: 56px;
   background: #fff;
-  padding: 20px 18px;
+
+  padding-right: 18px;
 }
 
 .titleColumn {
@@ -60,6 +62,7 @@
   font-size: 14px;
   letter-spacing: -0.02em;
   color: #161616;
+  padding: 20px 200px 20px 18px;
 }
 
 .updateDelBoard {
@@ -86,7 +89,7 @@
   align-items: center;
   gap: 8px;
   outline: none;
-  width: 335px;
+  width: 332px;
   border-radius: 8px;
   border: none;
   background: var(--modal-new-board-button-bg);
