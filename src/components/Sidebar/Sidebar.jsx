@@ -6,6 +6,7 @@ import { icons } from '../../data/icons';
 import { removeBoard, returnInitialState, setActiveBoard } from '../../store/boards/boards';
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
+import { setColumnsList } from '../../store/columns/columnsSlise';
 
 import CactusMob from '/Cactus/Cactus-mob-2x.png';
 import LogoutIcon from '../LogoutIcon/LogoutIcon';
@@ -16,7 +17,6 @@ import request from '../../utils/axiosInstance';
 import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
 
 import css from './Sidebar.module.css';
-import { setColumnsList } from '../../store/columns/columnsSlise';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -183,31 +183,31 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <p className={css.textHelp}>Need help?</p>
         </div>
       </div>
-      <div className={css.contLogOut}>
-        <button
-          type="button"
-          onClick={handleLogout}
-          className={css.logoutBtn}
-          onMouseEnter={() => setIsHoveredLogOut(true)}
-          onMouseLeave={() => setIsHoveredLogOut(false)}
-        >
-          <LogoutIcon
-            className={css.logOutSvg}
-            size={32}
-            color={
-              currentUser?.theme === 'Violet'
-                ? isHoveredLogOut
-                  ? '#B8BCFD'
-                  : '#ffffff'
-                : isHoveredLogOut
-                ? '#9dc888'
-                : '#bedbb0'
-            }
-          />
-        </button>
+
+      <button
+        type="button"
+        onClick={handleLogout}
+        className={css.logoutBtn}
+        onMouseEnter={() => setIsHoveredLogOut(true)}
+        onMouseLeave={() => setIsHoveredLogOut(false)}
+      >
+        <LogoutIcon
+          className={css.logOutSvg}
+          size={32}
+          color={
+            currentUser?.theme === 'Violet'
+              ? isHoveredLogOut
+                ? '#B8BCFD'
+                : '#ffffff'
+              : isHoveredLogOut
+              ? '#9dc888'
+              : '#bedbb0'
+          }
+        />
 
         <p className={css.textLogOut}>Log out</p>
-      </div>
+      </button>
+
       <ModalWindow isOpen={isCreateBoardModalOpen} onClose={closeModal}>
         <CreateBoardModal closeModal={closeModal} />
       </ModalWindow>

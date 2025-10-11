@@ -1,20 +1,9 @@
-/* .sidebar {
-  display: flex;
-  flex-direction: column;
-  width: 225px;
-  height: 100vh;
-  justify-content: space-between;
-  background: var(--bg-color-sidebar);
-  color: var(--text-color);
-  padding: 14px 14px 24px;
-} */
-
 .sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 225px;
-  /* height: 100dvh; */
+
   height: 100vh;
   min-height: 0;
 
@@ -265,24 +254,26 @@
   color: var(--text-color);
 }
 
-.contLogOut {
+/* .contLogOut {
   display: flex;
   align-items: center;
   gap: 14px;
 
   flex-shrink: 0;
-}
+} */
 
 .logoutBtn {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   border: none;
   background-color: inherit;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .logOutSvg {
   display: block;
-  cursor: pointer;
 }
 
 .textLogOut {
