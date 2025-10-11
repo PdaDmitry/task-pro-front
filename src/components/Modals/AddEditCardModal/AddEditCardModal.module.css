@@ -92,14 +92,18 @@
 
 /* ============================Radio buttons==================== */
 
+.radioSection {
+  margin-bottom: 14px;
+}
+
 .radioGroup {
   display: flex;
   gap: 6px;
   align-items: center;
-  margin-bottom: 14px;
 }
 
-.radioTitle {
+.radioTitle,
+.titleDeadline {
   font-weight: 400;
   font-size: 14px;
   letter-spacing: -0.02em;
@@ -134,6 +138,34 @@
   display: block;
   align-items: center;
   justify-content: center;
+}
+
+/* =============================Deadline================================ */
+
+.currentDate {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.textDate,
+.textDateViolet {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-button-bg);
+}
+
+.textDateViolet {
+  color: var(--modal-new-board-button-bg-violet);
+}
+
+.openCalendarSvg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 /* ============================================================= */

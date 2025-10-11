@@ -3,17 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 
 import css from './AddEditCardModal.module.css';
+import dayjs from 'dayjs';
 
 const priorityColors = [
-  // { value: 'rgba(22, 22, 22, 0.3)', label: 'Without' },
-  { value: 'rgba(22, 22, 22, 0.3)', darkValue: 'rgba(255, 255, 255, 0.3)', label: 'Without' },
   { value: '#8fa1d0', label: 'Low' },
   { value: '#e09cb5', label: 'Medium' },
   { value: '#bedbb0', label: 'High' },
+  { value: 'rgba(22, 22, 22, 0.3)', darkValue: 'rgba(255, 255, 255, 0.3)', label: 'Without' },
 ];
 
 const AddEditCardModal = ({ closeModal }) => {
   const dispatch = useDispatch();
+  const today = dayjs();
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const columnsList = useSelector(state => state.columns.columnsList);
@@ -45,8 +46,8 @@ const AddEditCardModal = ({ closeModal }) => {
     if (value.length > 90) return 'Maximum 90 characters';
   };
 
-  const handChangePriority = colorValue => {
-    setFormData(prev => ({ ...prev, priority: colorValue }));
+  const handChangePriority = item => {
+    setFormData(prev => ({ ...prev, priority: item.label }));
   };
 
   const handleCalendarToggle = () => {
@@ -160,12 +161,12 @@ const AddEditCardModal = ({ closeModal }) => {
                     name="labelColor"
                     value={color.value}
                     checked={formData.priority === color.value}
-                    onChange={() => handChangePriority(color.value)}
+                    onChange={() => handChangePriority(color)}
                     className={css.radioInput}
                   />
                   <label htmlFor={`color-${color.value}`} className={css.radioLabel}>
                     <div className={css.radioIcon}>
-                      {formData.priority === color.value ? (
+                      {formData.priority === color.label ? (
                         <MdOutlineRadioButtonChecked
                           style={{ width: '100%', height: '100%', fill: fillColor }}
                         />
@@ -178,6 +179,22 @@ const AddEditCardModal = ({ closeModal }) => {
               );
             })}
           </ul>
+        </div>
+
+        <h3 className={css.titleDeadline}>Deadline</h3>
+        <div className={css.currentDate}>
+          <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
+            Today, {today.format('MMMM D')}
+          </p>
+          <svg className={css.openCalendarSvg}>
+            <use
+              href={
+                currentUser?.theme === 'Violet'
+                  ? '/symbol-defs.svg#icon-chevron-down-4'
+                  : '/symbol-defs.svg#icon-chevron-down-3'
+              }
+            ></use>
+          </svg>
         </div>
 
         <button
