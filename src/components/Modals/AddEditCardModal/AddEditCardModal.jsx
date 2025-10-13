@@ -200,23 +200,6 @@ const AddEditCardModal = ({ closeModal }) => {
           </svg>
         </div>
 
-        {showCalendar && (
-          <div className={css.calendarOverlay}>
-            <div className={css.calendarModal}>
-              <DayPicker
-                mode="single"
-                onSelect={date => {
-                  setFormData(prev => ({ ...prev, deadline: date }));
-                  setShowCalendar(false);
-                }}
-              />
-              <button className={css.closeCalendarBtn} onClick={() => setShowCalendar(false)}>
-                ×
-              </button>
-            </div>
-          </div>
-        )}
-
         <button
           type="submit"
           className={currentUser?.theme === 'Violet' ? css.addCardBtnViolet : css.addCardtBtn}
