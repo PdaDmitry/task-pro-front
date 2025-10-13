@@ -48,6 +48,7 @@ const Calendar = ({ formData, setFormData, setShowCalendar }) => {
         onChange={handleDateSelect}
         customInput={<CalendarIconInput />}
         calendarStartDay={1}
+        minDate={Date.now()}
       />
     </div>
   );
