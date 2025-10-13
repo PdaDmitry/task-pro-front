@@ -5,6 +5,9 @@ import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
 
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css'; // Временно — удалим позже, когда сделаем свои стили
+
 const priorityColors = [
   { value: '#8fa1d0', label: 'Low' },
   { value: '#e09cb5', label: 'Medium' },
@@ -50,9 +53,9 @@ const AddEditCardModal = ({ closeModal }) => {
     setFormData(prev => ({ ...prev, priority: item.label }));
   };
 
-  const handleCalendarToggle = () => {
-    setShowCalendar(!showCalendar);
-  };
+  // const handleCalendarToggle = () => {
+  //   setShowCalendar(!showCalendar);
+  // };
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -186,7 +189,7 @@ const AddEditCardModal = ({ closeModal }) => {
           <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
             Today, {today.format('MMMM D')}
           </p>
-          <svg className={css.openCalendarSvg}>
+          <svg className={css.openCalendarSvg} onClick={() => setShowCalendar(true)}>
             <use
               href={
                 currentUser?.theme === 'Violet'
@@ -196,6 +199,23 @@ const AddEditCardModal = ({ closeModal }) => {
             ></use>
           </svg>
         </div>
+
+        {showCalendar && (
+          <div className={css.calendarOverlay}>
+            <div className={css.calendarModal}>
+              <DayPicker
+                mode="single"
+                onSelect={date => {
+                  setFormData(prev => ({ ...prev, deadline: date }));
+                  setShowCalendar(false);
+                }}
+              />
+              <button className={css.closeCalendarBtn} onClick={() => setShowCalendar(false)}>
+                ×
+              </button>
+            </div>
+          </div>
+        )}
 
         <button
           type="submit"
