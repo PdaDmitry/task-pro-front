@@ -161,17 +161,17 @@
   color: var(--modal-new-board-button-bg-violet);
 }
 
-.openCalendarSvg {
-  display: block;
+.openCalendar {
+  display: flex;
   width: 24px;
   height: 24px;
-  cursor: pointer;
 }
 
 /* ==========================Calendar=========================== */
-
-
-
+.dimmed {
+  filter: brightness(0.6);
+  transition: 0.25s ease-in-out;
+}
 
 /* ============================================================= */
 
@@ -230,4 +230,5 @@
   }
 }
 
-@media screen and (min-width: 1440px) {}
+@media screen and (min-width: 1440px) {
+}

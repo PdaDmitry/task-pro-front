@@ -4,6 +4,7 @@ import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
+import Calendar from '../../Calendar/Calendar';
 
 const priorityColors = [
   { value: '#8fa1d0', label: 'Low' },
@@ -114,107 +115,133 @@ const AddEditCardModal = ({ closeModal }) => {
   };
 
   return (
-    <div className={css.contAddCard}>
-      <svg className={css.closeBtnSvg} onClick={closeModal}>
-        <use href="/symbol-defs.svg#icon-x-close-1"></use>
-      </svg>
-      {/* <h2 className={css.title}> {isUpdateColumn ? 'Edit column' : 'Add column'}</h2> */}
-      <h2 className={css.title}>Add card</h2>
+    <>
+      {/* <div className={css.contAddCard}> */}
+      <div className={`${css.contAddCard} ${showCalendar ? css.dimmed : ''}`}>
+        <svg className={css.closeBtnSvg} onClick={closeModal}>
+          <use href="/symbol-defs.svg#icon-x-close-1"></use>
+        </svg>
+        {/* <h2 className={css.title}> {isUpdateColumn ? 'Edit column' : 'Add column'}</h2> */}
+        <h2 className={css.title}>Add card</h2>
 
-      <form onSubmit={handleSubmit}>
-        {/* Board name */}
-        <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          className={css.input}
-          style={errors.title ? { borderColor: 'red', marginBottom: '2px' } : {}}
-        />
-        {errors.title && <p className={css.error}>{errors.title}</p>}
+        <form onSubmit={handleSubmit}>
+          {/* Board name */}
+          <input
+            type="text"
+            placeholder="Title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className={css.input}
+            style={errors.title ? { borderColor: 'red', marginBottom: '2px' } : {}}
+          />
+          {errors.title && <p className={css.error}>{errors.title}</p>}
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          className={css.textarea}
-          rows={4}
-          style={errors.description ? { borderColor: 'red', marginBottom: '2px' } : {}}
-        />
-        {errors.description && <p className={css.error}>{errors.description}</p>}
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            className={css.textarea}
+            rows={4}
+            style={errors.description ? { borderColor: 'red', marginBottom: '2px' } : {}}
+          />
+          {errors.description && <p className={css.error}>{errors.description}</p>}
 
-        {/* Radio buttons for Label color */}
-        <div className={css.radioSection}>
-          <h3 className={css.radioTitle}>Label color</h3>
-          <ul className={css.radioGroup}>
-            {priorityColors.map(color => {
-              const fillColor =
-                currentUser?.theme === 'Dark' && color.darkValue ? color.darkValue : color.value;
+          {/* Radio buttons for Label color */}
+          <div className={css.radioSection}>
+            <h3 className={css.radioTitle}>Label color</h3>
+            <ul className={css.radioGroup}>
+              {priorityColors.map(color => {
+                const fillColor =
+                  currentUser?.theme === 'Dark' && color.darkValue ? color.darkValue : color.value;
 
-              return (
-                <li key={color.value} className={css.radioOption}>
-                  <input
-                    type="radio"
-                    id={`color-${color.value}`}
-                    name="labelColor"
-                    value={color.value}
-                    checked={formData.priority === color.value}
-                    onChange={() => handChangePriority(color)}
-                    className={css.radioInput}
-                  />
-                  <label htmlFor={`color-${color.value}`} className={css.radioLabel}>
-                    <div className={css.radioIcon}>
-                      {formData.priority === color.label ? (
-                        <MdOutlineRadioButtonChecked
-                          style={{ width: '100%', height: '100%', fill: fillColor }}
-                        />
-                      ) : (
-                        <MdCircle style={{ width: '100%', height: '100%', fill: fillColor }} />
-                      )}
-                    </div>
-                  </label>
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li key={color.value} className={css.radioOption}>
+                    <input
+                      type="radio"
+                      id={`color-${color.value}`}
+                      name="labelColor"
+                      value={color.value}
+                      checked={formData.priority === color.value}
+                      onChange={() => handChangePriority(color)}
+                      className={css.radioInput}
+                    />
+                    <label htmlFor={`color-${color.value}`} className={css.radioLabel}>
+                      <div className={css.radioIcon}>
+                        {formData.priority === color.label ? (
+                          <MdOutlineRadioButtonChecked
+                            style={{ width: '100%', height: '100%', fill: fillColor }}
+                          />
+                        ) : (
+                          <MdCircle style={{ width: '100%', height: '100%', fill: fillColor }} />
+                        )}
+                      </div>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <h3 className={css.titleDeadline}>Deadline</h3>
+          <div className={css.currentDate}>
+            <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
+              {formData.deadline
+                ? `${dayjs(formData.deadline, 'DD/MM/YYYY').format('dddd')}, ${dayjs(
+                    formData.deadline,
+                    'DD/MM/YYYY'
+                  ).format('MMMM D')}`
+                : `Today, ${today.format('MMMM D')}`}
+            </p>
+
+            {/* <svg className={css.openCalendarSvg} onClick={() => setShowCalendar(true)}>
+              <use
+                href={
+                  currentUser?.theme === 'Violet'
+                    ? '/symbol-defs.svg#icon-chevron-down-4'
+                    : '/symbol-defs.svg#icon-chevron-down-3'
+                }
+              ></use>
+            </svg> */}
+            <div className={css.openCalendar}>
+              <Calendar
+                formData={formData}
+                setFormData={setFormData}
+                setShowCalendar={setShowCalendar}
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className={currentUser?.theme === 'Violet' ? css.addCardBtnViolet : css.addCardtBtn}
+          >
+            <svg className={css.createBtnSvg}>
+              <use
+                href={
+                  currentUser?.theme === 'Violet'
+                    ? '/symbol-defs.svg#icon-plus-4'
+                    : '/symbol-defs.svg#icon-plus-1'
+                }
+              ></use>
+            </svg>
+            {/* {isUpdateColumn ? 'Edit' : 'Add'} */}
+            Add
+          </button>
+        </form>
+      </div>
+
+      {/* {showCalendar && (
+        <div className={css.calendarWrapper}>
+          <Calendar
+            formData={formData}
+            setFormData={setFormData}
+            setShowCalendar={setShowCalendar}
+          />
         </div>
-
-        <h3 className={css.titleDeadline}>Deadline</h3>
-        <div className={css.currentDate}>
-          <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
-            Today, {today.format('MMMM D')}
-          </p>
-          <svg className={css.openCalendarSvg} onClick={() => setShowCalendar(true)}>
-            <use
-              href={
-                currentUser?.theme === 'Violet'
-                  ? '/symbol-defs.svg#icon-chevron-down-4'
-                  : '/symbol-defs.svg#icon-chevron-down-3'
-              }
-            ></use>
-          </svg>
-        </div>
-
-        <button
-          type="submit"
-          className={currentUser?.theme === 'Violet' ? css.addCardBtnViolet : css.addCardtBtn}
-        >
-          <svg className={css.createBtnSvg}>
-            <use
-              href={
-                currentUser?.theme === 'Violet'
-                  ? '/symbol-defs.svg#icon-plus-4'
-                  : '/symbol-defs.svg#icon-plus-1'
-              }
-            ></use>
-          </svg>
-          {/* {isUpdateColumn ? 'Edit' : 'Add'} */}
-          Add
-        </button>
-      </form>
-    </div>
+      )} */}
+    </>
   );
 };
 
