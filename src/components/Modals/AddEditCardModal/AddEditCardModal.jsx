@@ -5,9 +5,6 @@ import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
 
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css'; // Временно — удалим позже, когда сделаем свои стили
-
 const priorityColors = [
   { value: '#8fa1d0', label: 'Low' },
   { value: '#e09cb5', label: 'Medium' },
