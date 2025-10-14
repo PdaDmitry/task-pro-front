@@ -188,7 +188,7 @@ const AddEditCardModal = ({ closeModal }) => {
           <div className={css.currentDate}>
             <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
               {formData.deadline
-                ? `${dayjs(formData.deadline, 'DD/MM/YYYY').format('dddd')}, ${dayjs(
+                ? `${dayjs(formData.deadline, 'DD/MM/YYYY').format('dddd').slice(0, 2)}, ${dayjs(
                     formData.deadline,
                     'DD/MM/YYYY'
                   ).format('MMMM D')}`

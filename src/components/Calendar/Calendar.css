@@ -7,10 +7,65 @@
   padding: 18px;
 }
 
+.react-datepicker__month-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================= Header ========================= */
 .react-datepicker__header {
   background: inherit;
   border: none;
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
 }
+
+/* ========================= Month/Year Header ============================== */
+.react-datepicker__current-month {
+  letter-spacing: -0.32px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #161616;
+  text-align: center;
+  margin-bottom: 8px;
+  /* padding-top: 4px; */
+}
+
+/* ========================= Navigation ============================== */
+
+.react-datepicker__navigation-icon--previous::before {
+  border-color: #5255bc;
+  border-width: 2px 2px 0 0;
+  width: 10px;
+  height: 10px;
+}
+
+.react-datepicker__navigation-icon--next::before {
+  border-color: #5255bc;
+  border-width: 2px 2px 0 0;
+  width: 10px;
+  height: 10px;
+}
+
+/* arrows */
+.react-datepicker__navigation--previous {
+  top: 13px;
+  left: 6px;
+}
+
+.react-datepicker__navigation--next {
+  top: 13px;
+  right: 6px;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #6d71f8;
+}
+
+/* ==========================Calendar Button============================= */
 
 .openCalendarBtn {
   border: none;
@@ -25,44 +80,166 @@
   height: 24px;
 }
 
+/* ========================= Triangle Pointer ============================== */
+
 .react-datepicker__triangle {
   display: none;
 }
 
-/* Месяц и год */
-.react-datepicker__current-month {
-  letter-spacing: -0.32px;
-  font-size: 16px;
-  font-weight: 500;
+/* ========================= Day Names (Mon, Tue, etc) ============================== */
+.react-datepicker__day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(22, 22, 22, 0.2);
 }
 
-.react-datepicker__week {
-  display: flex;
-  /* justify-content: space-between; */
-}
-
-/* День недели (Mon, Tue ...) */
 .react-datepicker__day-name {
   font-weight: 500;
   font-size: 14px;
-  letter-spacing: -0.02em;
   color: rgba(22, 22, 22, 0.5);
-  width: 23px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  letter-spacing: -0.02em;
   line-height: 26px;
+  flex: 1;
 }
+
+/* .react-datepicker__day-names {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(22, 22, 22, 0.2);
+  flex-shrink: 0;
+}
+
+.react-datepicker__day-name {
+  font-weight: 500;
+  font-size: 12px;
+  color: rgba(22, 22, 22, 0.5);
+  text-align: center;
+  width: 22px;
+  line-height: 1;
+  margin: 0;
+} */
+
+/* ========================= Week Row ============================== */
+.react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+
+/* .react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+} */
+
+/* ========================= Days ============================== */
 
 /* Дни месяца */
 .react-datepicker__day {
-  width: 23px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 26px;
-  letter-spacing: -0.02em;
-  color: #161616;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2px;
+  min-width: 22px;
+  font-weight: 400;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  /* color: #161616; */
+  border-radius: 50%;
+  letter-spacing: 0.2;
+  margin: 0 auto;
+
+  /* width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  color: #161616;
   border-radius: 50%;
   cursor: pointer;
+  margin: 0;
+  line-height: 1;
+  transition: all 0.2s ease;
+  flex-shrink: 0; */
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__day:focus {
+  /* border-radius: 50%; */
+  color: #fff;
+  background-color: #4a4dad;
+}
+
+.react-datepicker__day--selected {
+  background-color: #5255bc;
+  color: #fff;
+  /* border-radius: 50%; */
+}
+
+.react-datepicker__day--keyboard-selected {
+  /* border-radius: 50%; */
+  color: #161616;
+  background-color: inherit;
+}
+
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--selected:focus {
+  background-color: #4a4dad;
+  color: #fff;
+  /* border-radius: 50%; */
+}
+
+.react-datepicker__day--outside-month {
+  color: rgba(22, 22, 22, 0.3);
+}
+
+.react-datepicker__day--outside-month:hover {
+  background-color: transparent;
+  color: rgba(22, 22, 22, 0.3);
+  transform: none;
+  /* border-radius: 50%; */
+}
+
+.react-datepicker__day--disabled {
+  color: rgba(22, 22, 22, 0.2);
+  cursor: not-allowed;
+}
+
+.react-datepicker__day--disabled:hover,
+.react-datepicker__day--disabled:focus {
+  background-color: #7276fa;
+
+  /* border-radius: 50%; */
+  color: #fff;
+  cursor: not-allowed;
+  /* transform: none; */
+}
+
+/* ========================= Utility Classes ============================== */
+.input-output-date-btn {
+  color: grey;
+  font-size: 14px;
+  /* border-radius: 50%; */
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-picker-arrow {
+  fill: var(--buttonAddCardBgColor);
+  margin-left: 10px;
 }
