@@ -187,28 +187,13 @@ const AddEditCardModal = ({ closeModal }) => {
           <h3 className={css.titleDeadline}>Deadline</h3>
           <div className={css.currentDate}>
             <p className={currentUser?.theme === 'Violet' ? css.textDateViolet : css.textDate}>
-              {/* {formData.deadline
-                ? `${dayjs(formData.deadline, 'DD/MM/YYYY').format('dddd').slice(0, 2)}, ${dayjs(
-                    formData.deadline,
-                    'DD/MM/YYYY'
-                  ).format('MMMM D')}`
-                : `Today, ${today.format('MMMM D')}`} */}
               {formData.deadline
-                ? `${dayjs(formData.deadline).format('dddd').slice(0, 2)}, ${dayjs(
-                    formData.deadline
-                  ).format('MMMM D')}`
+                ? `${dayjs(formData.deadline).format('YYYY')}, ${dayjs(formData.deadline).format(
+                    'MMMM D'
+                  )}`
                 : `Today, ${today.format('MMMM D')}`}
             </p>
 
-            {/* <svg className={css.openCalendarSvg} onClick={() => setShowCalendar(true)}>
-              <use
-                href={
-                  currentUser?.theme === 'Violet'
-                    ? '/symbol-defs.svg#icon-chevron-down-4'
-                    : '/symbol-defs.svg#icon-chevron-down-3'
-                }
-              ></use>
-            </svg> */}
             <div className={css.openCalendar}>
               <Calendar
                 formData={formData}
@@ -236,16 +221,6 @@ const AddEditCardModal = ({ closeModal }) => {
           </button>
         </form>
       </div>
-
-      {/* {showCalendar && (
-        <div className={css.calendarWrapper}>
-          <Calendar
-            formData={formData}
-            setFormData={setFormData}
-            setShowCalendar={setShowCalendar}
-          />
-        </div>
-      )} */}
     </>
   );
 };

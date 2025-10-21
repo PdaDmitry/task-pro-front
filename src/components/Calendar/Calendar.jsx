@@ -14,6 +14,7 @@ const Calendar = ({ formData, setFormData, setShowCalendar }) => {
 
   const handleDateSelect = date => {
     if (!date) return;
+    // setShowCalendar(true);
     setStartDate(date);
 
     // const formatted = dayjs(date).format('DD/MM/YYYY');
