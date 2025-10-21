@@ -13,9 +13,11 @@ const Calendar = ({ formData, setFormData, setShowCalendar }) => {
   const [startDate, setStartDate] = useState(new Date());
 
   const handleDateSelect = date => {
+    if (!date) return;
     setStartDate(date);
 
-    const formatted = dayjs(date).format('DD/MM/YYYY');
+    // const formatted = dayjs(date).format('DD/MM/YYYY');
+    const formatted = dayjs(date).format('YYYY-MM-DD');
     setFormData(prev => ({ ...prev, deadline: formatted }));
 
     setShowCalendar(false);
