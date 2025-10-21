@@ -52,6 +52,25 @@
 
   /* AddCardModal */
   --radioTitle-color: rgba(22, 22, 22, 0.5);
+
+  /* Calendar */
+  --react-datepicker-background: #fff;
+  --react-datepicker-border: #9dc888;
+  --rdp-day-names-border-top: rgba(22, 22, 22, 0.2);
+  --rdp-day-name-color: rgba(22, 22, 22, 0.5);
+
+  --current-month-color: #161616;
+  --navigation-icon-border-color: #9dc888;
+  --navigation-icon-hover-border-color: #c7dfbb;
+
+  --rdp-day-hover-background-color: #c7dfbb;
+  --rdp-day-color: #161616;
+  --rdp-day-day-color: #161616;
+  --rdp-day-selected-background-color: #9dc888;
+
+  --rdp-day-outside-month-color: rgba(22, 22, 22, 0.3);
+  --rdp-day-disabled-color: rgba(22, 22, 22, 0.2);
+  --rdp-day-disabled-bg-hover: rgba(22, 22, 22, 0.1);
 }
 
 /* Dark */
@@ -107,6 +126,25 @@
 
   /* AddCardModal */
   --radioTitle-color: rgba(255, 255, 255, 0.5);
+
+  /* Calendar */
+  --react-datepicker-background: #1f1f1f;
+  --react-datepicker-border: #9dc888;
+  --rdp-day-names-border-top: rgba(255, 255, 255, 0.2);
+  --rdp-day-name-color: rgba(255, 255, 255, 0.5);
+
+  --current-month-color: #fff;
+  --navigation-icon-border-color: #9dc888;
+  --navigation-icon-hover-border-color: #c7dfbb;
+
+  --rdp-day-hover-background-color: #c7dfbb;
+  --rdp-day-color: #161616;
+  --rdp-day-day-color: #fff;
+  --rdp-day-selected-background-color: #9dc888;
+
+  --rdp-day-outside-month-color: rgba(255, 255, 255, 0.3);
+  --rdp-day-disabled-color: rgba(255, 255, 255, 0.2);
+  --rdp-day-disabled-bg-hover: rgba(255, 255, 255, 0.4);
 }
 
 /* Violet */
@@ -156,4 +194,23 @@
 
   /* AddCardModal */
   --radioTitle-color: rgba(22, 22, 22, 0.5);
+
+  /* Calendar */
+  --react-datepicker-background: #fff;
+  --react-datepicker-border: #5255bc;
+  --rdp-day-names-border-top: rgba(22, 22, 22, 0.2);
+  --rdp-day-name-color: rgba(22, 22, 22, 0.5);
+
+  --current-month-color: #161616;
+  --navigation-icon-border-color: #5255bc;
+  --navigation-icon-hover-border-color: #9699fc;
+
+  --rdp-day-hover-background-color: #9699fc;
+  --rdp-day-color: #fff;
+  --rdp-day-day-color: #161616;
+  --rdp-day-selected-background-color: #5255bc;
+
+  --rdp-day-outside-month-color: rgba(22, 22, 22, 0.3);
+  --rdp-day-disabled-color: rgba(22, 22, 22, 0.2);
+  --rdp-day-disabled-bg-hover: rgba(22, 22, 22, 0.1);
 }
