@@ -110,7 +110,7 @@ const Column = ({
       </ModalWindow>
 
       <ModalWindow isOpen={isOpenAddCard} onClose={closeModalAddCard}>
-        <AddEditCardModal closeModal={closeModalAddCard} />
+        <AddEditCardModal closeModal={closeModalAddCard} columnId={columnId} />
       </ModalWindow>
     </div>
   );

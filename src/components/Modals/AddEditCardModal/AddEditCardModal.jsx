@@ -5,6 +5,10 @@ import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
 import Calendar from '../../Calendar/Calendar';
+import { addCard } from '../../../store/cards/cardsSlise';
+import request from '../../../utils/axiosInstance';
+import toast from 'react-hot-toast';
+import { setIsLoading } from '../../../store/loader/loaderSlice';
 
 const priorityColors = [
   { value: '#8fa1d0', label: 'Low' },
@@ -13,7 +17,7 @@ const priorityColors = [
   { value: 'rgba(22, 22, 22, 0.3)', darkValue: 'rgba(255, 255, 255, 0.3)', label: 'Without' },
 ];
 
-const AddEditCardModal = ({ closeModal }) => {
+const AddEditCardModal = ({ closeModal, columnId }) => {
   const dispatch = useDispatch();
   const today = dayjs();
   const currentUser = useSelector(state => state.auth.user);
@@ -29,7 +33,7 @@ const AddEditCardModal = ({ closeModal }) => {
     deadline: '',
     order: order + 1,
     boardId: activeBoard?._id,
-    // columnId,
+    columnId,
   });
   const [showCalendar, setShowCalendar] = useState(false);
   const [errors, setErrors] = useState({
@@ -84,32 +88,41 @@ const AddEditCardModal = ({ closeModal }) => {
       return;
     }
 
-    console.log('Form data:', formData);
+    // console.log('Form data:', formData);
+    // console.log('columnId:', columnId);
 
-    //  try {
-    //    dispatch(setIsLoading(true));
+    try {
+      dispatch(setIsLoading(true));
 
-    //    if (isUpdateColumn) {
-    //      const res = await request.put(`/columns/updateColumn/${columnId}`, { title });
-    //      dispatch(updateColumnInList(res.data.column));
-    //      toast.success(res.data.message);
-    //    } else {
-    //      const res = await request.post('/columns/createColumn', {
-    //        ...formData,
-    //        title,
-    //      });
-    //      dispatch(addColumn(res.data.column));
-    //      toast.success(res.data.message);
-    //    }
-    //  } catch (error) {
-    //    console.error('Error creating column:', error);
-    //    toast.error(error.response.data.message);
-    //    return;
-    //  } finally {
-    //    dispatch(setIsLoading(false));
-    //  }
-    //  setFormData({ title: '' });
-    //  setError('');
+      const res = await request.post('/cards/createCard', formData);
+
+      if (res.data.status) {
+        dispatch(addCard(res.data.card)); // добавляем в redux
+        toast.success('Card successfully created');
+        closeModal();
+      }
+
+      //  if (isUpdateColumn) {
+      //    const res = await request.put(`/columns/updateColumn/${columnId}`, { title });
+      //    dispatch(updateColumnInList(res.data.column));
+      //    toast.success(res.data.message);
+      //  } else {
+      //    const res = await request.post('/columns/createColumn', {
+      //      ...formData,
+      //      title,
+      //    });
+      //    dispatch(addColumn(res.data.column));
+      //    toast.success(res.data.message);
+      //  }
+    } catch (error) {
+      console.error('Error creating card:', error);
+      toast.error(error.response.data.message);
+      return;
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+    setFormData({ title: '' });
+    setError('');
 
     closeModal();
   };
