@@ -71,7 +71,7 @@ const ActiveBoard = () => {
 
       dispatch(setColumnsList(res.data.columns));
     } catch (err) {
-      console.error('Failed to persist columns order', err);
+      console.error('Failed to preserve columns order', err);
     }
   };
 

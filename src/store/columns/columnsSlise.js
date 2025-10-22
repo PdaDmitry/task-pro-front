@@ -14,7 +14,7 @@ const columnsSlice = createSlice({
     },
     removeColumn: (state, action) => {
       state.columnsList = state.columnsList.filter(c => c._id !== action.payload);
-      //   state.activeColumn = null;
+      state.activeColumn = null;
     },
     addColumn: (state, action) => {
       state.columnsList.push(action.payload);
@@ -27,7 +27,10 @@ const columnsSlice = createSlice({
     },
     removeColumnsList: state => {
       state.columnsList = [];
-      // state.activeColumn = null;
+      state.activeColumn = null;
+    },
+    setActiveColumn: (state, action) => {
+      state.activeBoard = action.payload;
     },
   },
 });
