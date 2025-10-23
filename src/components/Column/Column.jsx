@@ -11,6 +11,7 @@ import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 
 import css from './Column.module.css';
 import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
+import Card from '../Card/Card';
 
 const Column = ({
   title,
@@ -22,6 +23,10 @@ const Column = ({
 }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
+  const cardsList = useSelector(state => state.cards.cardsList);
+  const cardsInActiveColumn = cardsList.filter(card => card.columnId === columnId);
+
+  // console.log('cardsInActiveColumn', cardsInActiveColumn);
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
   const [isOpenAddCard, setIsOpenAddCard] = useState(false);
@@ -81,6 +86,14 @@ const Column = ({
             </Popconfirm>
           </div>
         </div>
+
+        <ul className={css.cardList}>
+          {cardsInActiveColumn.map(card => (
+            <li key={card._id} className={css.cardItem}>
+              <Card cardId={card._id} />
+            </li>
+          ))}
+        </ul>
       </div>
 
       <button

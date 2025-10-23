@@ -1,0 +1,92 @@
+.contCard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  width: 332px;
+  /* height: 154px; */
+  background: #fff;
+  padding: 14px 20px;
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  padding-bottom: 8px;
+  color: #161616;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
+  color: rgba(22, 22, 22, 0.7);
+  padding-bottom: 14px;
+  /* border-bottom: 1px solid var(--cont-my-board); */
+  border-bottom: 1px solid rgba(22, 22, 22, 0.1);
+  margin-bottom: 14px;
+}
+
+.dataCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contPrDl {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.contPriority {
+}
+
+.priorityItem {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.priorityColor {
+  display: flex;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.priorityText,
+.deadlineDate {
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: -0.02em;
+  color: #161616;
+}
+
+.contDeadline {
+}
+
+.titleCategory {
+  font-weight: 400;
+  font-size: 8px;
+  letter-spacing: -0.02em;
+  color: rgba(22, 22, 22, 0.5);
+  margin-bottom: 4px;
+}
+
+.toolsCards {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.toolsIconSvg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  /* stroke: var(--board-item-icon-stroke); */
+  stroke: rgba(22, 22, 22, 0.5);
+  fill: none;
+  cursor: pointer;
+}

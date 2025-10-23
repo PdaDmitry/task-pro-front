@@ -54,7 +54,8 @@
   height: 56px;
   background: #fff;
 
-  padding-right: 18px;
+  padding-right: 20px;
+  margin-bottom: 14px;
 }
 
 .titleColumn {
@@ -62,7 +63,7 @@
   font-size: 14px;
   letter-spacing: -0.02em;
   color: #161616;
-  padding: 20px 200px 20px 18px;
+  padding: 20px 200px 20px 20px;
 }
 
 .updateDelBoard {
@@ -80,6 +81,12 @@
   stroke: rgba(22, 22, 22, 0.5);
   fill: none;
   cursor: pointer;
+}
+
+.cardList li:not(:last-child) {
+  /* display: flex;
+  flex-direction: column; */
+  margin-bottom: 8px;
 }
 
 .addCardBtn,

@@ -9,13 +9,7 @@ import { addCard, removeCardList } from '../../../store/cards/cardsSlise';
 import request from '../../../utils/axiosInstance';
 import toast from 'react-hot-toast';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
-
-const priorityColors = [
-  { value: '#8fa1d0', label: 'Low' },
-  { value: '#e09cb5', label: 'Medium' },
-  { value: '#bedbb0', label: 'High' },
-  { value: 'rgba(22, 22, 22, 0.3)', darkValue: 'rgba(255, 255, 255, 0.3)', label: 'Without' },
-];
+import { PRIORITY_COLORS } from '../../../utils/constants';
 
 const AddEditCardModal = ({ closeModal, columnId }) => {
   const dispatch = useDispatch();
@@ -24,6 +18,8 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const cardsList = useSelector(state => state.cards.cardsList);
   const cardsInActiveColumn = cardsList.filter(card => card.columnId === columnId);
+
+  // console.log('cardList', cardsList);
 
   const order =
     cardsInActiveColumn.length > 0
@@ -91,9 +87,6 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
     if (Object.values(newErrors).some(err => err)) {
       return;
     }
-
-    // console.log('Form data:', formData);
-    // console.log('columnId:', columnId);
 
     try {
       dispatch(setIsLoading(true));
@@ -169,7 +162,7 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
           <div className={css.radioSection}>
             <h3 className={css.radioTitle}>Label color</h3>
             <ul className={css.radioGroup}>
-              {priorityColors.map(color => {
+              {PRIORITY_COLORS.map(color => {
                 const fillColor =
                   currentUser?.theme === 'Dark' && color.darkValue ? color.darkValue : color.value;
 
