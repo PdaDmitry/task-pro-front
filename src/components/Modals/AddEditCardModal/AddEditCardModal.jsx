@@ -5,7 +5,7 @@ import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
 import Calendar from '../../Calendar/Calendar';
-import { addCard } from '../../../store/cards/cardsSlise';
+import { addCard, removeCardList } from '../../../store/cards/cardsSlise';
 import request from '../../../utils/axiosInstance';
 import toast from 'react-hot-toast';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
@@ -22,19 +22,23 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
   const today = dayjs();
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
-  const columnsList = useSelector(state => state.columns.columnsList);
+  const cardsList = useSelector(state => state.cards.cardsList);
+  const cardsInActiveColumn = cardsList.filter(card => card.columnId === columnId);
 
-  const order = columnsList?.length > 0 ? Math.max(...columnsList.map(c => c.order)) : -1;
+  const order =
+    cardsInActiveColumn.length > 0
+      ? Math.max(...cardsInActiveColumn.map(card => card.order)) + 1
+      : 0;
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     title: '',
     description: '',
-    priority: '',
-    deadline: '',
-    order: order + 1,
+    order,
     boardId: activeBoard?._id,
     columnId,
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [showCalendar, setShowCalendar] = useState(false);
   const [errors, setErrors] = useState({
     title: '',
@@ -121,9 +125,9 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
     } finally {
       dispatch(setIsLoading(false));
     }
-    setFormData({ title: '' });
-    setError('');
-
+    setFormData(initialFormData);
+    setErrors({ title: '', description: '' });
+    // dispatch(removeCardList());
     closeModal();
   };
 

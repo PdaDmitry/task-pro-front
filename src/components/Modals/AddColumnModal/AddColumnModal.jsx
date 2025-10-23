@@ -13,13 +13,15 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const columnsList = useSelector(state => state.columns.columnsList);
 
-  const order = columnsList?.length > 0 ? Math.max(...columnsList.map(c => c.order)) : -1;
+  const order = columnsList?.length > 0 ? Math.max(...columnsList.map(c => c.order)) + 1 : 0;
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     title: '',
-    order: order + 1,
+    order,
     boardId: activeBoard?._id,
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [updateColumn, setUpdateColumn] = useState(forUpdateColumnTitle);
   const [error, setError] = useState('');
 
@@ -72,7 +74,7 @@ const AddColumnModal = ({ closeModal, columnId, forUpdateColumnTitle, isUpdateCo
     } finally {
       dispatch(setIsLoading(false));
     }
-    setFormData({ title: '' });
+    setFormData(initialFormData);
     setError('');
 
     closeModal();
