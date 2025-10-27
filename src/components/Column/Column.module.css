@@ -7,11 +7,16 @@
   flex: 1;
 }
 
+/* ============================================================================ */
+
 .columnContent {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  height: 100% !important;
+  overflow: hidden;
+
 }
 
 /* ============================================================================ */
@@ -84,10 +89,39 @@
 }
 
 .cardList li:not(:last-child) {
-  /* display: flex;
-  flex-direction: column; */
+
   margin-bottom: 8px;
 }
+
+/* =========================================================================== */
+
+.cardList {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 260px);
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-horizontal-scroll) var(--horizontal-scroll-track-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardList::-webkit-scrollbar-thumb {
+  background: var(--cont-my-board);
+  border-radius: 4px;
+}
+
+.cardList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cardList::-webkit-scrollbar-track {
+  background: var(--horizontal-scroll-track-color);
+  border-radius: 4px;
+}
+
+/* ==========================================================================  */
 
 .addCardBtn,
 .addCardBtnViolet {
