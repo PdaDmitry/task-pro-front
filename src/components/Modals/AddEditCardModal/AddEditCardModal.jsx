@@ -48,7 +48,7 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
 
   const validateDescription = value => {
     if (!value.trim()) return 'The "Description" field cannot be empty.!';
-    if (value.length > 90) return 'Maximum 90 characters';
+    if (value.length > 240) return 'Maximum 240 characters';
   };
 
   const handChangePriority = item => {

@@ -8,10 +8,10 @@ import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
-
-import css from './Column.module.css';
 import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
 import Card from '../Card/Card';
+
+import css from './Column.module.css';
 
 const Column = ({
   title,

@@ -1,10 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPriorityColorByTheme } from '../../utils/priorityUtils';
+import { Popconfirm } from 'antd';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+import { removeCard } from '../../store/cards/cardsSlise';
+
+import toast from 'react-hot-toast';
+import request from '../../utils/axiosInstance';
 import dayjs from 'dayjs';
 
-import css from './Card..module.css';
+import css from './Card.module.css';
 
 const Card = ({ cardId }) => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
   const currentCard = cardsList.find(card => String(card._id) === String(cardId));
@@ -15,6 +22,23 @@ const Card = ({ cardId }) => {
 
   const currentPriorityColor = getPriorityColorByTheme(priority, currentUser?.theme);
 
+  const handleDeleteCard = async () => {
+    try {
+      dispatch(setIsLoading(true));
+      const res = await request.delete('/cards/deleteCard', { data: { cardId } });
+      if (res.data.status) {
+        dispatch(removeCard(cardId));
+
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error('Error deleting card:', error);
+      toast.error('Failed to delete card. Please try again.');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
   return (
     <div
       style={{
@@ -23,13 +47,18 @@ const Card = ({ cardId }) => {
       className={css.contCard}
     >
       <h3 className={css.cardTitle}>{title}</h3>
-      <p className={css.description}>{description}</p>
+      <p className={css.description}>
+        {description.length > 73 ? description.slice(0, 73) + '…' : description}
+      </p>
       <div className={css.dataCard}>
         <div className={css.contPrDl}>
           <div className={css.contPriority}>
             <p className={css.titleCategory}>Priority</p>
             <div className={css.priorityItem}>
-              <div style={{ background: currentPriorityColor }} className={css.priorityColor}></div>
+              <div
+                style={{ backgroundColor: currentPriorityColor }}
+                className={css.priorityColor}
+              ></div>
               <p className={css.priorityText}>{priority}</p>
             </div>
           </div>
@@ -56,9 +85,16 @@ const Card = ({ cardId }) => {
             <use href="/symbol-defs.svg#icon-pencil-01"></use>
           </svg>
 
-          <svg className={css.toolsIconSvg}>
-            <use href="/symbol-defs.svg#icon-trash-04-1"></use>
-          </svg>
+          <Popconfirm
+            title="Are you sure you want to delete this card?"
+            onConfirm={handleDeleteCard}
+            okText="Confirm"
+            cancelText="Cancel"
+          >
+            <svg className={css.toolsIconSvg}>
+              <use href="/symbol-defs.svg#icon-trash-04-1"></use>
+            </svg>
+          </Popconfirm>
         </div>
       </div>
     </div>

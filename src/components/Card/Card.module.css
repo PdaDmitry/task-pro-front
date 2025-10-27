@@ -3,9 +3,12 @@
   flex-direction: column;
   border-radius: 8px;
   width: 332px;
-  /* height: 154px; */
+  max-width: 100%;
   background: #fff;
+  /* background: #161616; */
   padding: 14px 20px;
+
+  /* word-break: break-word; */
 }
 
 .cardTitle {
@@ -26,6 +29,8 @@
   /* border-bottom: 1px solid var(--cont-my-board); */
   border-bottom: 1px solid rgba(22, 22, 22, 0.1);
   margin-bottom: 14px;
+
+  white-space: normal;
 }
 
 .dataCard {

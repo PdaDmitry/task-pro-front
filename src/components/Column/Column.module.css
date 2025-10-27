@@ -16,7 +16,6 @@
   justify-content: flex-start;
   height: 100% !important;
   overflow: hidden;
-
 }
 
 /* ============================================================================ */
@@ -82,15 +81,17 @@
   display: block;
   width: 16px;
   height: 16px;
-  /* stroke: var(--board-item-icon-stroke); */
   stroke: rgba(22, 22, 22, 0.5);
   fill: none;
   cursor: pointer;
 }
 
-.cardList li:not(:last-child) {
-
+.cardList li {
   margin-bottom: 8px;
+}
+
+.cardList li:last-child {
+  margin-bottom: 14px;
 }
 
 /* =========================================================================== */
@@ -98,13 +99,11 @@
 .cardList {
   flex: 1;
   overflow-y: auto;
-  max-height: calc(100vh - 260px);
   padding-right: 8px;
   scrollbar-width: thin;
   scrollbar-color: var(--color-horizontal-scroll) var(--horizontal-scroll-track-color);
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .cardList::-webkit-scrollbar-thumb {
