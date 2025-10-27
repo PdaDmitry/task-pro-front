@@ -7,6 +7,7 @@ import { removeBoard, returnInitialState, setActiveBoard } from '../../store/boa
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { setColumnsList } from '../../store/columns/columnsSlise';
+import { setCardsList } from '../../store/cards/cardsSlise';
 
 import CactusMob from '/Cactus/Cactus-mob-2x.png';
 import LogoutIcon from '../LogoutIcon/LogoutIcon';
@@ -70,11 +71,12 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     try {
       dispatch(setIsLoading(true));
       dispatch(setActiveBoard(board));
-      const resColumns = await request.get('/columns/getBoardColumns', {
+      const resColumnsAndCards = await request.get('/columns/getBoardColumnsAndCards', {
         params: { boardId: board._id },
       });
 
-      dispatch(setColumnsList(resColumns.data.columns));
+      dispatch(setColumnsList(resColumnsAndCards.data.columns));
+      dispatch(setCardsList(resColumnsAndCards.data.cards));
     } catch (err) {
       console.error('❌ Error loading data:', err.response?.data?.message || err.message);
     } finally {

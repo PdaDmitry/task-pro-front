@@ -94,7 +94,7 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
       const res = await request.post('/cards/createCard', formData);
 
       if (res.data.status) {
-        dispatch(addCard(res.data.card)); // добавляем в redux
+        dispatch(addCard(res.data.card));
         toast.success('Card successfully created');
         closeModal();
       }
