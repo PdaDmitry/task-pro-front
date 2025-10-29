@@ -1,25 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
 
 import css from './AddEditCardModal.module.css';
 import dayjs from 'dayjs';
 import Calendar from '../../Calendar/Calendar';
-import { addCard, removeCardList } from '../../../store/cards/cardsSlise';
+import { addCard, removeCardList, updateCardInList } from '../../../store/cards/cardsSlise';
 import request from '../../../utils/axiosInstance';
 import toast from 'react-hot-toast';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
 import { PRIORITY_COLORS } from '../../../utils/constants';
 
-const AddEditCardModal = ({ closeModal, columnId }) => {
+const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) => {
   const dispatch = useDispatch();
   const today = dayjs();
   const currentUser = useSelector(state => state.auth.user);
   const activeBoard = useSelector(state => state.boards.activeBoard);
   const cardsList = useSelector(state => state.cards.cardsList);
   const cardsInActiveColumn = cardsList.filter(card => card.columnId === columnId);
-
-  // console.log('cardList', cardsList);
 
   const order =
     cardsInActiveColumn.length > 0
@@ -40,6 +38,20 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
     title: '',
     description: '',
   });
+
+  useEffect(() => {
+    if (isUpdateCard && card) {
+      setFormData({
+        title: card.title,
+        description: card.description,
+        priority: card.priority,
+        deadline: card.deadline,
+        order: card.order,
+        boardId: card.boardId,
+        columnId: card.columnId,
+      });
+    }
+  }, [isUpdateCard, card]);
 
   const validateTitle = value => {
     if (!value.trim()) return 'Card name is required!';
@@ -91,26 +103,21 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
     try {
       dispatch(setIsLoading(true));
 
-      const res = await request.post('/cards/createCard', formData);
+      if (isUpdateCard) {
+        const res = await request.put(`/cards/updateCard/${card._id}`, formData);
 
-      if (res.data.status) {
-        dispatch(addCard(res.data.card));
-        toast.success('Card successfully created');
-        closeModal();
+        if (res.data.status) {
+          dispatch(updateCardInList(res.data.card));
+          toast.success(res.data.message);
+        }
+      } else {
+        const res = await request.post('/cards/createCard', formData);
+
+        if (res.data.status) {
+          dispatch(addCard(res.data.card));
+          toast.success(res.data.message);
+        }
       }
-
-      //  if (isUpdateColumn) {
-      //    const res = await request.put(`/columns/updateColumn/${columnId}`, { title });
-      //    dispatch(updateColumnInList(res.data.column));
-      //    toast.success(res.data.message);
-      //  } else {
-      //    const res = await request.post('/columns/createColumn', {
-      //      ...formData,
-      //      title,
-      //    });
-      //    dispatch(addColumn(res.data.column));
-      //    toast.success(res.data.message);
-      //  }
     } catch (error) {
       console.error('Error creating card:', error);
       toast.error(error.response.data.message);
@@ -131,8 +138,8 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
         <svg className={css.closeBtnSvg} onClick={closeModal}>
           <use href="/symbol-defs.svg#icon-x-close-1"></use>
         </svg>
-        {/* <h2 className={css.title}> {isUpdateColumn ? 'Edit column' : 'Add column'}</h2> */}
-        <h2 className={css.title}>Add card</h2>
+
+        <h2 className={css.title}>{isUpdateCard ? 'Edit' : 'Add'} card</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Board name */}
@@ -226,8 +233,7 @@ const AddEditCardModal = ({ closeModal, columnId }) => {
                 }
               ></use>
             </svg>
-            {/* {isUpdateColumn ? 'Edit' : 'Add'} */}
-            Add
+            {isUpdateCard ? 'Edit' : 'Add'}
           </button>
         </form>
       </div>

@@ -3,10 +3,13 @@ import { getPriorityColorByTheme } from '../../utils/priorityUtils';
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { removeCard } from '../../store/cards/cardsSlise';
+import { useState } from 'react';
 
 import toast from 'react-hot-toast';
 import request from '../../utils/axiosInstance';
 import dayjs from 'dayjs';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
 
 import css from './Card.module.css';
 
@@ -16,10 +19,14 @@ const Card = ({ cardId }) => {
   const cardsList = useSelector(state => state.cards.cardsList);
   const currentCard = cardsList.find(card => String(card._id) === String(cardId));
 
+  const [isOpenUpdateCard, setIsOpenUpdateCard] = useState(false);
+
+  const openModalUpdateCard = () => setIsOpenUpdateCard(true);
+  const closeModalUpdateCard = () => setIsOpenUpdateCard(false);
+
   const { title, description, priority, deadline } = currentCard;
 
   const formattedDate = dayjs(deadline).format('DD/MM/YYYY');
-
   const currentPriorityColor = getPriorityColorByTheme(priority, currentUser?.theme);
 
   const handleDeleteCard = async () => {
@@ -78,10 +85,7 @@ const Card = ({ cardId }) => {
             <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
           </svg>
 
-          <svg
-            className={css.toolsIconSvg}
-            //   onClick={openModal}
-          >
+          <svg className={css.toolsIconSvg} onClick={openModalUpdateCard}>
             <use href="/symbol-defs.svg#icon-pencil-01"></use>
           </svg>
 
@@ -97,6 +101,14 @@ const Card = ({ cardId }) => {
           </Popconfirm>
         </div>
       </div>
+
+      <ModalWindow isOpen={isOpenUpdateCard} onClose={closeModalUpdateCard}>
+        <AddEditCardModal
+          closeModal={closeModalUpdateCard}
+          card={currentCard}
+          isUpdateCard={true}
+        />
+      </ModalWindow>
     </div>
   );
 };

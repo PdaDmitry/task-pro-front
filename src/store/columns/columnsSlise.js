@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   columnsList: [],
-  // activeColumn: null,
 };
 
 const columnsSlice = createSlice({
@@ -14,24 +13,19 @@ const columnsSlice = createSlice({
     },
     removeColumn: (state, action) => {
       state.columnsList = state.columnsList.filter(c => c._id !== action.payload);
-      // state.activeColumn = null;
     },
     addColumn: (state, action) => {
       state.columnsList.push(action.payload);
     },
     updateColumnInList: (state, action) => {
-      const index = state.columnsList.findIndex(с => с._id === action.payload._id);
+      const index = state.columnsList.findIndex(c => c._id === action.payload._id);
       if (index !== -1) {
         state.columnsList[index] = action.payload;
       }
     },
     removeColumnsList: state => {
       state.columnsList = [];
-      // state.activeColumn = null;
     },
-    // setActiveColumn: (state, action) => {
-    //   state.activeBoard = action.payload;
-    // },
   },
 });
 
