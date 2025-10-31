@@ -71,6 +71,18 @@
   --rdp-day-outside-month-color: rgba(22, 22, 22, 0.3);
   --rdp-day-disabled-color: rgba(22, 22, 22, 0.2);
   --rdp-day-disabled-bg-hover: rgba(22, 22, 22, 0.1);
+
+  /* Column */
+  --column-bg: #fff;
+  --column-title-color: #161616;
+  --column-svg-stroke: rgba(22, 22, 22, 0.5);
+
+  /* Card */
+  --card-bg: #fff;
+  --card-title-color: #161616;
+  --card-description-color: rgba(22, 22, 22, 0.7);
+  --card-titleCategory-color: rgba(22, 22, 22, 0.5);
+  --card-deadlineDate-color: #161616;
 }
 
 /* Dark */
@@ -145,9 +157,22 @@
   --rdp-day-outside-month-color: rgba(255, 255, 255, 0.3);
   --rdp-day-disabled-color: rgba(255, 255, 255, 0.2);
   --rdp-day-disabled-bg-hover: rgba(255, 255, 255, 0.4);
+
+  /* Column */
+  --column-bg: #121212;
+  --column-title-color: #fff;
+  --column-svg-stroke: rgba(255, 255, 255, 0.5);
+
+  /* Card */
+  --card-bg: #161616;
+  --card-title-color: #fff;
+  --card-description-color: rgba(255, 255, 255, 0.5);
+  --card-titleCategory-color: rgba(255, 255, 255, 0.5);
+  --card-deadlineDate-color: #fff;
 }
 
 /* Violet */
+
 .theme-violet {
   /* Sidebar */
   --bg-color-sidebar: #5255bc;
@@ -213,4 +238,16 @@
   --rdp-day-outside-month-color: rgba(22, 22, 22, 0.3);
   --rdp-day-disabled-color: rgba(22, 22, 22, 0.2);
   --rdp-day-disabled-bg-hover: rgba(22, 22, 22, 0.1);
+
+  /* Column */
+  --column-bg: #fff;
+  --column-title-color: #161616;
+  --column-svg-stroke: rgba(22, 22, 22, 0.5);
+
+  /* Card */
+  --card-bg: #fff;
+  --card-title-color: #161616;
+  --card-description-color: rgba(22, 22, 22, 0.7);
+  --card-titleCategory-color: rgba(22, 22, 22, 0.5);
+  --card-deadlineDate-color: #161616;
 }
