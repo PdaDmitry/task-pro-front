@@ -26,7 +26,8 @@
   letter-spacing: -0.02em;
   color: var(--card-description-color);
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--cont-my-board);
+  /* border-bottom: 1px solid var(--cont-my-board); */
+  border-bottom: 1px solid var(--card-dscr-border-color);
 
   margin-bottom: 14px;
 
@@ -45,7 +46,7 @@
   align-items: center;
 }
 
-.contPriority {}
+/* .contPriority {} */
 
 .priorityItem {
   display: flex;

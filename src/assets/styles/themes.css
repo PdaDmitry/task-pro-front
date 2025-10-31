@@ -45,6 +45,10 @@
   /* ActiveBoard */
   --cont-title-board-color: #161616;
 
+  /* Add column Btn */
+  --add-column-btn-bg: #ffffff;
+  --add-column-btn-color: #161616;
+
   /* horizontal scrolling */
   --color-horizontal-scroll: #bedbb0;
   --horizontal-scroll-track-color: #ffffff;
@@ -81,6 +85,7 @@
   --card-bg: #fff;
   --card-title-color: #161616;
   --card-description-color: rgba(22, 22, 22, 0.7);
+  --card-dscr-border-color: rgba(22, 22, 22, 0.1);
   --card-titleCategory-color: rgba(22, 22, 22, 0.5);
   --card-deadlineDate-color: #161616;
 }
@@ -131,6 +136,10 @@
   /* ActiveBoard */
   --cont-title-board-color: #ffffff;
 
+  /* Add column Btn */
+  --add-column-btn-bg: #161616;
+  --add-column-btn-color: #fff;
+
   /* horizontal scrolling */
   --color-horizontal-scroll: #161616;
   --horizontal-scroll-track-color: #ffffff;
@@ -167,6 +176,7 @@
   --card-bg: #161616;
   --card-title-color: #fff;
   --card-description-color: rgba(255, 255, 255, 0.5);
+  --card-dscr-border-color: rgba(255, 255, 255, 0.3);
   --card-titleCategory-color: rgba(255, 255, 255, 0.5);
   --card-deadlineDate-color: #fff;
 }
@@ -212,6 +222,10 @@
   /* ActiveBoard */
   --cont-title-board-color: #161616;
 
+  /* Add column Btn */
+  --add-column-btn-bg: #ffffff;
+  --add-column-btn-color: #161616;
+
   /* horizontal scrolling */
   --color-horizontal-scroll: #b8bcfd;
   --horizontal-scroll-track-color: #ffffff;
@@ -248,6 +262,7 @@
   --card-bg: #fff;
   --card-title-color: #161616;
   --card-description-color: rgba(22, 22, 22, 0.7);
+  --card-dscr-border-color: rgba(22, 22, 22, 0.1);
   --card-titleCategory-color: rgba(22, 22, 22, 0.5);
   --card-deadlineDate-color: #161616;
 }

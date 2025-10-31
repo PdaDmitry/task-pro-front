@@ -120,11 +120,11 @@
   width: 330px;
   border-radius: 8px;
   border: none;
-  background: #ffffff;
+  background: var(--add-column-btn-bg);
   height: 56px;
   cursor: pointer;
   align-self: flex-start;
-
+  color: var(--add-column-btn-color);
   flex-shrink: 0;
   outline: none;
 }
