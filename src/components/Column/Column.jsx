@@ -59,11 +59,11 @@ const Column = ({
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5,
-      },
-    }),
+    // useSensor(PointerSensor, {
+    //   activationConstraint: {
+    //     distance: 5,
+    //   },
+    // }),
     useSensor(MouseSensor, {
       activationConstraint: {
         distance: 5,
@@ -71,8 +71,8 @@ const Column = ({
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 500,
-        tolerance: 5,
+        delay: 250,
+        tolerance: 8,
       },
     })
   );

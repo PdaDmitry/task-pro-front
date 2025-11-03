@@ -105,7 +105,8 @@
   display: flex;
   flex-direction: column;
 
-  touch-action: none;
+  /* touch-action: none; */
+  touch-action: pan-y;
 }
 
 .cardList::-webkit-scrollbar-thumb {
