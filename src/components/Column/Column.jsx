@@ -67,7 +67,7 @@ const Column = ({
     // useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 200,
+        // delay: 200,
         tolerance: 5,
       },
     })
