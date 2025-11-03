@@ -71,7 +71,7 @@ const Column = ({
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 100,
+        delay: 250,
         tolerance: 5,
       },
     })
