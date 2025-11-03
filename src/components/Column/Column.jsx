@@ -39,14 +39,14 @@ const Column = ({
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
   const [isOpenAddCard, setIsOpenAddCard] = useState(false);
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    const filtered = cardsList
-      .filter(c => c.columnId === columnId)
-      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-    setCards(filtered);
-  }, [cardsList, columnId]);
+  // useEffect(() => {
+  //   const filtered = cardsList
+  //     .filter(c => c.columnId === columnId)
+  //     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  //   setCards(filtered);
+  // }, [cardsList, columnId]);
 
   const openModal = () => setIsUpdateColumn(true);
   const closeModal = () => setIsUpdateColumn(false);
@@ -54,10 +54,23 @@ const Column = ({
   const openModalAddCard = () => setIsOpenAddCard(true);
   const closeModalAddCard = () => setIsOpenAddCard(false);
 
+  const cards = cardsList
+    .filter(c => c.columnId === columnId)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    // useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 5,
+      },
+    })
   );
 
   const handleDragEnd = async event => {
@@ -66,9 +79,16 @@ const Column = ({
 
     const oldIndex = cards.findIndex(c => c._id === active.id);
     const newIndex = cards.findIndex(c => c._id === over.id);
+
+    if (oldIndex === -1 || newIndex === -1) return;
     const newOrder = arrayMove(cards, oldIndex, newIndex);
 
-    setCards(newOrder);
+    dispatch(
+      updateCardsInColumn({
+        columnId,
+        cards: newOrder.map((c, i) => ({ ...c, order: i })),
+      })
+    );
 
     try {
       const res = await request.patch('/cards/reorder', {

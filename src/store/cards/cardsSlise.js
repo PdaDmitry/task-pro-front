@@ -27,12 +27,12 @@ const cardsSlice = createSlice({
       state.cardsList = [];
     },
     updateCardsInColumn: (state, action) => {
-      const updatedCards = action.payload;
-      const columnId = updatedCards[0]?.columnId;
+      const { columnId, cards } = action.payload;
       if (!columnId) return;
 
       state.cardsList = state.cardsList.filter(c => c.columnId !== columnId);
-      state.cardsList = [...state.cardsList, ...updatedCards];
+
+      state.cardsList = [...state.cardsList, ...cards];
     },
   },
 });

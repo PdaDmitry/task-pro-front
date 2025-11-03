@@ -30,6 +30,7 @@ const Card = ({
   const openModalUpdateCard = () => setIsOpenUpdateCard(true);
   const closeModalUpdateCard = () => setIsOpenUpdateCard(false);
 
+  if (!currentCard) return null;
   const { title, description, priority, deadline } = currentCard;
 
   const formattedDate = dayjs(deadline).format('DD/MM/YYYY');
