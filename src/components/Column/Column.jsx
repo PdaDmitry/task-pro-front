@@ -3,6 +3,9 @@ import { setIsLoading } from '../../store/loader/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeColumn } from '../../store/columns/columnsSlise';
 import { useState } from 'react';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
+import { updateCardsInColumn } from '../../store/cards/cardsSlise';
 
 import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
@@ -10,6 +13,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
 import Card from '../Card/Card';
+import SortableCardWrapper from '../SortableCardWrapper/SortableCardWrapper';
 
 import css from './Column.module.css';
 
@@ -24,9 +28,36 @@ const Column = ({
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
-  const cardsInActiveColumn = cardsList.filter(card => card.columnId === columnId);
+  const cardsInActiveColumn = cardsList
+    .filter(card => card.columnId === columnId)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
-  // console.log('cardsInActiveColumn', cardsInActiveColumn);
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = async event => {
+    const { active, over } = event;
+    if (!over) return;
+    if (active.id === over.id) return;
+
+    // const activeCard = cardsInActiveColumn.find(c => c._id === active.id);
+    const overCard = cardsInActiveColumn.find(c => c._id === over.id);
+
+    if (overCard) {
+      const oldIndex = cardsInActiveColumn.findIndex(c => c._id === active.id);
+      const newIndex = cardsInActiveColumn.findIndex(c => c._id === over.id);
+      const newOrder = arrayMove(cardsInActiveColumn, oldIndex, newIndex);
+
+      try {
+        const res = await request.patch('/cards/reorder', {
+          columnId,
+          cards: newOrder.map((c, i) => ({ _id: c._id, order: i })),
+        });
+        dispatch(updateCardsInColumn(res.data.cards));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
   const [isOpenAddCard, setIsOpenAddCard] = useState(false);
@@ -87,13 +118,20 @@ const Column = ({
           </div>
         </div>
 
-        <ul className={css.cardList}>
-          {cardsInActiveColumn.map(card => (
-            <li key={card._id} className={css.cardItem}>
-              <Card cardId={card._id} />
-            </li>
-          ))}
-        </ul>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext
+            items={cardsInActiveColumn.map(card => card._id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <ul className={css.cardList}>
+              {cardsInActiveColumn.map(card => (
+                <SortableCardWrapper key={card._id} id={card._id}>
+                  <Card cardId={card._id} />
+                </SortableCardWrapper>
+              ))}
+            </ul>
+          </SortableContext>
+        </DndContext>
       </div>
 
       <button

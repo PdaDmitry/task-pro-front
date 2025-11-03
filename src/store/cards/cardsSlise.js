@@ -26,9 +26,23 @@ const cardsSlice = createSlice({
     removeCardList: state => {
       state.cardsList = [];
     },
+    updateCardsInColumn: (state, action) => {
+      const updatedCards = action.payload;
+      const columnId = updatedCards[0]?.columnId;
+      if (!columnId) return;
+
+      state.cardsList = state.cardsList.filter(c => c.columnId !== columnId);
+      state.cardsList = [...state.cardsList, ...updatedCards];
+    },
   },
 });
 
-export const { setCardsList, removeCard, addCard, updateCardInList, removeCardList } =
-  cardsSlice.actions;
+export const {
+  setCardsList,
+  removeCard,
+  addCard,
+  updateCardInList,
+  removeCardList,
+  updateCardsInColumn,
+} = cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;

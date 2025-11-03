@@ -13,7 +13,13 @@ import AddEditCardModal from '../Modals/AddEditCardModal/AddEditCardModal';
 
 import css from './Card.module.css';
 
-const Card = ({ cardId }) => {
+const Card = ({
+  cardId,
+  dragActivatorRef,
+  dragListeners,
+  dragAttributes,
+  // isDragging
+}) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
@@ -57,10 +63,21 @@ const Card = ({ cardId }) => {
       }}
       className={css.contCard}
     >
-      <h3 className={css.cardTitle}>{title}</h3>
-      <p className={css.description}>
-        {description.length > 73 ? description.slice(0, 73) + '…' : description}
-      </p>
+      <div
+        className={css.dragHandle}
+        ref={dragActivatorRef}
+        {...(dragListeners || {})}
+        {...(dragAttributes || {})}
+        aria-label="Drag card"
+        role="button"
+        tabIndex={0}
+      >
+        <h3 className={css.cardTitle}>{title}</h3>
+        <p className={css.description}>
+          {description.length > 73 ? description.slice(0, 73) + '…' : description}
+        </p>
+      </div>
+
       <div className={css.dataCard}>
         <div className={css.contPrDl}>
           <div className={css.contPriority}>
