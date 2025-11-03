@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineRadioButtonChecked, MdCircle } from 'react-icons/md';
-
-import css from './AddEditCardModal.module.css';
-import dayjs from 'dayjs';
-import Calendar from '../../Calendar/Calendar';
-import { addCard, removeCardList, updateCardInList } from '../../../store/cards/cardsSlise';
-import request from '../../../utils/axiosInstance';
-import toast from 'react-hot-toast';
 import { setIsLoading } from '../../../store/loader/loaderSlice';
 import { PRIORITY_COLORS } from '../../../utils/constants';
+import { addCard, updateCardInList } from '../../../store/cards/cardsSlise';
+
+import dayjs from 'dayjs';
+import Calendar from '../../Calendar/Calendar';
+import request from '../../../utils/axiosInstance';
+import toast from 'react-hot-toast';
+
+import css from './AddEditCardModal.module.css';
 
 const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) 
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [showCalendar, setShowCalendar] = useState(false);
+
   const [errors, setErrors] = useState({
     title: '',
     description: '',
@@ -66,10 +67,6 @@ const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) 
   const handChangePriority = item => {
     setFormData(prev => ({ ...prev, priority: item.label }));
   };
-
-  // const handleCalendarToggle = () => {
-  //   setShowCalendar(!showCalendar);
-  // };
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -127,14 +124,13 @@ const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) 
     }
     setFormData(initialFormData);
     setErrors({ title: '', description: '' });
-    // dispatch(removeCardList());
+
     closeModal();
   };
 
   return (
     <>
-      {/* <div className={css.contAddCard}> */}
-      <div className={`${css.contAddCard} ${showCalendar ? css.dimmed : ''}`}>
+      <div className={css.contAddCard}>
         <svg className={css.closeBtnSvg} onClick={closeModal}>
           <use href="/symbol-defs.svg#icon-x-close-1"></use>
         </svg>
@@ -212,11 +208,7 @@ const AddEditCardModal = ({ closeModal, columnId, card, isUpdateCard = false }) 
             </p>
 
             <div className={css.openCalendar}>
-              <Calendar
-                formData={formData}
-                setFormData={setFormData}
-                setShowCalendar={setShowCalendar}
-              />
+              <Calendar formData={formData} setFormData={setFormData} />
             </div>
           </div>
 

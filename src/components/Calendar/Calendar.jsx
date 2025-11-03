@@ -2,26 +2,29 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import dayjs from 'dayjs';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './Calendar.css';
 
-const Calendar = ({ formData, setFormData, setShowCalendar }) => {
+const Calendar = ({ formData, setFormData }) => {
   const currentUser = useSelector(state => state.auth.user);
 
   const [startDate, setStartDate] = useState(new Date());
 
+  useEffect(() => {
+    if (formData.deadline) {
+      setStartDate(new Date(formData.deadline));
+    }
+  }, [formData.deadline]);
+
   const handleDateSelect = date => {
     if (!date) return;
-    // setShowCalendar(true);
+
     setStartDate(date);
 
-    // const formatted = dayjs(date).format('DD/MM/YYYY');
     const formatted = dayjs(date).format('YYYY-MM-DD');
     setFormData(prev => ({ ...prev, deadline: formatted }));
-
-    setShowCalendar(false);
   };
 
   const CalendarIconInput = forwardRef(({ value, onClick }, ref) => (

@@ -29,6 +29,10 @@ const Card = ({ cardId }) => {
   const formattedDate = dayjs(deadline).format('DD/MM/YYYY');
   const currentPriorityColor = getPriorityColorByTheme(priority, currentUser?.theme);
 
+  const isDeadline =
+    deadline &&
+    (dayjs(deadline).isSame(dayjs(), 'day') || dayjs(deadline).isBefore(dayjs(), 'day'));
+
   const handleDeleteCard = async () => {
     try {
       dispatch(setIsLoading(true));
@@ -77,9 +81,11 @@ const Card = ({ cardId }) => {
         </div>
 
         <div className={css.toolsCards}>
-          <svg className={css.toolsIconSvg}>
-            <use href="/symbol-defs.svg#icon-bell-01"></use>
-          </svg>
+          {isDeadline && (
+            <svg className={css.toolsIconSvg}>
+              <use href="/symbol-defs.svg#icon-bell-01"></use>
+            </svg>
+          )}
 
           <svg className={css.toolsIconSvg}>
             <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
