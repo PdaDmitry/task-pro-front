@@ -2,8 +2,16 @@ import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeColumn } from '../../store/columns/columnsSlise';
-import { useState } from 'react';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { useEffect, useState } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+} from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { updateCardsInColumn } from '../../store/cards/cardsSlise';
 
@@ -28,45 +36,51 @@ const Column = ({
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
-  const cardsInActiveColumn = cardsList
-    .filter(card => card.columnId === columnId)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-
-  const sensors = useSensors(useSensor(PointerSensor));
-
-  const handleDragEnd = async event => {
-    const { active, over } = event;
-    if (!over) return;
-    if (active.id === over.id) return;
-
-    // const activeCard = cardsInActiveColumn.find(c => c._id === active.id);
-    const overCard = cardsInActiveColumn.find(c => c._id === over.id);
-
-    if (overCard) {
-      const oldIndex = cardsInActiveColumn.findIndex(c => c._id === active.id);
-      const newIndex = cardsInActiveColumn.findIndex(c => c._id === over.id);
-      const newOrder = arrayMove(cardsInActiveColumn, oldIndex, newIndex);
-
-      try {
-        const res = await request.patch('/cards/reorder', {
-          columnId,
-          cards: newOrder.map((c, i) => ({ _id: c._id, order: i })),
-        });
-        dispatch(updateCardsInColumn(res.data.cards));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  };
 
   const [isUpdateColumn, setIsUpdateColumn] = useState(false);
   const [isOpenAddCard, setIsOpenAddCard] = useState(false);
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    const filtered = cardsList
+      .filter(c => c.columnId === columnId)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    setCards(filtered);
+  }, [cardsList, columnId]);
 
   const openModal = () => setIsUpdateColumn(true);
   const closeModal = () => setIsUpdateColumn(false);
 
   const openModalAddCard = () => setIsOpenAddCard(true);
   const closeModalAddCard = () => setIsOpenAddCard(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 100, tolerance: 5 } })
+  );
+
+  const handleDragEnd = async event => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = cards.findIndex(c => c._id === active.id);
+    const newIndex = cards.findIndex(c => c._id === over.id);
+    const newOrder = arrayMove(cards, oldIndex, newIndex);
+
+    setCards(newOrder);
+
+    try {
+      const res = await request.patch('/cards/reorder', {
+        columnId,
+        cards: newOrder.map((c, i) => ({ _id: c._id, order: i })),
+      });
+      dispatch(updateCardsInColumn(res.data.cards));
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to reorder cards');
+    }
+  };
 
   const handleDeleteColumn = async () => {
     try {
@@ -120,11 +134,11 @@ const Column = ({
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext
-            items={cardsInActiveColumn.map(card => card._id)}
+            items={cards.map(card => card._id)}
             strategy={verticalListSortingStrategy}
           >
             <ul className={css.cardList}>
-              {cardsInActiveColumn.map(card => (
+              {cards.map(card => (
                 <SortableCardWrapper key={card._id} id={card._id}>
                   <Card cardId={card._id} />
                 </SortableCardWrapper>
