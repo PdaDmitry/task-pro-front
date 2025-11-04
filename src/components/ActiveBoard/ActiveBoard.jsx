@@ -46,7 +46,7 @@ const ActiveBoard = () => {
   }, [columnsList]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    // useSensor(PointerSensor),
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 8 } })
   );
