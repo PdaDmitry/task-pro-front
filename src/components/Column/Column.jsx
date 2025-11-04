@@ -59,11 +59,6 @@ const Column = ({
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   const sensors = useSensors(
-    // useSensor(PointerSensor, {
-    //   activationConstraint: {
-    //     distance: 5,
-    //   },
-    // }),
     useSensor(MouseSensor, {
       activationConstraint: {
         distance: 5,
@@ -76,21 +71,6 @@ const Column = ({
       },
     })
   );
-
-  // const sensors = useSensors(
-  //   useSensor(PointerSensor, {
-  //     activationConstraint: {
-  //       distance: 5,
-  //     },
-  //   }),
-  //   // useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-  //   useSensor(TouchSensor, {
-  //     activationConstraint: {
-  //       // delay: 200,
-  //       tolerance: 5,
-  //     },
-  //   })
-  // );
 
   const handleDragEnd = async event => {
     const { active, over } = event;
