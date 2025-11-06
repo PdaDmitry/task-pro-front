@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPriorityColorByTheme } from '../../utils/priorityUtils';
 import { Dropdown, Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
-import { removeCard } from '../../store/cards/cardsSlise';
+import { removeCard, updateCardInList } from '../../store/cards/cardsSlise';
 import { useState } from 'react';
 
 import toast from 'react-hot-toast';
@@ -23,8 +23,9 @@ const Card = ({
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
-  const currentCard = cardsList.find(card => String(card._id) === String(cardId));
   const columnsList = useSelector(state => state.columns.columnsList);
+
+  const currentCard = cardsList.find(card => String(card._id) === String(cardId));
 
   // console.log('currentCard', currentCard);
 
@@ -62,19 +63,17 @@ const Card = ({
 
   const moveToAnotherColumn = async e => {
     const newColumnId = e.key;
-    console.log('newColumnId', newColumnId);
 
     if (newColumnId === currentCard.columnId) return;
     try {
       dispatch(setIsLoading(true));
-      // const res = await request.patch('/cards/updateCard', {
-      //   cardId: currentCard._id,
-      //   columnId: newColumnId,
-      // });
-      // if (res.data.status) {
-      //   dispatch(removeCard(cardId));
-      //   toast.success(res.data.message);
-      // }
+      const res = await request.put(`/cards/updateCard/${currentCard._id}`, {
+        columnId: newColumnId,
+      });
+      if (res.data.status) {
+        dispatch(updateCardInList(res.data.card));
+        toast.success(res.data.message);
+      }
     } catch (error) {
       console.error('Error moving card:', error);
       toast.error('Failed to move card. Please try again.');
@@ -156,15 +155,12 @@ const Card = ({
               onClick: moveToAnotherColumn,
             }}
             trigger={['click']}
+            // overlayClassName={css.customDropdownMenu}
           >
             <svg className={css.toolsIconSvg}>
               <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
             </svg>
           </Dropdown>
-
-          {/* <svg className={css.toolsIconSvg}>
-            <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
-          </svg> */}
 
           <svg className={css.toolsIconSvg} onClick={openModalUpdateCard}>
             <use href="/symbol-defs.svg#icon-pencil-01"></use>

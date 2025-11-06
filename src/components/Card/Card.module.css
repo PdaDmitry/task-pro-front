@@ -24,7 +24,7 @@
   font-size: 14px;
   letter-spacing: -0.02em;
   padding-bottom: 8px;
-  color: var(--card-title-color)
+  color: var(--card-title-color);
 }
 
 .description {
@@ -36,8 +36,6 @@
   padding-bottom: 14px;
 
   border-bottom: 1px solid var(--card-dscr-border-color);
-
-
 
   white-space: normal;
 }
@@ -78,7 +76,8 @@
   color: var(--card-deadlineDate-color);
 }
 
-.contDeadline {}
+.contDeadline {
+}
 
 .titleCategory {
   font-weight: 400;
