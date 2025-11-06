@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getPriorityColorByTheme } from '../../utils/priorityUtils';
-import { Popconfirm } from 'antd';
+import { Dropdown, Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { removeCard } from '../../store/cards/cardsSlise';
 import { useState } from 'react';
@@ -24,6 +24,9 @@ const Card = ({
   const currentUser = useSelector(state => state.auth.user);
   const cardsList = useSelector(state => state.cards.cardsList);
   const currentCard = cardsList.find(card => String(card._id) === String(cardId));
+  const columnsList = useSelector(state => state.columns.columnsList);
+
+  // console.log('currentCard', currentCard);
 
   const [isOpenUpdateCard, setIsOpenUpdateCard] = useState(false);
 
@@ -52,6 +55,29 @@ const Card = ({
     } catch (error) {
       console.error('Error deleting card:', error);
       toast.error('Failed to delete card. Please try again.');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+  const moveToAnotherColumn = async e => {
+    const newColumnId = e.key;
+    console.log('newColumnId', newColumnId);
+
+    if (newColumnId === currentCard.columnId) return;
+    try {
+      dispatch(setIsLoading(true));
+      // const res = await request.patch('/cards/updateCard', {
+      //   cardId: currentCard._id,
+      //   columnId: newColumnId,
+      // });
+      // if (res.data.status) {
+      //   dispatch(removeCard(cardId));
+      //   toast.success(res.data.message);
+      // }
+    } catch (error) {
+      console.error('Error moving card:', error);
+      toast.error('Failed to move card. Please try again.');
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -105,9 +131,40 @@ const Card = ({
             </svg>
           )}
 
-          <svg className={css.toolsIconSvg}>
+          <Dropdown
+            menu={{
+              items: columnsList
+                .filter(column => column._id !== currentCard.columnId)
+                .map(column => ({
+                  key: column._id,
+                  label: (
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      {column.title}
+                      <svg className={css.toolsIconSvg} style={{ width: 16, height: 16 }}>
+                        <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
+                      </svg>
+                    </div>
+                  ),
+                })),
+              onClick: moveToAnotherColumn,
+            }}
+            trigger={['click']}
+          >
+            <svg className={css.toolsIconSvg}>
+              <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
+            </svg>
+          </Dropdown>
+
+          {/* <svg className={css.toolsIconSvg}>
             <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
-          </svg>
+          </svg> */}
 
           <svg className={css.toolsIconSvg} onClick={openModalUpdateCard}>
             <use href="/symbol-defs.svg#icon-pencil-01"></use>
