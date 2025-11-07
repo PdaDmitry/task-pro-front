@@ -16,8 +16,9 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const currentUser = useSelector(state => state.auth.user);
 
-  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState(currentUser?.theme);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,7 +58,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const handleMenuClick = async e => {
     setSelectedTheme(e.key);
-
+    setIsDropdownOpen(false);
     try {
       dispatch(setIsLoading(true));
       const res = await request.patch('/users/updateTheme', { theme: e.key });
@@ -75,7 +76,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   const items = THEMES.map(theme => ({
     key: theme,
-    label: <span style={{ color: selectedTheme === theme ? '#bedbb0' : '#161616' }}>{theme}</span>,
+    label: theme,
   }));
 
   return (
@@ -96,8 +97,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
         ))}
 
       <div className={css.container}>
-        {/* <Dropdown
+        <Dropdown
           trigger={['click']}
+          open={isDropdownOpen}
+          onOpenChange={setIsDropdownOpen}
           popupRender={() => (
             <div
               className={css.dropdownWrapper}
@@ -108,8 +111,14 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
               {items.map(item => (
                 <div
                   key={item.key}
-                  className={css.dropdownItem}
-                  onClick={() => handleMenuClick(item)}
+                  className={`${css.dropdownItem} ${
+                    selectedTheme === item.key
+                      ? item.key === 'Violet'
+                        ? css.selectedViolet
+                        : css.selectedLight
+                      : ''
+                  }`}
+                  onClick={() => handleMenuClick({ key: item.key })}
                 >
                   {item.label}
                 </div>
@@ -129,9 +138,13 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
               ></use>
             </svg>
           </div>
-        </Dropdown> */}
+        </Dropdown>
 
-        <Dropdown menu={{ items, onClick: handleMenuClick }} trigger={['click']}>
+        {/* <Dropdown
+          menu={{ items, onClick: handleMenuClick }}
+          trigger={['click']}
+          overlayClassName={css.dropdownWrapper}
+        >
           <div className={css.contTheme}>
             Theme
             <svg className={css.themeSvg}>
@@ -144,7 +157,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
               ></use>
             </svg>
           </div>
-        </Dropdown>
+        </Dropdown> */}
 
         <div className={css.contUser}>
           <p className={css.name}>{currentUser?.name}</p>
