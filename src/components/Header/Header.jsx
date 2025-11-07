@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Dropdown } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import Sidebar from '../Sidebar/Sidebar';
 import { updateTheme } from '../../store/auth/authSlice';
+import { setIsLoading } from '../../store/loader/loaderSlice';
+import { THEMES } from '../../utils/constants';
+
+import Sidebar from '../Sidebar/Sidebar';
 import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
-import { setIsLoading } from '../../store/loader/loaderSlice';
 
 import css from './Header.module.css';
-
-const themes = ['Light', 'Dark', 'Violet'];
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
     }
   };
 
-  const items = themes.map(theme => ({
+  const items = THEMES.map(theme => ({
     key: theme,
     label: <span style={{ color: selectedTheme === theme ? '#bedbb0' : '#161616' }}>{theme}</span>,
   }));
@@ -96,6 +96,41 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
         ))}
 
       <div className={css.container}>
+        {/* <Dropdown
+          trigger={['click']}
+          popupRender={() => (
+            <div
+              className={css.dropdownWrapper}
+              style={{
+                border: currentUser?.theme === 'Dark' ? '1px solid #9dc888' : '',
+              }}
+            >
+              {items.map(item => (
+                <div
+                  key={item.key}
+                  className={css.dropdownItem}
+                  onClick={() => handleMenuClick(item)}
+                >
+                  {item.label}
+                </div>
+              ))}
+            </div>
+          )}
+        >
+          <div className={css.contTheme}>
+            Theme
+            <svg className={css.themeSvg}>
+              <use
+                href={
+                  currentUser?.theme === 'Dark'
+                    ? '/symbol-defs.svg#icon-chevron-down-5'
+                    : '/symbol-defs.svg#icon-chevron-down-2'
+                }
+              ></use>
+            </svg>
+          </div>
+        </Dropdown> */}
+
         <Dropdown menu={{ items, onClick: handleMenuClick }} trigger={['click']}>
           <div className={css.contTheme}>
             Theme

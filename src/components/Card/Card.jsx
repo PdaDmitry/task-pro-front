@@ -131,31 +131,30 @@ const Card = ({
           )}
 
           <Dropdown
-            menu={{
-              items: columnsList
-                .filter(column => column._id !== currentCard.columnId)
-                .map(column => ({
-                  key: column._id,
-                  label: (
+            trigger={['click']}
+            popupRender={() => (
+              <div
+                className={css.dropdownWrapper}
+                style={{
+                  border: currentUser?.theme === 'Dark' ? ' 1px solid  #9dc888' : '',
+                }}
+              >
+                {columnsList
+                  .filter(column => column._id !== currentCard.columnId)
+                  .map(column => (
                     <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '8px',
-                      }}
+                      key={column._id}
+                      className={css.dropdownItem}
+                      onClick={() => moveToAnotherColumn({ key: column._id })}
                     >
                       {column.title}
-                      <svg className={css.toolsIconSvg} style={{ width: 16, height: 16 }}>
+                      <svg className={css.moveIconSvg} style={{ width: 16, height: 16 }}>
                         <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>
                       </svg>
                     </div>
-                  ),
-                })),
-              onClick: moveToAnotherColumn,
-            }}
-            trigger={['click']}
-            // overlayClassName={css.customDropdownMenu}
+                  ))}
+              </div>
+            )}
           >
             <svg className={css.toolsIconSvg}>
               <use href="/symbol-defs.svg#icon-arrow-circle-broken-right-2"></use>

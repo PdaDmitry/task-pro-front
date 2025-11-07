@@ -76,8 +76,7 @@
   color: var(--card-deadlineDate-color);
 }
 
-.contDeadline {
-}
+.contDeadline {}
 
 .titleCategory {
   font-weight: 400;
@@ -93,7 +92,8 @@
   align-items: center;
 }
 
-.toolsIconSvg {
+.toolsIconSvg,
+.moveIconSvg {
   display: block;
   width: 16px;
   height: 16px;
@@ -101,4 +101,38 @@
   stroke: var(--column-svg-stroke);
   fill: none;
   cursor: pointer;
+}
+
+/* ============================================================================  */
+
+.dropdownWrapper {
+  background-color: var(--dpd-bg);
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 4px 16px var(--dpd-shadow);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--dpd-item-color);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dropdownItem:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.dropdownItem:hover {
+  color: var(--dpd-item-hover-color);
+}
+
+.dropdownItem:hover .moveIconSvg {
+  stroke: var(--dpd-item-hover-color);
 }

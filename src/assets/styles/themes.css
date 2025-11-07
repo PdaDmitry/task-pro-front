@@ -88,6 +88,12 @@
   --card-dscr-border-color: rgba(22, 22, 22, 0.1);
   --card-titleCategory-color: rgba(22, 22, 22, 0.5);
   --card-deadlineDate-color: #161616;
+
+  /* dropdownMoveCard */
+  --dpd-bg: #ffffff;
+  --dpd-shadow: rgba(0, 0, 0, 0.35);
+  --dpd-item-color: #161616;
+  --dpd-item-hover-color: #9dc888;
 }
 
 /* Dark */
@@ -179,6 +185,12 @@
   --card-dscr-border-color: rgba(255, 255, 255, 0.3);
   --card-titleCategory-color: rgba(255, 255, 255, 0.5);
   --card-deadlineDate-color: #fff;
+
+  /* dropdownMoveCard */
+  --dpd-bg: #1f1f1f;
+  --dpd-shadow: rgba(255, 255, 255, 0.3);
+  --dpd-item-color: rgba(255, 255, 255, 0.5);
+  --dpd-item-hover-color: #9dc888;
 }
 
 /* Violet */
@@ -265,4 +277,10 @@
   --card-dscr-border-color: rgba(22, 22, 22, 0.1);
   --card-titleCategory-color: rgba(22, 22, 22, 0.5);
   --card-deadlineDate-color: #161616;
+
+  /* dropdownMoveCard */
+  --dpd-bg: #ffffff;
+  --dpd-shadow: rgba(0, 0, 0, 0.35);
+  --dpd-item-color: #161616;
+  --dpd-item-hover-color: #5255bc;
 }
