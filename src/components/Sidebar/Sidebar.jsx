@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../../store/auth/authSlice';
 import { icons } from '../../data/icons';
-import { removeBoard, returnInitialState, setActiveBoard } from '../../store/boards/boards';
+import { removeBoard, setActiveBoard } from '../../store/boards/boards';
 import { Popconfirm } from 'antd';
 import { setIsLoading } from '../../store/loader/loaderSlice';
 import { setColumnsList } from '../../store/columns/columnsSlise';
@@ -16,12 +14,13 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import CreateBoardModal from '../Modals/CreateBoardModal/CreateBoardModal';
 import request from '../../utils/axiosInstance';
 import UpdateBoardModal from '../Modals/UpdateBoardModal/UpdateBoardModal';
+import LogOutModal from '../Modals/LogOutModal/LogOutModal';
 
 import css from './Sidebar.module.css';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const currentUser = useSelector(state => state.auth.user);
   const boardsList = useSelector(state => state.boards.boardsList);
   const activeBoard = useSelector(state => state.boards.activeBoard);
@@ -30,6 +29,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [isHoveredLogOut, setIsHoveredLogOut] = useState(false);
   const [isCreateBoardModalOpen, setIsCreateBoardModalOpen] = useState(false);
   const [isUpdateBoardModalOpen, setIsUpdateBoardModalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
   const openModal = () => setIsCreateBoardModalOpen(true);
   const closeModal = () => setIsCreateBoardModalOpen(false);
@@ -37,13 +37,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const openUpdateBoardModal = () => setIsUpdateBoardModalOpen(true);
   const closeUpdateBoardModal = () => setIsUpdateBoardModalOpen(false);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    dispatch(returnInitialState());
-    navigate('/auth/login');
-
-    toast.success('User is logged out!');
-  };
+  const openLogOutModal = () => setIsLogOutModalOpen(true);
+  const closeLogOutModal = () => setIsLogOutModalOpen(false);
 
   const getIconUrlById = iconId => {
     const foundIcon = icons.find(icon => icon.id === iconId);
@@ -188,7 +183,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       <button
         type="button"
-        onClick={handleLogout}
+        onClick={openLogOutModal}
         className={css.logoutBtn}
         onMouseEnter={() => setIsHoveredLogOut(true)}
         onMouseLeave={() => setIsHoveredLogOut(false)}
@@ -216,6 +211,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       <ModalWindow isOpen={isUpdateBoardModalOpen} onClose={closeUpdateBoardModal}>
         <UpdateBoardModal closeModal={closeUpdateBoardModal} />
+      </ModalWindow>
+
+      <ModalWindow isOpen={isLogOutModalOpen} onClose={closeLogOutModal}>
+        <LogOutModal closeModal={closeLogOutModal} />
       </ModalWindow>
     </div>
   );
