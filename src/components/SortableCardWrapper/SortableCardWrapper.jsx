@@ -3,7 +3,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import css from './SortableCardWrapper.module.css';
 
-const SortableCardWrapper = ({ id, children }) => {
+const SortableCardWrapper = ({ id, data = {}, children }) => {
+  ///////data = {}////////
   const {
     attributes,
     listeners,
@@ -12,11 +13,12 @@ const SortableCardWrapper = ({ id, children }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: String(id) });
+  } = useSortable({ id: String(id), data }); //////data ///////////
 
   const style = {
     transform: CSS.Transform.toString(transform) || undefined,
     transition: transition || undefined,
+    opacity: isDragging ? 0 : 1, ////////////////////////
     zIndex: isDragging ? 9999 : undefined,
   };
 
