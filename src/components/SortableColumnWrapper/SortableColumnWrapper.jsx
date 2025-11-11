@@ -18,7 +18,7 @@ const SortableColumnWrapper = ({ id, data = {}, children }) => {
   const style = {
     transform: CSS.Transform.toString(transform) || undefined,
     transition: transition || undefined,
-    // opacity: isDragging ? 0.5 : 1,/////////////////////
+    opacity: isDragging ? 0 : 1, /////////////////////
     zIndex: isDragging ? 9999 : undefined,
   };
 

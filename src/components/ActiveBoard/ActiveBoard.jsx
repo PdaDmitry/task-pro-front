@@ -197,11 +197,12 @@ import {
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 
 import SortableColumnWrapper from '../SortableColumnWrapper/SortableColumnWrapper';
+import SortableCardWrapper from '../SortableCardWrapper/SortableCardWrapper';
 import request from '../../utils/axiosInstance';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import AddColumnModal from '../Modals/AddColumnModal/AddColumnModal';
 import Column from '../Column/Column';
-import Card from '../Card/Card'; // Import Card for overlay
+import Card from '../Card/Card';
 
 import css from './ActiveBoard.module.css';
 
@@ -217,10 +218,12 @@ const ActiveBoard = () => {
   const [isAddColumn, setIsAddColumn] = useState(false);
   const [columns, setColumns] = useState([]);
   const [snapshotCards, setSnapshotCards] = useState(null);
-  const [activeDrag, setActiveDrag] = useState(null); // New state for DragOverlay
+  const [activeDrag, setActiveDrag] = useState(null);
 
   const openModal = () => setIsAddColumn(true);
   const closeModal = () => setIsAddColumn(false);
+
+  // ============================================================================
 
   useEffect(() => {
     if (columnsList?.length) {
@@ -232,9 +235,8 @@ const ActiveBoard = () => {
   }, [columnsList]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 8 } })
+    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } })
   );
 
   const handleDragStart = event => {
@@ -246,14 +248,14 @@ const ActiveBoard = () => {
     });
     document.body.style.userSelect = 'none';
     const container = document.querySelector(`.${css.contColumnsBtnAdd}`);
-    if (container) container.style.overflow = 'hidden';
+    if (container) container.style.overflowY = 'hidden';
   };
 
   const handleDragFinalize = () => {
     setActiveDrag(null);
     document.body.style.userSelect = '';
     const container = document.querySelector(`.${css.contColumnsBtnAdd}`);
-    if (container) container.style.overflow = '';
+    if (container) container.style.overflowY = '';
   };
 
   const handleDragCancel = () => {
@@ -270,6 +272,7 @@ const ActiveBoard = () => {
 
     const activeType = active.data.current?.type;
 
+    // === ПЕРЕМЕЩЕНИЕ КОЛОНОК ===
     if (activeType === 'column') {
       if (String(active.id) === String(over.id)) {
         handleDragFinalize();
@@ -300,6 +303,7 @@ const ActiveBoard = () => {
       return;
     }
 
+    // === ПЕРЕМЕЩЕНИЕ КАРТОЧЕК ===
     if (activeType === 'card') {
       const activeCard = cardsList.find(c => String(c._id) === String(active.id));
       if (!activeCard) {
@@ -324,8 +328,9 @@ const ActiveBoard = () => {
       }
 
       const sourceColumnId = activeCard.columnId;
+
       if (sourceColumnId === targetColumnId) {
-        // Reorder within
+        // Перемещение внутри одной колонки
         const cardsInColumn = cardsList
           .filter(c => c.columnId === sourceColumnId)
           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -341,7 +346,6 @@ const ActiveBoard = () => {
         }
 
         const newOrder = arrayMove(cardsInColumn, oldIndex, newIndex);
-
         const updatedCards = cardsList.map(card => {
           if (card.columnId !== sourceColumnId) return card;
           const found = newOrder.find(nc => nc._id === card._id);
@@ -359,7 +363,7 @@ const ActiveBoard = () => {
           console.error('Failed to persist cards order', err);
         }
       } else {
-        // Move to another
+        // Перемещение между колонками
         const sourceCards = cardsList
           .filter(c => c.columnId === sourceColumnId)
           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -372,15 +376,13 @@ const ActiveBoard = () => {
         const sourceCardsNew = sourceCards
           .filter(c => c._id !== active.id)
           .map((c, i) => ({ ...c, order: i }));
-
-        const destCardsNew = destCards.map(c => ({ ...c })); // Copy to avoid mutation
+        const destCardsNew = [...destCards];
         const insertIndex =
           overCard && overCard.columnId === targetColumnId
             ? destCards.findIndex(c => c._id === over.id)
             : destCards.length;
 
         destCardsNew.splice(insertIndex, 0, movedCardNew);
-
         const destCardsUpdated = destCardsNew.map((c, i) => ({ ...c, order: i }));
 
         const updatedCards = cardsList.map(card => {
@@ -415,6 +417,8 @@ const ActiveBoard = () => {
     handleDragFinalize();
   };
 
+  // ============================================================================
+
   return (
     <div className={css.contActiveBoard}>
       <div
@@ -441,13 +445,17 @@ const ActiveBoard = () => {
           <p className={css.titleFilter}>Filters</p>
         </div>
       </div>
+
       <div className={css.contColumnsBtnAdd}>
-        {columns?.length > 0 && (
+        {columnsList?.length > 0 && (
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
+            onDragEnd={e => {
+              handleDragEnd(e);
+              handleDragFinalize();
+            }}
             onDragCancel={handleDragCancel}
           >
             <SortableContext
@@ -466,6 +474,8 @@ const ActiveBoard = () => {
                 ))}
               </ul>
             </SortableContext>
+
+            {/* DragOverlay для карточек и колонок */}
             <DragOverlay>
               {activeDrag?.type === 'column' && activeDrag.id && (
                 <Column
