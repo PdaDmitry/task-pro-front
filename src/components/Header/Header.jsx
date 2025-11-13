@@ -8,6 +8,8 @@ import { THEMES } from '../../utils/constants';
 import Sidebar from '../Sidebar/Sidebar';
 import request from '../../utils/axiosInstance';
 import toast from 'react-hot-toast';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import EditProfileModal from '../Modals/EditProfileModal/EditProfileModal';
 
 import css from './Header.module.css';
 
@@ -19,6 +21,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [selectedTheme, setSelectedTheme] = useState(currentUser?.theme);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpenEditProfile, setIsOpenEditProfile] = useState(false);
+
+  const openModalEditProfile = () => setIsOpenEditProfile(true);
+  const closeModalEditProfile = () => setIsOpenEditProfile(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -140,28 +146,9 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </div>
         </Dropdown>
 
-        {/* <Dropdown
-          menu={{ items, onClick: handleMenuClick }}
-          trigger={['click']}
-          overlayClassName={css.dropdownWrapper}
-        >
-          <div className={css.contTheme}>
-            Theme
-            <svg className={css.themeSvg}>
-              <use
-                href={
-                  currentUser?.theme === 'Dark'
-                    ? '/symbol-defs.svg#icon-chevron-down-5'
-                    : '/symbol-defs.svg#icon-chevron-down-2'
-                }
-              ></use>
-            </svg>
-          </div>
-        </Dropdown> */}
-
         <div className={css.contUser}>
           <p className={css.name}>{currentUser?.name}</p>
-          <svg className={css.userSvg}>
+          <svg className={css.userSvg} onClick={openModalEditProfile}>
             <use href="/symbol-defs.svg#icon-user"></use>
           </svg>
         </div>
@@ -171,6 +158,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {windowWidth < 1440 && (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       )}
+
+      <ModalWindow isOpen={isOpenEditProfile} onClose={closeModalEditProfile}>
+        <EditProfileModal closeModal={closeModalEditProfile} />
+      </ModalWindow>
     </div>
   );
 };

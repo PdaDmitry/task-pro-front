@@ -1,0 +1,209 @@
+.contEditProfile {
+  position: relative;
+  width: 90vw;
+  max-width: 335px;
+  border-radius: 8px;
+  padding: 24px;
+  background: var(--modal-new-board-bg-cont);
+}
+
+.closeBtnSvg {
+  position: absolute;
+  display: block;
+  top: 14px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  stroke: var(--modal-new-board-color);
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: var(--modal-new-board-color);
+}
+
+.contEditUserPhoto {
+  position: relative;
+  display: block;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.userSvg {
+  display: inline-block;
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+
+.plusSvg {
+  position: absolute;
+  display: block;
+  top: calc(100% - 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.input,
+.inputLastElem {
+  border: 1px solid var(--modal-new-board-input-border);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 287px;
+  height: 49px;
+  padding-left: 18px;
+  background: var(--modal-new-board-input-bg);
+  box-shadow: 0 4px 16px 0 var(--modal-new-board-input-box-shadow);
+
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color);
+
+  margin-bottom: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.input:hover,
+.inputLastElem:hover {
+  border-color: var(--modal-new-board-input-hover-border);
+}
+
+.input:focus,
+.inputLastElem:focus {
+  border-color: var(--modal-new-board-input-focus-border);
+  outline: none;
+}
+
+/* For placeholder */
+.input::placeholder,
+.inputLastElem::placeholder {
+  color: var(--modal-new-board-placeholder-color);
+  opacity: 1;
+}
+
+/* For different browsers */
+.input::placeholder,
+.input::-webkit-input-placeholder,
+.input::-moz-placeholder,
+.input:-ms-input-placeholder,
+.input:-moz-placeholder,
+.inputLastElem::placeholder,
+.inputLastElem::-webkit-input-placeholder,
+.inputLastElem::-moz-placeholder,
+.inputLastElem:-ms-input-placeholder,
+.inputLastElem:-moz-placeholder {
+  color: var(--modal-new-board-placeholder-color);
+}
+
+.inputLastElem {
+  margin-bottom: 24px;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeBtn {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+}
+
+.eyeBtn:hover {
+  color: #bedbb0;
+}
+
+.error,
+.errorPWD {
+  font-size: 10px;
+  color: red;
+  margin-bottom: 8px;
+}
+
+.errorPWD {
+  margin-bottom: 14px;
+}
+
+.editProfileBtn,
+.editProfileBtnViolet {
+  display: block;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  max-width: 287px;
+  width: 100%;
+  height: 49px;
+  background: var(--modal-new-board-button-bg);
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color-btn);
+}
+
+.editProfileBtn:hover {
+  background: var(--modal-new-board-button-hover-bg);
+}
+
+.editProfileBtnViolet {
+  background: var(--modal-new-board-button-bg-violet);
+}
+
+.editProfileBtnViolet:hover {
+  background: var(--modal-new-board-button-hover-bg-violet);
+}
+
+/* ============================reset browser settings======================================== */
+
+/* .input:-webkit-autofill,
+.inputLastElem:-webkit-autofill {
+  background-color: #151515 !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 0 0px 1000px #151515 inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #151515 inset !important;
+  transition: background-color 0s;
+}
+
+.input:-webkit-autofill:focus,
+.inputLastElem:-webkit-autofill:focus {
+  background-color: #151515 !important;
+  -webkit-text-fill-color: #fff !important;
+} */
+
+/* ========================================================================================== */
+
+@media screen and (min-width: 768px) {
+  .contEditProfile {
+    max-width: 350px;
+  }
+
+  .input,
+  .inputLastElem {
+    max-width: 302px;
+  }
+
+  .editProfileBtn,
+  .editProfileBtnViolet {
+    max-width: 302px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+}

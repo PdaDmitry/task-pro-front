@@ -61,6 +61,7 @@
   display: block;
   width: 32px;
   height: 32px;
+  cursor: pointer;
 }
 
 /* =========================================================================== */
@@ -93,12 +94,9 @@
   color: #5255bc;
 }
 
-
 .dropdownItem:not(:last-child) {
   margin-bottom: 8px;
 }
-
-
 
 @media screen and (min-width: 768px) {
   .contHeader {
