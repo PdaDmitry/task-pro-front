@@ -8,8 +8,16 @@ const EditProfileModal = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.user);
+  // console.log('currentUser', currentUser);
 
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState({
+    name: currentUser?.name,
+    email: currentUser?.email,
+    password: '',
+  });
+
+  // console.log('formData', formData);
+
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -32,7 +40,7 @@ const EditProfileModal = ({ closeModal }) => {
   };
 
   const validatePassword = value => {
-    if (!value.trim()) return 'Password required';
+    if (!value.trim()) return '';
     if (!passwordRegex.test(value))
       return 'Password must be between 8 and 64 characters long, no spaces!';
     return '';
@@ -68,6 +76,8 @@ const EditProfileModal = ({ closeModal }) => {
     if (Object.values(newErrors).some(err => err)) {
       return;
     }
+
+    console.log('formData', formData);
 
     // try {
     //   dispatch(setIsLoading(true));
@@ -131,7 +141,7 @@ const EditProfileModal = ({ closeModal }) => {
             type="text"
             name="name"
             placeholder="Enter your name"
-            // value={formData.name}
+            value={formData.name}
             onChange={handleChange}
             className={css.input}
             style={errors.name ? { borderColor: 'red', marginBottom: '2px' } : {}}
@@ -142,7 +152,7 @@ const EditProfileModal = ({ closeModal }) => {
             type="email"
             name="email"
             placeholder="Enter your email"
-            // value={formData.email}
+            value={formData.email}
             onChange={handleChange}
             className={css.input}
             style={errors.email ? { borderColor: 'red', marginBottom: '2px' } : {}}
@@ -153,8 +163,8 @@ const EditProfileModal = ({ closeModal }) => {
             <input
               type={showPassword ? 'text' : 'password'}
               name="password"
-              placeholder="Create a password"
-              //   value={formData.password}
+              placeholder="Create a new password"
+              value={formData.password}
               onChange={handleChange}
               className={css.inputLastElem}
               style={errors.password ? { borderColor: 'red', marginBottom: '2px' } : {}}
