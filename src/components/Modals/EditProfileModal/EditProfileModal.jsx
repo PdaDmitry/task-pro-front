@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import css from './EditProfileModal.module.css';
+import toast from 'react-hot-toast';
 
 const EditProfileModal = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -74,6 +75,21 @@ const EditProfileModal = ({ closeModal }) => {
     setErrors(newErrors);
 
     if (Object.values(newErrors).some(err => err)) {
+      return;
+    }
+
+    const isNameChanged = formData.name.trim() !== (currentUser?.name || '').trim();
+    const isEmailChanged = formData.email.trim() !== (currentUser?.email || '').trim();
+    const isPasswordChanged = formData.password.trim() !== '';
+
+    const nothingChanged = !isNameChanged && !isEmailChanged && !isPasswordChanged;
+
+    if (nothingChanged) {
+      toast('You have not made any changes!', {
+        icon: '⚠️',
+      });
+
+      closeModal();
       return;
     }
 

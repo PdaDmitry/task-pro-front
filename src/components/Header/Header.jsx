@@ -65,9 +65,12 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const handleMenuClick = async e => {
     setSelectedTheme(e.key);
     setIsDropdownOpen(false);
+
+    if (currentUser?.theme === e.key) return;
+
     try {
       dispatch(setIsLoading(true));
-      const res = await request.patch('/users/updateTheme', { theme: e.key });
+      const res = await request.patch('/auth/updateTheme', { theme: e.key });
 
       dispatch(updateTheme(res.data.user?.theme));
       toast.success(`Theme updated to ${res.data.user?.theme}`);
