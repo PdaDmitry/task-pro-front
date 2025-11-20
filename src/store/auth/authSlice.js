@@ -28,8 +28,14 @@ const authSlice = createSlice({
         state.user.theme = action.payload;
       }
     },
+    updateUserProfile: (state, action) => {
+      const { name, email } = action.payload;
+
+      if (name) state.user.name = name;
+      if (email) state.user.email = email;
+    },
   },
 });
 
-export const { setClientAuth, logout, updateTheme } = authSlice.actions;
+export const { setClientAuth, logout, updateTheme, updateUserProfile } = authSlice.actions;
 export const authReducer = authSlice.reducer;

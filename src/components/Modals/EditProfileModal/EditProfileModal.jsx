@@ -4,20 +4,20 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import css from './EditProfileModal.module.css';
 import toast from 'react-hot-toast';
+import { setIsLoading } from '../../../store/loader/loaderSlice';
+import request from '../../../utils/axiosInstance';
+import { updateUserProfile } from '../../../store/auth/authSlice';
 
 const EditProfileModal = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(state => state.auth.user);
-  // console.log('currentUser', currentUser);
 
   const [formData, setFormData] = useState({
     name: currentUser?.name,
     email: currentUser?.email,
     password: '',
   });
-
-  // console.log('formData', formData);
 
   const [errors, setErrors] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -93,36 +93,24 @@ const EditProfileModal = ({ closeModal }) => {
       return;
     }
 
-    console.log('formData', formData);
+    try {
+      dispatch(setIsLoading(true));
 
-    // try {
-    //   dispatch(setIsLoading(true));
+      const res = await request.patch('/auth/updateUserProfile', formData);
 
-    //   if (isUpdateCard) {
-    //     const res = await request.put(`/cards/updateCard/${card._id}`, formData);
+      if (res.data.status) {
+        dispatch(updateUserProfile(res.data.user));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error('Error creating card:', error);
+      toast.error(error.response.data.message);
+      return;
+    } finally {
+      dispatch(setIsLoading(false));
+    }
 
-    //     if (res.data.status) {
-    //       dispatch(updateCardInList(res.data.card));
-    //       toast.success(res.data.message);
-    //     }
-    //   } else {
-    //     const res = await request.post('/cards/createCard', formData);
-
-    //     if (res.data.status) {
-    //       dispatch(addCard(res.data.card));
-    //       toast.success(res.data.message);
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.error('Error creating card:', error);
-    //   toast.error(error.response.data.message);
-    //   return;
-    // } finally {
-    //   dispatch(setIsLoading(false));
-    // }
-    // setFormData(initialFormData);
-    // setErrors({ title: '', description: '' });
-
+    setErrors({ name: '', email: '', password: '' });
     closeModal();
   };
 
