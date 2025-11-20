@@ -263,5 +263,11 @@
   <path fill="none" stroke="#ffffff" style="stroke: var(--color2, #ffffff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M12.592 16h10.37"></path>
 </symbol>
 
+<symbol id="icon-plus" viewBox="0 0 32 32">
+<path fill="#bedbb0" style="fill: var(--color1, #bedbb0)" d="M24 0h-16c-4.418 0-8 3.582-8 8v16c0 4.418 3.582 8 8 8h16c4.418 0 8-3.582 8-8v-16c0-4.418-3.582-8-8-8z"></path>
+<path fill="none" stroke="#161616" style="stroke: var(--color2, #161616)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M16 12.111v7.778"></path>
+<path fill="none" stroke="#161616" style="stroke: var(--color2, #161616)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M12.111 16h7.778"></path>
+</symbol>
+
 </defs>
 </svg>

@@ -79,7 +79,8 @@ const EditProfileModal = ({ closeModal }) => {
     }
 
     const isNameChanged = formData.name.trim() !== (currentUser?.name || '').trim();
-    const isEmailChanged = formData.email.trim() !== (currentUser?.email || '').trim();
+    const isEmailChanged =
+      formData.email.trim().toLowerCase() !== (currentUser?.email || '').trim();
     const isPasswordChanged = formData.password.trim() !== '';
 
     const nothingChanged = !isNameChanged && !isEmailChanged && !isPasswordChanged;
@@ -136,7 +137,11 @@ const EditProfileModal = ({ closeModal }) => {
             onMouseEnter={() => setIsHoveredChangePhoto(true)}
             onMouseLeave={() => setIsHoveredChangePhoto(false)}
           >
-            <use href={`/symbol-defs.svg#icon-plus-${IsHoveredChangePhoto ? '2' : '3'}`}></use>
+            {currentUser?.theme === 'Violet' ? (
+              <use href={`/symbol-defs.svg#icon-plus-${IsHoveredChangePhoto ? '2' : '3'}`} />
+            ) : (
+              <use href={`/symbol-defs.svg#icon-plus${IsHoveredChangePhoto ? '' : '-4'}`} />
+            )}
           </svg>
         </div>
 
@@ -144,7 +149,7 @@ const EditProfileModal = ({ closeModal }) => {
           <input
             type="text"
             name="name"
-            placeholder="Enter your name"
+            // placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
             className={css.input}
@@ -155,7 +160,7 @@ const EditProfileModal = ({ closeModal }) => {
           <input
             type="email"
             name="email"
-            placeholder="Enter your email"
+            // placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
             className={css.input}
