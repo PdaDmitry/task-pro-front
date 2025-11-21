@@ -28,12 +28,21 @@ const authSlice = createSlice({
         state.user.theme = action.payload;
       }
     },
+
     updateUserProfile: (state, action) => {
-      const { name, email } = action.payload;
+      const { name, email, photo } = action.payload;
 
       if (name) state.user.name = name;
       if (email) state.user.email = email;
+      if (photo) state.user.photo = photo;
     },
+
+    // updateUserProfile: (state, action) => {
+    //   const { name, email } = action.payload;
+
+    //   if (name) state.user.name = name;
+    //   if (email) state.user.email = email;
+    // },
   },
 });
 

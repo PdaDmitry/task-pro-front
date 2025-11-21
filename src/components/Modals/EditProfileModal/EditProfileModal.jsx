@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import css from './EditProfileModal.module.css';
@@ -10,7 +10,7 @@ import { updateUserProfile } from '../../../store/auth/authSlice';
 
 const EditProfileModal = ({ closeModal }) => {
   const dispatch = useDispatch();
-
+  const fileInputRef = useRef(null);
   const currentUser = useSelector(state => state.auth.user);
 
   const [formData, setFormData] = useState({
@@ -23,6 +23,9 @@ const EditProfileModal = ({ closeModal }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [IsHoveredChangePhoto, setIsHoveredChangePhoto] = useState(false);
+
+  const [selectedPhotoFile, setSelectedPhotoFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(currentUser?.photo || null);
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,6 +63,44 @@ const EditProfileModal = ({ closeModal }) => {
     setErrors(prev => ({ ...prev, [name]: error }));
   };
 
+  // =================================================================================
+
+  const onClickPhotoBlock = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelect = e => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const maxSizeMb = 5;
+    if (file.size > maxSizeMb * 1024 * 1024) {
+      toast.error(`File too large. Max ${maxSizeMb} MB.`);
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only images allowed');
+      return;
+    }
+
+    setSelectedPhotoFile(file);
+
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
+  const removeSelectedPhoto = () => {
+    setSelectedPhotoFile(null);
+    // setPreviewUrl(currentUser?.photo || null);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  // ===============================================================================
+
   const handleSubmit = async e => {
     e.preventDefault();
     const nameError = validateName(formData.name);
@@ -82,8 +123,10 @@ const EditProfileModal = ({ closeModal }) => {
     const isEmailChanged =
       formData.email.trim().toLowerCase() !== (currentUser?.email || '').trim();
     const isPasswordChanged = formData.password.trim() !== '';
+    const isPhotoChanged = !!selectedPhotoFile;
 
-    const nothingChanged = !isNameChanged && !isEmailChanged && !isPasswordChanged;
+    const nothingChanged =
+      !isNameChanged && !isEmailChanged && !isPasswordChanged && !isPhotoChanged;
 
     if (nothingChanged) {
       toast('You have not made any changes!', {
@@ -97,7 +140,16 @@ const EditProfileModal = ({ closeModal }) => {
     try {
       dispatch(setIsLoading(true));
 
-      const res = await request.patch('/auth/updateUserProfile', formData);
+      const payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      if (formData.password) payload.append('password', formData.password);
+      if (selectedPhotoFile) payload.append('photo', selectedPhotoFile);
+
+      const res = await request.patch('/auth/updateUserProfile', payload, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      // const res = await request.patch('/auth/updateUserProfile', payload);
 
       if (res.data.status) {
         dispatch(updateUserProfile(res.data.user));
@@ -115,6 +167,15 @@ const EditProfileModal = ({ closeModal }) => {
     closeModal();
   };
 
+  const attachPhotoHandlers = {
+    onMouseEnter: () => setIsHoveredChangePhoto(true),
+    onMouseLeave: () => setIsHoveredChangePhoto(false),
+    onClick: onClickPhotoBlock,
+    onKeyDown: e => {
+      if (e.key === 'Enter') onClickPhotoBlock();
+    },
+  };
+
   return (
     <>
       <div className={css.contEditProfile}>
@@ -124,19 +185,24 @@ const EditProfileModal = ({ closeModal }) => {
 
         <h2 className={css.title}>Edit profile</h2>
 
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }}
+          onChange={handleFileSelect}
+        />
+
         <div className={css.contEditUserPhoto}>
-          <svg
-            className={css.userSvg}
-            onMouseEnter={() => setIsHoveredChangePhoto(true)}
-            onMouseLeave={() => setIsHoveredChangePhoto(false)}
-          >
-            <use href="/symbol-defs.svg#icon-user"></use>
-          </svg>
-          <svg
-            className={css.plusSvg}
-            onMouseEnter={() => setIsHoveredChangePhoto(true)}
-            onMouseLeave={() => setIsHoveredChangePhoto(false)}
-          >
+          {previewUrl ? (
+            <img src={previewUrl} alt="preview" className={css.photoPreview} />
+          ) : (
+            <svg className={css.userSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
+              <use href="/symbol-defs.svg#icon-user"></use>
+            </svg>
+          )}
+
+          <svg className={css.plusSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
             {currentUser?.theme === 'Violet' ? (
               <use href={`/symbol-defs.svg#icon-plus-${IsHoveredChangePhoto ? '2' : '3'}`} />
             ) : (
@@ -145,11 +211,19 @@ const EditProfileModal = ({ closeModal }) => {
           </svg>
         </div>
 
+        {selectedPhotoFile && (
+          <div className={css.previewControls}>
+            <p className={css.previewFileName}>{selectedPhotoFile.name}</p>
+            <button type="button" className={css.removePhotoBtn} onClick={removeSelectedPhoto}>
+              Remove
+            </button>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
-            // placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
             className={css.input}
@@ -160,7 +234,6 @@ const EditProfileModal = ({ closeModal }) => {
           <input
             type="email"
             name="email"
-            // placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
             className={css.input}
