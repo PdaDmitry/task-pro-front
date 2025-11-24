@@ -33,6 +33,16 @@
   margin-bottom: 25px;
 }
 
+.photoPreview {
+  display: block;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 .userSvg {
   display: inline-block;
   width: 68px;

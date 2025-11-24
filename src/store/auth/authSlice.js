@@ -15,6 +15,7 @@ const authSlice = createSlice({
       state.user = {
         name: action.payload.user.name,
         email: action.payload.user.email,
+        photo: action.payload.user.photo,
       };
       state.token = action.payload.token;
     },
@@ -36,13 +37,6 @@ const authSlice = createSlice({
       if (email) state.user.email = email;
       if (photo) state.user.photo = photo;
     },
-
-    // updateUserProfile: (state, action) => {
-    //   const { name, email } = action.payload;
-
-    //   if (name) state.user.name = name;
-    //   if (email) state.user.email = email;
-    // },
   },
 });
 

@@ -50,6 +50,15 @@
   gap: 8px;
 }
 
+.userPhoto {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 .name {
   font-weight: 500;
   font-size: 14px;

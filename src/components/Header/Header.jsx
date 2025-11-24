@@ -88,6 +88,13 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
     label: theme,
   }));
 
+  const host = import.meta.env.VITE_API_URL;
+  const photoUrl = currentUser?.photo
+    ? currentUser.photo.startsWith('http')
+      ? currentUser.photo
+      : `${host}${currentUser.photo}`
+    : null;
+
   return (
     <div className={css.contHeader}>
       {windowWidth < 1440 &&
@@ -151,9 +158,18 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
         <div className={css.contUser}>
           <p className={css.name}>{currentUser?.name}</p>
-          <svg className={css.userSvg} onClick={openModalEditProfile}>
-            <use href="/symbol-defs.svg#icon-user"></use>
-          </svg>
+          {currentUser?.photo ? (
+            <img
+              src={photoUrl}
+              alt="user photo"
+              className={css.userPhoto}
+              onClick={openModalEditProfile}
+            />
+          ) : (
+            <svg className={css.userSvg} onClick={openModalEditProfile}>
+              <use href="/symbol-defs.svg#icon-user"></use>
+            </svg>
+          )}
         </div>
       </div>
 

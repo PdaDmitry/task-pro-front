@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import css from './EditProfileModal.module.css';
@@ -26,6 +26,14 @@ const EditProfileModal = ({ closeModal }) => {
 
   const [selectedPhotoFile, setSelectedPhotoFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.photo || null);
+
+  useEffect(() => {
+    if (!selectedPhotoFile) {
+      setPreviewUrl(currentUser?.photo || null);
+    }
+  }, [currentUser?.photo, selectedPhotoFile]);
+
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -91,11 +99,10 @@ const EditProfileModal = ({ closeModal }) => {
 
   const removeSelectedPhoto = () => {
     setSelectedPhotoFile(null);
-    // setPreviewUrl(currentUser?.photo || null);
-    if (previewUrl) {
+    if (previewUrl?.startsWith('blob:')) {
       URL.revokeObjectURL(previewUrl);
-      setPreviewUrl(null);
     }
+    setPreviewUrl(currentUser?.photo || null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -176,6 +183,15 @@ const EditProfileModal = ({ closeModal }) => {
     },
   };
 
+  const host = import.meta.env.VITE_API_URL;
+  const finalPhotoUrl = selectedPhotoFile
+    ? previewUrl
+    : currentUser?.photo
+    ? currentUser.photo.startsWith('http')
+      ? currentUser.photo
+      : `${host}${currentUser.photo}`
+    : null;
+
   return (
     <>
       <div className={css.contEditProfile}>
@@ -194,8 +210,8 @@ const EditProfileModal = ({ closeModal }) => {
         />
 
         <div className={css.contEditUserPhoto}>
-          {previewUrl ? (
-            <img src={previewUrl} alt="preview" className={css.photoPreview} />
+          {finalPhotoUrl ? (
+            <img src={finalPhotoUrl} alt="preview" className={css.photoPreview} />
           ) : (
             <svg className={css.userSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
               <use href="/symbol-defs.svg#icon-user"></use>
@@ -211,9 +227,8 @@ const EditProfileModal = ({ closeModal }) => {
           </svg>
         </div>
 
-        {selectedPhotoFile && (
+        {finalPhotoUrl && (
           <div className={css.previewControls}>
-            <p className={css.previewFileName}>{selectedPhotoFile.name}</p>
             <button type="button" className={css.removePhotoBtn} onClick={removeSelectedPhoto}>
               Remove
             </button>
