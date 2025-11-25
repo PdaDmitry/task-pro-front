@@ -29,13 +29,12 @@ const authSlice = createSlice({
         state.user.theme = action.payload;
       }
     },
-
     updateUserProfile: (state, action) => {
       const { name, email, photo } = action.payload;
 
       if (name) state.user.name = name;
       if (email) state.user.email = email;
-      if (photo) state.user.photo = photo;
+      if (photo !== undefined) state.user.photo = photo;
     },
   },
 });

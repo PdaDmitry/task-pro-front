@@ -13,6 +13,8 @@ const EditProfileModal = ({ closeModal }) => {
   const fileInputRef = useRef(null);
   const currentUser = useSelector(state => state.auth.user);
 
+  // console.log('currentUser', currentUser);
+
   const [formData, setFormData] = useState({
     name: currentUser?.name,
     email: currentUser?.email,
@@ -97,13 +99,40 @@ const EditProfileModal = ({ closeModal }) => {
     setPreviewUrl(url);
   };
 
-  const removeSelectedPhoto = () => {
-    setSelectedPhotoFile(null);
-    if (previewUrl?.startsWith('blob:')) {
-      URL.revokeObjectURL(previewUrl);
+  const removeSelectedPhoto = async () => {
+    if (selectedPhotoFile) {
+      if (previewUrl?.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      setSelectedPhotoFile(null);
+
+      setPreviewUrl(currentUser?.photo || null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
     }
-    setPreviewUrl(currentUser?.photo || null);
-    if (fileInputRef.current) fileInputRef.current.value = '';
+
+    try {
+      dispatch(setIsLoading(true));
+
+      const res = await request.patch('/auth/removeUserPhoto');
+
+      console.log(res);
+
+      if (res.data?.status) {
+        dispatch(updateUserProfile(res.data.user));
+
+        setPreviewUrl(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        toast.success('Photo removed');
+      } else {
+        toast.error(res.data?.message || 'Failed to remove photo');
+      }
+    } catch (err) {
+      console.error('Remove photo error:', err);
+      toast.error(err?.response?.data?.message || 'Error removing photo');
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   };
 
   // ===============================================================================
@@ -156,7 +185,6 @@ const EditProfileModal = ({ closeModal }) => {
       const res = await request.patch('/auth/updateUserProfile', payload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      // const res = await request.patch('/auth/updateUserProfile', payload);
 
       if (res.data.status) {
         dispatch(updateUserProfile(res.data.user));
