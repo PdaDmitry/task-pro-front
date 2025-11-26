@@ -30,10 +30,17 @@ const EditProfileModal = ({ closeModal }) => {
   const [previewUrl, setPreviewUrl] = useState(currentUser?.photo || null);
 
   useEffect(() => {
-    if (!selectedPhotoFile) {
-      setPreviewUrl(currentUser?.photo || null);
-    }
-  }, [currentUser?.photo, selectedPhotoFile]);
+    if (selectedPhotoFile) return;
+
+    setPreviewUrl(currentUser?.photo || null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser?.photo]);
+
+  // useEffect(() => {
+  //   if (!selectedPhotoFile) {
+  //     setPreviewUrl(currentUser?.photo || null);
+  //   }
+  // }, [currentUser?.photo, selectedPhotoFile]);
 
   // // eslint-disable-next-line react-hooks/exhaustive-deps
 
