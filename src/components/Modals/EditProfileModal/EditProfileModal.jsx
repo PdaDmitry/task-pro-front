@@ -189,9 +189,13 @@ const EditProfileModal = ({ closeModal }) => {
       if (formData.password) payload.append('password', formData.password);
       if (selectedPhotoFile) payload.append('photo', selectedPhotoFile);
 
-      const res = await request.patch('/auth/updateUserProfile', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await request.patch(
+        '/auth/updateUserProfile',
+        payload
+        // {
+        // headers: { 'Content-Type': 'multipart/form-data' },
+        // }
+      );
 
       if (res.data.status) {
         dispatch(updateUserProfile(res.data.user));
