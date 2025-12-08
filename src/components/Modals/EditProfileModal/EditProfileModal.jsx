@@ -29,6 +29,8 @@ const EditProfileModal = ({ closeModal }) => {
   const [selectedPhotoFile, setSelectedPhotoFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.photo || null);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     if (selectedPhotoFile) return;
 
@@ -95,12 +97,26 @@ const EditProfileModal = ({ closeModal }) => {
       toast.error(`File too large. Max ${maxSizeMb} MB.`);
       return;
     }
-    if (!file.type.startsWith('image/')) {
+
+    // ==========================================================================
+
+    // if (!file.type.startsWith('image/')) {
+    //   toast.error('Only images allowed');
+    //   return;
+    // }
+
+    const validImage =
+      file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|bmp)$/i.test(file.name);
+    if (!validImage) {
       toast.error('Only images allowed');
       return;
     }
 
     setSelectedPhotoFile(file);
+
+    if (previewUrl?.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl);
+    }
 
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
@@ -150,6 +166,8 @@ const EditProfileModal = ({ closeModal }) => {
     const emailError = validateEmail(formData.email);
     const passwordError = validatePassword(formData.password);
 
+    setErrors({ name: '', email: '', password: '' }); //////////
+
     const newErrors = {
       name: nameError,
       email: emailError,
@@ -180,7 +198,10 @@ const EditProfileModal = ({ closeModal }) => {
       return;
     }
 
+    if (isSubmitting) return;
+
     try {
+      setIsSubmitting(true);
       dispatch(setIsLoading(true));
 
       const payload = new FormData();
@@ -200,17 +221,29 @@ const EditProfileModal = ({ closeModal }) => {
       if (res.data.status) {
         dispatch(updateUserProfile(res.data.user));
         toast.success(res.data.message);
+
+        if (previewUrl?.startsWith('blob:')) {
+          URL.revokeObjectURL(previewUrl);
+        }
+        setSelectedPhotoFile(null);
+        setPreviewUrl(res.data.user.photo || null);
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
     } catch (error) {
       console.error('Error creating card:', error);
       toast.error(error.response.data.message);
       return;
     } finally {
+      setIsSubmitting(false);
       dispatch(setIsLoading(false));
+      closeModal();
     }
 
-    setErrors({ name: '', email: '', password: '' });
-    closeModal();
+    // setErrors({ name: '', email: '', password: '' });
+    // closeModal();
   };
 
   const attachPhotoHandlers = {
@@ -244,13 +277,22 @@ const EditProfileModal = ({ closeModal }) => {
           ref={fileInputRef}
           type="file"
           accept="image/*"
+          capture="environment" // открывает камеру (или галерею — зависит от устройства), а не файловый менеджер.
           style={{ display: 'none' }}
           onChange={handleFileSelect}
         />
 
         <div className={css.contEditUserPhoto}>
           {finalPhotoUrl ? (
-            <img src={finalPhotoUrl} alt="preview" className={css.photoPreview} />
+            // <img src={finalPhotoUrl} alt="preview" className={css.photoPreview} />
+
+            <img
+              key={previewUrl}
+              src={finalPhotoUrl}
+              alt="preview"
+              className={css.photoPreview}
+              style={{ objectFit: 'cover' }}
+            />
           ) : (
             <svg className={css.userSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
               <use href="/symbol-defs.svg#icon-user"></use>
@@ -344,12 +386,22 @@ const EditProfileModal = ({ closeModal }) => {
 
           <button
             type="submit"
+            disabled={isSubmitting}
+            className={
+              currentUser?.theme === 'Violet' ? css.editProfileBtnViolet : css.editProfileBtn
+            }
+          >
+            {isSubmitting ? 'Sending...' : 'Send'}
+          </button>
+
+          {/* <button
+            type="submit"
             className={
               currentUser?.theme === 'Violet' ? css.editProfileBtnViolet : css.editProfileBtn
             }
           >
             Send
-          </button>
+          </button> */}
         </form>
       </div>
     </>
