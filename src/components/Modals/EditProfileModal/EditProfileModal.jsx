@@ -112,13 +112,21 @@ const EditProfileModal = ({ closeModal }) => {
       return;
     }
 
-    setSelectedPhotoFile(file);
+    const safeFile = file.name
+      ? file
+      : new File([file], `photo_${Date.now()}.jpg`, {
+          type: file.type || 'image/jpeg',
+          lastModified: file.lastModified || Date.now(),
+        });
+
+    // setSelectedPhotoFile(file);
+    setSelectedPhotoFile(safeFile);
 
     if (previewUrl?.startsWith('blob:')) {
       URL.revokeObjectURL(previewUrl);
     }
 
-    const url = URL.createObjectURL(file);
+    const url = URL.createObjectURL(safeFile);
     setPreviewUrl(url);
   };
 
