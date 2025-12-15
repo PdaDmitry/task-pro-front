@@ -13,8 +13,6 @@ const EditProfileModal = ({ closeModal }) => {
   const fileInputRef = useRef(null);
   const currentUser = useSelector(state => state.auth.user);
 
-  // console.log('currentUser', currentUser);
-
   const [formData, setFormData] = useState({
     name: currentUser?.name,
     email: currentUser?.email,
@@ -37,14 +35,6 @@ const EditProfileModal = ({ closeModal }) => {
     setPreviewUrl(currentUser?.photo || null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.photo]);
-
-  // useEffect(() => {
-  //   if (!selectedPhotoFile) {
-  //     setPreviewUrl(currentUser?.photo || null);
-  //   }
-  // }, [currentUser?.photo, selectedPhotoFile]);
-
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const nameRegex = /^.{2,32}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -82,8 +72,6 @@ const EditProfileModal = ({ closeModal }) => {
     setErrors(prev => ({ ...prev, [name]: error }));
   };
 
-  // =================================================================================
-
   const onClickPhotoBlock = () => {
     fileInputRef.current?.click();
   };
@@ -97,13 +85,6 @@ const EditProfileModal = ({ closeModal }) => {
       toast.error(`File too large. Max ${maxSizeMb} MB.`);
       return;
     }
-
-    // ==========================================================================
-
-    // if (!file.type.startsWith('image/')) {
-    //   toast.error('Only images allowed');
-    //   return;
-    // }
 
     const validImage =
       file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|bmp)$/i.test(file.name);
@@ -119,7 +100,6 @@ const EditProfileModal = ({ closeModal }) => {
           lastModified: file.lastModified || Date.now(),
         });
 
-    // setSelectedPhotoFile(file);
     setSelectedPhotoFile(safeFile);
 
     if (previewUrl?.startsWith('blob:')) {
@@ -166,15 +146,13 @@ const EditProfileModal = ({ closeModal }) => {
     }
   };
 
-  // ===============================================================================
-
   const handleSubmit = async e => {
     e.preventDefault();
     const nameError = validateName(formData.name);
     const emailError = validateEmail(formData.email);
     const passwordError = validatePassword(formData.password);
 
-    setErrors({ name: '', email: '', password: '' }); //////////
+    setErrors({ name: '', email: '', password: '' });
 
     const newErrors = {
       name: nameError,
@@ -218,13 +196,7 @@ const EditProfileModal = ({ closeModal }) => {
       if (formData.password) payload.append('password', formData.password);
       if (selectedPhotoFile) payload.append('photo', selectedPhotoFile);
 
-      const res = await request.patch(
-        '/auth/updateUserProfile',
-        payload
-        //  {
-        // headers: { 'Content-Type': 'multipart/form-data' },
-        // }
-      );
+      const res = await request.patch('/auth/updateUserProfile', payload);
 
       if (res.data.status) {
         dispatch(updateUserProfile(res.data.user));
@@ -247,11 +219,11 @@ const EditProfileModal = ({ closeModal }) => {
     } finally {
       setIsSubmitting(false);
       dispatch(setIsLoading(false));
-      closeModal();
+      // closeModal();
     }
 
-    // setErrors({ name: '', email: '', password: '' });
-    // closeModal();
+    setErrors({ name: '', email: '', password: '' });
+    closeModal();
   };
 
   const attachPhotoHandlers = {
@@ -290,7 +262,7 @@ const EditProfileModal = ({ closeModal }) => {
           onChange={handleFileSelect}
         />
 
-        <div className={css.contEditUserPhoto}>
+        <div className={css.contEditUserPhoto} {...attachPhotoHandlers} tabIndex={0} role="button">
           {finalPhotoUrl ? (
             // <img src={finalPhotoUrl} alt="preview" className={css.photoPreview} />
 
@@ -302,12 +274,12 @@ const EditProfileModal = ({ closeModal }) => {
               style={{ objectFit: 'cover' }}
             />
           ) : (
-            <svg className={css.userSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
+            <svg className={css.userSvg}>
               <use href="/symbol-defs.svg#icon-user"></use>
             </svg>
           )}
 
-          <svg className={css.plusSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
+          <svg className={css.plusSvg}>
             {currentUser?.theme === 'Violet' ? (
               <use href={`/symbol-defs.svg#icon-plus-${IsHoveredChangePhoto ? '2' : '3'}`} />
             ) : (
@@ -319,7 +291,7 @@ const EditProfileModal = ({ closeModal }) => {
         {finalPhotoUrl && (
           <div className={css.previewControls}>
             <button type="button" className={css.removePhotoBtn} onClick={removeSelectedPhoto}>
-              Remove
+              Remove photo
             </button>
           </div>
         )}

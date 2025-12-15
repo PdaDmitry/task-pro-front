@@ -31,6 +31,7 @@
   display: block;
   text-align: center;
   margin-bottom: 25px;
+
 }
 
 .photoPreview {
@@ -48,6 +49,7 @@
   width: 68px;
   height: 68px;
   cursor: pointer;
+  outline: none;
 }
 
 .plusSvg {
@@ -59,6 +61,7 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
+  outline: none;
 }
 
 .input,
