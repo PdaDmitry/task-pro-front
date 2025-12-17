@@ -64,6 +64,36 @@
   outline: none;
 }
 
+.removePhotoBtn,
+.removePhotoBtnViolet {
+  display: block;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  padding: 8px 10px;
+  width: 120px;
+  background: var(--modal-new-board-button-bg);
+  cursor: pointer;
+  margin: 0 auto 12px;
+
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--modal-new-board-color-btn);
+}
+
+.removePhotoBtn:hover {
+  background: var(--modal-new-board-button-hover-bg);
+}
+
+.removePhotoBtnViolet {
+  background: var(--modal-new-board-button-bg-violet);
+}
+
+.removePhotoBtnViolet:hover {
+  background: var(--modal-new-board-button-hover-bg-violet);
+}
+
 .input,
 .inputLastElem {
   border: 1px solid var(--modal-new-board-input-border);

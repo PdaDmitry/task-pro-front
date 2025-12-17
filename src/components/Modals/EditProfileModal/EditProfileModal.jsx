@@ -127,8 +127,6 @@ const EditProfileModal = ({ closeModal }) => {
 
       const res = await request.patch('/auth/removeUserPhoto');
 
-      console.log(res);
-
       if (res.data?.status) {
         dispatch(updateUserProfile(res.data.user));
 
@@ -219,7 +217,6 @@ const EditProfileModal = ({ closeModal }) => {
     } finally {
       setIsSubmitting(false);
       dispatch(setIsLoading(false));
-      // closeModal();
     }
 
     setErrors({ name: '', email: '', password: '' });
@@ -262,24 +259,28 @@ const EditProfileModal = ({ closeModal }) => {
           onChange={handleFileSelect}
         />
 
-        <div className={css.contEditUserPhoto} {...attachPhotoHandlers} tabIndex={0} role="button">
+        <div
+          className={css.contEditUserPhoto}
+          style={finalPhotoUrl ? { marginBottom: '14px' } : {}}
+        >
           {finalPhotoUrl ? (
-            // <img src={finalPhotoUrl} alt="preview" className={css.photoPreview} />
-
             <img
               key={previewUrl}
               src={finalPhotoUrl}
               alt="preview"
               className={css.photoPreview}
               style={{ objectFit: 'cover' }}
+              {...attachPhotoHandlers}
+              tabIndex={0}
+              role="button"
             />
           ) : (
-            <svg className={css.userSvg}>
+            <svg className={css.userSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
               <use href="/symbol-defs.svg#icon-user"></use>
             </svg>
           )}
 
-          <svg className={css.plusSvg}>
+          <svg className={css.plusSvg} {...attachPhotoHandlers} tabIndex={0} role="button">
             {currentUser?.theme === 'Violet' ? (
               <use href={`/symbol-defs.svg#icon-plus-${IsHoveredChangePhoto ? '2' : '3'}`} />
             ) : (
@@ -289,11 +290,15 @@ const EditProfileModal = ({ closeModal }) => {
         </div>
 
         {finalPhotoUrl && (
-          <div className={css.previewControls}>
-            <button type="button" className={css.removePhotoBtn} onClick={removeSelectedPhoto}>
-              Remove photo
-            </button>
-          </div>
+          <button
+            type="button"
+            className={
+              currentUser?.theme === 'Violet' ? css.removePhotoBtnViolet : css.removePhotoBtn
+            }
+            onClick={removeSelectedPhoto}
+          >
+            Remove photo
+          </button>
         )}
 
         <form onSubmit={handleSubmit}>
@@ -373,15 +378,6 @@ const EditProfileModal = ({ closeModal }) => {
           >
             {isSubmitting ? 'Sending...' : 'Send'}
           </button>
-
-          {/* <button
-            type="submit"
-            className={
-              currentUser?.theme === 'Violet' ? css.editProfileBtnViolet : css.editProfileBtn
-            }
-          >
-            Send
-          </button> */}
         </form>
       </div>
     </>
