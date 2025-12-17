@@ -1,0 +1,30 @@
+.contFilters {
+    position: relative;
+    /* width: 100%; */
+    width: calc(100% - 20px);
+    max-width: 335px;
+    border-radius: 8px;
+    padding: 24px;
+    margin: 0 auto;
+    background: var(--modal-new-board-bg-cont);
+}
+
+.closeBtnSvg {
+    position: absolute;
+    display: block;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    height: 18px;
+    stroke: var(--modal-new-board-color);
+    cursor: pointer;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    padding-top: 10px;
+    margin-bottom: 24px;
+    color: var(--modal-new-board-color);
+}

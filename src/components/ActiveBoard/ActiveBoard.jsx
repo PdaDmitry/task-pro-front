@@ -205,6 +205,7 @@ import Column from '../Column/Column';
 import Card from '../Card/Card';
 
 import css from './ActiveBoard.module.css';
+import FiltersModal from '../Modals/FiltersModal/FiltersModal';
 
 const ActiveBoard = () => {
   const dispatch = useDispatch();
@@ -219,9 +220,13 @@ const ActiveBoard = () => {
   const [columns, setColumns] = useState([]);
   const [snapshotCards, setSnapshotCards] = useState(null);
   const [activeDrag, setActiveDrag] = useState(null);
+  const [addFilter, setAddFilter] = useState(false);
 
   const openModal = () => setIsAddColumn(true);
   const closeModal = () => setIsAddColumn(false);
+
+  const openFilterModal = () => setAddFilter(true);
+  const closeFilterModal = () => setAddFilter(false);
 
   // ============================================================================
 
@@ -272,7 +277,7 @@ const ActiveBoard = () => {
 
     const activeType = active.data.current?.type;
 
-    // === ПЕРЕМЕЩЕНИЕ КОЛОНОК ===
+    // === MOVING COLUMNS ===
     if (activeType === 'column') {
       if (String(active.id) === String(over.id)) {
         handleDragFinalize();
@@ -303,7 +308,7 @@ const ActiveBoard = () => {
       return;
     }
 
-    // === ПЕРЕМЕЩЕНИЕ КАРТОЧЕК ===
+    // === MOVING CARDS ===
     if (activeType === 'card') {
       const activeCard = cardsList.find(c => String(c._id) === String(active.id));
       if (!activeCard) {
@@ -330,7 +335,7 @@ const ActiveBoard = () => {
       const sourceColumnId = activeCard.columnId;
 
       if (sourceColumnId === targetColumnId) {
-        // Перемещение внутри одной колонки
+        // Moving within one column
         const cardsInColumn = cardsList
           .filter(c => c.columnId === sourceColumnId)
           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -363,7 +368,7 @@ const ActiveBoard = () => {
           console.error('Failed to persist cards order', err);
         }
       } else {
-        // Перемещение между колонками
+        // Moving between columns
         const sourceCards = cardsList
           .filter(c => c.columnId === sourceColumnId)
           .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -434,7 +439,7 @@ const ActiveBoard = () => {
         >
           {activeBoard?.title}
         </h2>
-        <div
+        {/* <div
           className={`${css.contFilter} ${
             activeBoard?.background !== 'bgIcon0' ? css.background : ''
           }`}
@@ -443,7 +448,22 @@ const ActiveBoard = () => {
             <use href="/symbol-defs.svg#icon-filter"></use>
           </svg>
           <p className={css.titleFilter}>Filters</p>
-        </div>
+        </div> */}
+
+        <button
+          type="button"
+          className={`${css.contFilter} ${
+            activeBoard?.background !== 'bgIcon0' ? css.background : ''
+          }`}
+          onClick={() => {
+            console.log('Открыть фильтры');
+          }}
+        >
+          <svg className={css.filterSvg}>
+            <use href="/symbol-defs.svg#icon-filter"></use>
+          </svg>
+          <p className={css.titleFilter}>Filters</p>
+        </button>
       </div>
 
       <div className={css.contColumnsBtnAdd}>
@@ -475,7 +495,7 @@ const ActiveBoard = () => {
               </ul>
             </SortableContext>
 
-            {/* DragOverlay для карточек и колонок */}
+            {/* DragOverlay for cards and columns */}
             <DragOverlay>
               {activeDrag?.type === 'column' && activeDrag.id && (
                 <Column
@@ -516,6 +536,10 @@ const ActiveBoard = () => {
 
       <ModalWindow isOpen={isAddColumn} onClose={closeModal}>
         <AddColumnModal closeModal={closeModal} />
+      </ModalWindow>
+
+      <ModalWindow isOpen={addFilter} onClose={closeFilterModal}>
+        <FiltersModal closeModal={closeFilterModal} />
       </ModalWindow>
     </div>
   );
