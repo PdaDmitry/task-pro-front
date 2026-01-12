@@ -21,6 +21,10 @@
   gap: 8px;
   padding: 5px;
   cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+  outline: none;
 }
 
 .titleBoard {

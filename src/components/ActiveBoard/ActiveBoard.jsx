@@ -439,25 +439,13 @@ const ActiveBoard = () => {
         >
           {activeBoard?.title}
         </h2>
-        {/* <div
-          className={`${css.contFilter} ${
-            activeBoard?.background !== 'bgIcon0' ? css.background : ''
-          }`}
-        >
-          <svg className={css.filterSvg}>
-            <use href="/symbol-defs.svg#icon-filter"></use>
-          </svg>
-          <p className={css.titleFilter}>Filters</p>
-        </div> */}
 
         <button
           type="button"
           className={`${css.contFilter} ${
             activeBoard?.background !== 'bgIcon0' ? css.background : ''
           }`}
-          onClick={() => {
-            console.log('Открыть фильтры');
-          }}
+          onClick={openFilterModal}
         >
           <svg className={css.filterSvg}>
             <use href="/symbol-defs.svg#icon-filter"></use>

@@ -10,7 +10,19 @@ const FiltersModal = ({ closeModal }) => {
 
   const currentUser = useSelector(state => state.auth.user);
 
-  return <div className={css.contFilters}>Filters Modal</div>;
+  return (
+    <div
+      className={css.contFilters}
+      style={{
+        border: currentUser?.theme === 'Dark' ? ' 1px solid  #9dc888' : '',
+      }}
+    >
+      <svg className={css.closeBtnSvg} onClick={closeModal}>
+        <use href="/symbol-defs.svg#icon-x-close-1"></use>
+      </svg>
+      Filters Modal
+    </div>
+  );
 };
 
 export default FiltersModal;
