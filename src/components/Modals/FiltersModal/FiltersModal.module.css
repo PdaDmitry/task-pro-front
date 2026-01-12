@@ -1,7 +1,7 @@
 .contFilters {
     position: relative;
-    /* width: 100%; */
-    width: calc(100% - 20px);
+    /* width: calc(100% - 20px); */
+    width: 90vw;
     max-width: 335px;
     border-radius: 8px;
     padding: 24px;
@@ -28,4 +28,12 @@
     padding-top: 10px;
     margin-bottom: 24px;
     color: var(--modal-new-board-color);
+}
+
+@media screen and (min-width: 768px) {
+    .contFilters {
+        max-width: 350px;
+    }
+
+
 }

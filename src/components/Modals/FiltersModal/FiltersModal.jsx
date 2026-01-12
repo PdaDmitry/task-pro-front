@@ -20,7 +20,7 @@ const FiltersModal = ({ closeModal }) => {
       <svg className={css.closeBtnSvg} onClick={closeModal}>
         <use href="/symbol-defs.svg#icon-x-close-1"></use>
       </svg>
-      Filters Modal
+      <h2 className={css.title}>Filters</h2>
     </div>
   );
 };
