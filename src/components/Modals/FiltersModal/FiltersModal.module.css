@@ -25,9 +25,33 @@
     font-weight: 500;
     font-size: 18px;
     letter-spacing: -0.02em;
-    padding-top: 10px;
-    margin-bottom: 24px;
+    padding-bottom: 14px;
     color: var(--modal-new-board-color);
+    border-bottom: 1px solid var(--cont-my-board);
+    margin-bottom: 14px;
+}
+
+.contTitleFilters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.textLable {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: #161616;
+}
+
+.titleShowAll {
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: rgba(22, 22, 22, 0.5);
 }
 
 @media screen and (min-width: 768px) {
